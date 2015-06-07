@@ -9,6 +9,9 @@ team management service
 
 если возникли вопросы, обращайтесь к ментору в slack
 
+
+в трелло пользуйтесь лейблами, когда переводите в ready, добавляйте меня в мемберы таска
+
 WORKING WITH THE GIT-FLOW APPROACH http://danielkummer.github.io/git-flow-cheatsheet/
 
 relation model
