@@ -45,13 +45,17 @@ ActiveRecord::Schema.define(version: 20150607134037) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.integer  "story_id"
     t.integer  "user_id"
+    t.integer  "stories_id"
+    t.integer  "story_id"
     t.boolean  "ready"
     t.string   "ancestry"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "tasks", ["stories_id"], name: "index_tasks_on_stories_id", using: :btree
+  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
