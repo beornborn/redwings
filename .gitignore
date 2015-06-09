@@ -1,3 +1,4 @@
+*.rbc
 .rspec
 /log
 /tmp
