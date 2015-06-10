@@ -26,17 +26,11 @@ System dependencies
 
 * install rvm https://rvm.io/rvm/install
 
-* install ruby version 2.2.2 with rvm
-
-* install rails version 4.2 with rvm
-
 * install postqresql version 9.4  # apt-get install postgresql-9.4
 
 Configuration
 
 * git clone https://github.com/kiev-ruby/redwings.git 
-
-* rvm use ruby-2.2.2@rails4.2 --create
 
 * bundle install
 
