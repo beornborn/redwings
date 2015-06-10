@@ -22,6 +22,7 @@ https://drive.google.com/file/d/0B4NAAlVHXYk5a3FWTG1XWXp3U28/view?usp=sharing (o
 
 # Setup guide:
 
+System dependencies
 
 * install rvm https://rvm.io/rvm/install
 
@@ -29,9 +30,9 @@ https://drive.google.com/file/d/0B4NAAlVHXYk5a3FWTG1XWXp3U28/view?usp=sharing (o
 
 * install rails version 4.2 with rvm
 
-* install postqresql version 9.4  // apt-get install postgresql-9.4
+* install postqresql version 9.4  # apt-get install postgresql-9.4
 
-
+Configuration
 
 * git clone https://github.com/kiev-ruby/redwings.git 
 
@@ -39,12 +40,7 @@ https://drive.google.com/file/d/0B4NAAlVHXYk5a3FWTG1XWXp3U28/view?usp=sharing (o
 
 * bundle install
 
-
-
-* Database creation
-
-* Database initialization
-
+* create database and database user
 
 * rails server
 
