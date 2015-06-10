@@ -34,9 +34,15 @@ Configuration
 
 * bundle install
 
-* create database and database user
+Creation database and database user
 
-* rails server
+* sudo -u postgres createdb mydb
+
+* sudo -u postgres createdb -O myuser mydb
+
+Run
+
+* rails s
 
 Work with git flow 
 
