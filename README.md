@@ -18,3 +18,33 @@ WORKING WITH THE GIT-FLOW APPROACH http://danielkummer.github.io/git-flow-cheats
 relation model
 https://drive.google.com/file/d/0B4NAAlVHXYk5a3FWTG1XWXp3U28/view?usp=sharing (open via draw.io)
 
+
+
+# Setup guide:
+
+
+* install rvm https://rvm.io/rvm/install
+
+* install ruby version 2.2.2 with rvm
+
+* install rails version 4.2 with rvm
+
+* install postqresql version 9.4  // apt-get install postgresql-9.4
+
+
+
+* git clone https://github.com/kiev-ruby/redwings.git 
+
+* rvm use ruby-2.2.2@rails4.2 --create
+
+* bundle install
+
+
+
+* Database creation
+
+* Database initialization
+
+
+* rails server
+
