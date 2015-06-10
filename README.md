@@ -44,3 +44,7 @@ Configuration
 
 * rails server
 
+Work with git flow 
+
+* http://danielkummer.github.io/git-flow-cheatsheet/
+
