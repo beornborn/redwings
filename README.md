@@ -33,17 +33,14 @@ https://drive.google.com/file/d/0B4NAAlVHXYk5a3FWTG1XWXp3U28/view?usp=sharing (o
 * terminal: \curl -sSL https://get.rvm.io | bash -s -- --ignore-dotfiles   
 
 
-#### Install Ruby 2.2.2
+##### Install Ruby 2.2.2
 
 * terminal: rvm install 2.2.2  
 
-***  
 
+##### Install PostqreSQL version 9.4 [more](http://www.postgresql.org/download/linux/ubuntu/)
 
-#### Install PostqreSQL version 9.4 [more](http://www.postgresql.org/download/linux/ubuntu/)
-
-###### 1. Update (or create it if it isn’t there) the file named /etc/apt/sources.list.d/pgdg.list and add this line 
-"deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" to it:
+###### 1. Update (or create it if it isn’t there) the file named /etc/apt/sources.list.d/pgdg.list and add this line "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" to it:
 
 * terminal: echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" | sudo tee -a /etc/apt/sources.list.d/pgdg.list
 
@@ -60,17 +57,17 @@ https://drive.google.com/file/d/0B4NAAlVHXYk5a3FWTG1XWXp3U28/view?usp=sharing (o
 * terminal: sudo apt-get install pgadmin3
 
 
-#### Bundler install (more http://bundler.io)
+##### Bundler install (more http://bundler.io)
 
 * terminal: gem install bundler 
 
-#### Configuration
+##### Configuration
 
 * terminal: git clone https://github.com/kiev-ruby/redwings.git 
 
 * terminal: bundle install
 
-#### Setup your databases from the command line [more](https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres)
+##### Setup your databases from the command line [more](https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres)
 
 Login to postgresql prompt as the postgres user
 
@@ -79,15 +76,15 @@ Login to postgresql prompt as the postgres user
 * terminal: CREATE DATABASE <database_name> ;
 
 
-#### Run
+##### Run
 
 * terminal: rails  
 
-#### Work with git flow 
+##### Work with git flow 
 
 * http://danielkummer.github.io/git-flow-cheatsheet/
 
-#### Git cheat sheet
+##### Git cheat sheet
 
 You can delete branch using:
 
