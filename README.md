@@ -84,12 +84,3 @@ Login to postgresql prompt as the postgres user
 
 * http://danielkummer.github.io/git-flow-cheatsheet/
 
-##### Git cheat sheet
-
-You can delete branch using:
-
-* terminal: git push origin --delete branch_name  (remote branch)
-
-* terminal: git branch -d branch_name             (local branch)
-
-
