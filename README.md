@@ -57,7 +57,7 @@ https://drive.google.com/file/d/0B4NAAlVHXYk5a3FWTG1XWXp3U28/view?usp=sharing (o
 * terminal: sudo apt-get install pgadmin3
 
 
-##### Bundler install (more http://bundler.io)
+##### Bundler install [more](http://bundler.io)
 
 * terminal: gem install bundler 
 
