@@ -22,29 +22,86 @@ https://drive.google.com/file/d/0B4NAAlVHXYk5a3FWTG1XWXp3U28/view?usp=sharing (o
 
 # Setup guide:
 
-System dependencies
 
-* install rvm https://rvm.io/rvm/install
+### Install rvm - ruby version management. Tool for managing rubys and gemsets. [more](more https://rvm.io/rvm/install/)
 
-* install postqresql version 9.4  # apt-get install postgresql-9.4
+* terminal: \curl -sSL https://get.rvm.io | bash -s stable  
 
-Configuration
 
-* git clone https://github.com/kiev-ruby/redwings.git 
+### Instruct RVM to not change the shell initializations files 'rc' / 'profile'                  
 
-* bundle install
+* terminal: \curl -sSL https://get.rvm.io | bash -s -- --ignore-dotfiles   
 
-Creation database and database user
 
-* sudo -u postgres createdb mydb
+### Install Ruby 2.2.2
 
-* sudo -u postgres createdb -O myuser mydb
+* terminal: rvm install 2.2.2  
 
-Run
+***  
 
-* rails s
 
-Work with git flow 
+### Install PostqreSQL version 9.4 [more](http://www.postgresql.org/download/linux/ubuntu/)
+
+1. Update (or create it if it isn’t there) the file named /etc/apt/sources.list.d/pgdg.list and add this line 
+"deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" to it:
+
+* terminal: echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" | sudo tee -a /etc/apt/sources.list.d/pgdg.list
+
+2. Update the apt-get repostitor with the following two lines (note the first threes lines are a single continued command line):
+
+* terminal: wget --quiet -O - \ https://www.postgresql.org/media/keys/ACCC4CF8.asc | \ sudo apt-key add - sudo apt-get update
+
+3. Install Postgres 9.4:
+
+* terminal: sudo apt-get install postgresql-9.4
+
+4. Install pgAdmin III:
+
+* terminal: sudo apt-get install pgadmin3
+
+***
+
+### Bundler install (more http://bundler.io)
+
+* terminal: gem install bundler 
+
+***  
+
+### Configuration
+
+* terminal: git clone https://github.com/kiev-ruby/redwings.git 
+
+* terminal: bundle install
+
+### Setup your databases from the command line [more](https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres)
+
+Login to postgresql prompt as the postgres user
+
+* terminal: sudo su postgres -c psql
+
+* terminal: CREATE DATABASE <database_name> ;
+
+
+***
+
+### Run
+
+* terminal: rails s
+
+***  
+
+### Work with git flow 
 
 * http://danielkummer.github.io/git-flow-cheatsheet/
+
+***
+
+### Git cheat sheet
+
+You can delete branch using:
+
+* terminal: git push origin --delete <branchName>  (remote branch)
+
+* terminal: git branch -d <branchName>             (local branch)
+
 
