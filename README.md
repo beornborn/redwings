@@ -23,7 +23,7 @@ https://drive.google.com/file/d/0B4NAAlVHXYk5a3FWTG1XWXp3U28/view?usp=sharing (o
 # Setup guide:
 
 
-#### 1. Install Ruby 2.2.2
+#### 1. Install Ruby version 2.2.2
 
 * terminal: rvm install 2.2.2  
 
