@@ -19,7 +19,14 @@ relation model
 https://drive.google.com/file/d/0B4NAAlVHXYk5a3FWTG1XWXp3U28/view?usp=sharing (open via draw.io)
 
 
+
 # Setup guide:
+
+
+##### Install Ruby 2.2.2
+
+* terminal: rvm install 2.2.2  
+
 
 ##### Install PostqreSQL version 9.4 [more](http://www.postgresql.org/download/linux/ubuntu/)
 
