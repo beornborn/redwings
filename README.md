@@ -23,49 +23,41 @@ https://drive.google.com/file/d/0B4NAAlVHXYk5a3FWTG1XWXp3U28/view?usp=sharing (o
 # Setup guide:
 
 
-##### Install Ruby 2.2.2
+##### 1. Install Ruby 2.2.2
 
 * terminal: rvm install 2.2.2  
 
 
-##### Install PostqreSQL version 9.4 [more](http://www.postgresql.org/download/linux/ubuntu/)
+##### 2. Install PostqreSQL version 9.4 [more](http://www.postgresql.org/download/linux/ubuntu/)
 
-###### 1. Update (or create it if it isn’t there) the file named /etc/apt/sources.list.d/pgdg.list and add this line "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" to it:
-
-* terminal: echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" | sudo tee -a /etc/apt/sources.list.d/pgdg.list
-
-###### 2. Update the apt-get repostitor with the following two lines (note the first threes lines are a single continued command line):
-
-* terminal: wget --quiet -O - \ https://www.postgresql.org/media/keys/ACCC4CF8.asc | \ sudo apt-key add - sudo apt-get update
-
-###### 3. Install Postgres 9.4:
+Install Postgres 9.4:
 
 * terminal: sudo apt-get install postgresql-9.4
 
-###### 4. Install pgAdmin III:
+Install pgAdmin III:
 
 * terminal: sudo apt-get install pgadmin3
 
 
-##### Bundler install [more](http://bundler.io)
+##### 3. Bundler install [more](http://bundler.io)
 
 * terminal: gem install bundler 
 
-##### Configuration
+##### 4. Configuration
 
 * terminal: git clone https://github.com/kiev-ruby/redwings.git 
 
 * terminal: bundle install
 
-##### Setup your databases from the command line [more](https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres)
+##### 5. Setup your databases from the command line [more](https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres)
 
 * terminal: rake db:create
 
-##### Run
+##### 6. Run
 
 * terminal: rails s 
 
-##### Work with git flow 
+##### 7. Work with git flow 
 
 * git init flow [more](http://danielkummer.github.io/git-flow-cheatsheet/)
 
