@@ -49,7 +49,7 @@ Install pgAdmin III:
 
 * terminal: bundle install
 
-#### 5. Setup your databases from the command line [more](https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres)
+#### 5. Setup your database [more](https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres)
 
 * terminal: rake db:create
 
