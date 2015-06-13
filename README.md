@@ -23,12 +23,12 @@ https://drive.google.com/file/d/0B4NAAlVHXYk5a3FWTG1XWXp3U28/view?usp=sharing (o
 # Setup guide:
 
 
-##### 1. Install Ruby 2.2.2
+#### 1. Install Ruby 2.2.2
 
 * terminal: rvm install 2.2.2  
 
 
-##### 2. Install PostqreSQL version 9.4 [more](http://www.postgresql.org/download/linux/ubuntu/)
+#### 2. Install PostqreSQL version 9.4 [more](http://www.postgresql.org/download/linux/ubuntu/)
 
 Install Postgres 9.4:
 
@@ -39,25 +39,25 @@ Install pgAdmin III:
 * terminal: sudo apt-get install pgadmin3
 
 
-##### 3. Bundler install [more](http://bundler.io)
+#### 3. Bundler install [more](http://bundler.io)
 
 * terminal: gem install bundler 
 
-##### 4. Configuration
+#### 4. Configuration
 
 * terminal: git clone https://github.com/kiev-ruby/redwings.git 
 
 * terminal: bundle install
 
-##### 5. Setup your databases from the command line [more](https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres)
+#### 5. Setup your databases from the command line [more](https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres)
 
 * terminal: rake db:create
 
-##### 6. Run
+#### 6. Run
 
 * terminal: rails s 
 
-##### 7. Work with git flow [more](http://danielkummer.github.io/git-flow-cheatsheet/)
+#### 7. Work with git flow [more](http://danielkummer.github.io/git-flow-cheatsheet/)
 
 * git init flow
 
