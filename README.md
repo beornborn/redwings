@@ -59,12 +59,7 @@ https://drive.google.com/file/d/0B4NAAlVHXYk5a3FWTG1XWXp3U28/view?usp=sharing (o
 
 ##### Setup your databases from the command line [more](https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres)
 
-Login to postgresql prompt as the postgres user
-
-* terminal: sudo su postgres -c psql
-
-* terminal: CREATE DATABASE database_name;
-
+* terminal: rake db:create
 
 ##### Run
 
@@ -72,5 +67,5 @@ Login to postgresql prompt as the postgres user
 
 ##### Work with git flow 
 
-* http://danielkummer.github.io/git-flow-cheatsheet/
+* git init flow [more](http://danielkummer.github.io/git-flow-cheatsheet/)
 
