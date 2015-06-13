@@ -57,7 +57,7 @@ Install pgAdmin III:
 
 * terminal: rails s 
 
-##### 7. Work with git flow 
+##### 7. Work with git flow [more](http://danielkummer.github.io/git-flow-cheatsheet/)
 
-* git init flow [more](http://danielkummer.github.io/git-flow-cheatsheet/)
+* git init flow
 
