@@ -5,7 +5,7 @@ team management service
 
 **Navigation**
 
-1. [[Home]]
-2. [[Setup guide]]
-3. [[Versions of technologies]]
+1. [Home](wiki)
+2. [Setup guide](Setup-guide)
+3. [Versions of technologies](Versions-of-technologies)
 
