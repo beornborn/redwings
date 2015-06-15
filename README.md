@@ -19,7 +19,7 @@ relation model
 https://drive.google.com/file/d/0B4NAAlVHXYk5a3FWTG1XWXp3U28/view?usp=sharing (open via draw.io)
 
 
-# [Setup guide](https://github.com/kiev-ruby/redwings/wiki/Setup-guide)
+### [Setup guide](https://github.com/kiev-ruby/redwings/wiki/Setup-guide)
 
-# [Versions of technologies in project](https://github.com/kiev-ruby/redwings/wiki/Versions-of-technologies)
+### [Versions of technologies in project](https://github.com/kiev-ruby/redwings/wiki/Versions-of-technologies)
 
