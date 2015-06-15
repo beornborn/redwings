@@ -46,8 +46,10 @@ Install pgAdmin III:
 #### 4. Configuration
 
 * terminal: git clone https://github.com/kiev-ruby/redwings.git 
-
+ 
 * terminal: bundle install
+
+* copy and configure database.yml from config/examples/database.yml to config/database.yml
 
 #### 5. Setup your database [more](https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres)
 
