@@ -23,16 +23,16 @@ https://drive.google.com/file/d/0B4NAAlVHXYk5a3FWTG1XWXp3U28/view?usp=sharing (o
 # Setup guide
 
 
-#### 1. Install Ruby version 2.2.2
+#### 1. Install Ruby
 
-* terminal: rvm install 2.2.2  
+* terminal: rvm install version
 
 
-#### 2. Install PostqreSQL version 9.4 [more](http://www.postgresql.org/download/linux/ubuntu/)
+#### 2. Install PostqreSQL [more](http://www.postgresql.org/download/linux/ubuntu/)
 
-Install Postgres 9.4:
+Install Postgres:
 
-* terminal: sudo apt-get install postgresql-9.4
+* terminal: sudo apt-get install postgresql-version
 
 Install pgAdmin III:
 
