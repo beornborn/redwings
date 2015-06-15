@@ -5,7 +5,7 @@ team management service
 
 **Navigation**
 
-1. [Home](wiki)
-2. [Setup guide](Setup-guide)
-3. [Versions of technologies](Versions-of-technologies)
+1. [Home](https://github.com/kiev-ruby/redwings/wiki)
+2. [Setup guide](https://github.com/kiev-ruby/redwings/Setup-guide)
+3. [Versions of technologies](https://github.com/kiev-ruby/redwings/Versions-of-technologies)
 
