@@ -1,5 +1,5 @@
 # redwings
-team management service
+team management service [wiki](https://github.com/kiev-ruby/redwings/wiki)
 
 проект представляет собой приложение для организации эффективного взаимодействия между ментором и учениками.
 
@@ -70,3 +70,4 @@ Install pgAdmin III:
 * Ruby on Rails version 4.2.1
 
 * PostgreSQL version 9.4
+
