@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   
-  root 'sessions#new'
+  root 'static_pages/greeting'
+
+  get 'static_pages/greeting'
+  get 'static_pages/home'
 
   get 'password_resets/create'
   get 'password_resets/edit'
@@ -14,3 +17,4 @@ Rails.application.routes.draw do
   resources :password_resets
   
 end
+
