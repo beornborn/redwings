@@ -6,3 +6,4 @@ class SorceryRememberMe < ActiveRecord::Migration
     add_index :users, :remember_me_token
   end
 end
+

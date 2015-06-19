@@ -7,3 +7,4 @@ class SorceryResetPassword < ActiveRecord::Migration
     add_index :users, :reset_password_token
   end
 end
+

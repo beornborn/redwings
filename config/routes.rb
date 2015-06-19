@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   
-  root 'static_pages/greeting'
+  root 'static_pages#home'
 
-  get 'static_pages/greeting'
+  get 'greeting' => 'static_pages#greeting', :as => 'greeting'
   get 'static_pages/home'
 
   get 'password_resets/create'
@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'password_resets/update'
 
   get 'logout' => 'sessions#destroy', :as => 'logout'
-  get 'login' => 'sessions#new',      :as => 'login'
+  get 'login'  => 'sessions#new',     :as => 'login'
 
   resources :users
   resources :sessions
