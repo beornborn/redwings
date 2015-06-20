@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'password_resets/create'
+  get 'password_resets/edit'
+  get 'password_resets/update'
+
   root :to => 'static_pages#home'
 
   get 'user_sessions/new'
@@ -15,6 +19,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :user_sessions
+  resources :password_resets
 
 end
 
