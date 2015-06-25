@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.2.2'
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
@@ -50,5 +52,12 @@ group :development, :test do
 
   # Awesome Print is a Ruby library that pretty prints Ruby objects in full color exposing their internal structure with proper indentation. Read more: https://github.com/michaeldv/awesome_print
   gem 'awesome_print'
+end
+
+group :production do
+  # Makes running your Rails app easier. For Heroku.
+  gem 'rails_12factor'
+  # Puma is a simple, fast, threaded, and highly concurrent HTTP 1.1 server for Ruby/Rack applications. Read more: https://github.com/puma/puma
+  gem 'puma'
 end
 
