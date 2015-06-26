@@ -3,6 +3,18 @@
 
 /* mixins, variables, etc. */
 
+
+
+/* logo */
+
+#logo {
+  padding: 0;
+  img{
+    height: 100%;
+    padding: 8px;
+  }
+}
+
 /* universal */
 
 body {
