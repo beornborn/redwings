@@ -15,8 +15,6 @@ gem 'pg'
 gem 'sorcery'
 
 
-# Bootstrap SCSS for Rails
-gem 'bootstrap-sass', '3.2.0.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
