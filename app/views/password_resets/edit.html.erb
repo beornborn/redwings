@@ -1,31 +1,46 @@
-<h1>Choose a new password</h1>
-<%= form_for @user, :url => password_reset_path(@token), :html => {:method => :put} do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
 
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+  <h2>Choose a new password</h2>
+
+  <%= form_tag @user, :url => password_reset_path(@token), :method => :put, class: "form-horizontal" do %>
+
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <div class="col-md-12">
+        <%= @user.email %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-12">
+        <%= text_field_tag :password, nil, class: "form-control", placeholder: "Password" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-12">
+        <%= password_field_tag :password_confirmation, nil, class: "form-control", placeholder: "Password Confirmation" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-12">
+        <%= submit_tag "Submit", class: "btn btn btn-primary btn-block" %>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= @user.email %>
   </div>
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
 
