@@ -13,6 +13,13 @@
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  ul {
+    padding: 0;
+    margin-left: 20px;
+  }
+  #remember_me {
+    margin-right: 5px;
+  }
 }
 
 .footer {
@@ -27,4 +34,6 @@ body {
 .container .text-muted {
   margin: 20px 0;
 }
+
+
 

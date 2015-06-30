@@ -1,0 +1,13 @@
+.row
+  .col-md-4.col-md-offset-4
+
+    h1 Forgot Password?
+
+    = form_tag password_resets_path, :method => :post, class: "form-horizontal" do
+      .form-group
+        .col-md-12
+          = text_field_tag :email, nil, class: "form-control", placeholder: "Email"
+      .form-group
+        .col-md-12
+          = submit_tag "Reset my password!", class: "btn btn btn-primary btn-block"
+
