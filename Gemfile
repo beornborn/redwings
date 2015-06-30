@@ -23,6 +23,8 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
+# Slim is a fast, lightweight templating engine with support for Rails 3 and 4 Read more: https://github.com/slim-template/slim
+gem 'slim', '~> 3.0.6'
 
 
 # Use jquery as the JavaScript library
