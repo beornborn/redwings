@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   root :to => 'static_pages#home'
 
+  get 'users/index'
+
   get 'password_resets/edit'
 
   get  'login'  => 'user_sessions#new',     :as => :login

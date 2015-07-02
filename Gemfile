@@ -14,6 +14,11 @@ gem 'pg'
 # Magical Authentication for Rails 3 and 4. Read more: https://github.com/NoamB/sorcery
 gem 'sorcery'
 
+# A Ruby wrapper for the Slack API. Read more: https://github.com/aki017/slack-ruby-gem
+gem 'slack-api', '~> 1.1.6'
+# Embed the V8 JavaScript interpreter into Ruby.. Read more: https://github.com/cowboyd/therubyracer
+gem 'therubyracer', '~> 0.12.2'
+
 
 # Twitter Bootstrap 3.2 for Rails 4 Asset Pipeline
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
