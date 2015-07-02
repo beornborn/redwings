@@ -1,0 +1,8 @@
+.row
+  .col-md-4
+    h1 All users
+    .list-group
+      - @users.each do |user|
+        = link_to user.name, user, class: "list-group-item"
+    .btn.btn-primary Update users
+
