@@ -35,5 +35,16 @@ body {
   margin: 20px 0;
 }
 
+.divider {
+  height: 1px;
+  width:100%;
+  display:block; /* for use on default inline elements like span */
+  margin-bottom: 17px;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
 
+a.list-group-item.disabled {
+  text-decoration: line-through;
+}
 

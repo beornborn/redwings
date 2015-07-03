@@ -6,5 +6,8 @@ class User < ActiveRecord::Base
 
   validates :password, confirmation: true, length: { minimum: 4 }
   validates :password_confirmation, presence: true
+
+  scope :admin, -> (admin) { where admin: admin }
+  scope :deleted, -> (deleted) { where deleted: deleted }
 end
 
