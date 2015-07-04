@@ -15,7 +15,7 @@ gem 'pg'
 gem 'sorcery'
 
 # A Ruby wrapper for the Slack API. Read more: https://github.com/aki017/slack-ruby-gem
-gem 'slack-api', '~> 1.1.6'
+gem 'slack-api', '~> 1.1.6', require: 'slack'
 # Embed the V8 JavaScript interpreter into Ruby.. Read more: https://github.com/cowboyd/therubyracer
 gem 'therubyracer', '~> 0.12.2'
 
