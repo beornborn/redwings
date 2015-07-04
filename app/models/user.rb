@@ -22,12 +22,12 @@ class User < ActiveRecord::Base
 
     # filtered importent attr
   	members.each do |member|
-  	  user["username"] = member["name"]
-  	  user["deleted"] = member["deleted"]
+      user["username"] = member["name"]
+      user["deleted"] = member["deleted"]
       user["first_name"] = member["profile"]["first_name"]
-  	  user["last_name"] = member["profile"]["last_name"]
-  	  user["image_48"] = member["profile"]["image_48"]
-  	  user["email"] = member["profile"]["email"]
+      user["last_name"] = member["profile"]["last_name"]
+      user["image_48"] = member["profile"]["image_48"]
+      user["email"] = member["profile"]["email"]
 
   	  users << user
   	  user = {}
@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   def User.is_new?(email)
     users = User.all
     users.each do |user|
-  	  return false if user.email == email
+      return false if user.email == email
     end
     true
   end
