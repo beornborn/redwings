@@ -1,8 +1,9 @@
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
-  validates :name,     presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
-  validates :lastname, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
-  validates :email,    presence: true, uniqueness: true
+  validates :username,   presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
+  validates :first_name, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
+  validates :last_name,  presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
+  validates :email,      presence: true, uniqueness: true
 
   validates :password, confirmation: true, length: { minimum: 4 }
   validates :password_confirmation, presence: true
@@ -10,18 +11,18 @@ class User < ActiveRecord::Base
   scope :admin, -> (admin) { where admin: admin }
   scope :deleted, -> (deleted) { where deleted: deleted }
 
+
+
   def User.slack_users
-  	data_hash = Slack.get("https://ruby-redwings.slack.com/api/users.list")
-  	members_hash = data_hash["members"]
+  	data = Slack.get("https://ruby-redwings.slack.com/api/users.list")
+  	members = data["members"]
 
   	users = []
   	user = {}
 
-  	profile_hash = {}
-
     # filtered importent attr
-  	members_hash.each do |member|
-  	  user["name"] = member["name"]
+  	members.each do |member|
+  	  user["username"] = member["name"]
   	  user["deleted"] = member["deleted"]
       user["first_name"] = member["profile"]["first_name"]
   	  user["last_name"] = member["profile"]["last_name"]
@@ -32,6 +33,14 @@ class User < ActiveRecord::Base
   	  user = {}
   	end
     users
+  end
+
+  def User.is_new?(email)
+    users = User.all
+    users.each do |user|
+  	  return false if user.email == email
+    end
+    true
   end
 
 end
