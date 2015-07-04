@@ -6,6 +6,8 @@ class UsersController < ApplicationController
   end
 
   def sync
+    # @slack_users = User.slack_users
+    # redirect_to :users
   end
 
 end

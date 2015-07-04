@@ -1,6 +1,6 @@
 .row
   .col-md-4
-    .btn.btn-primary Update users
+    = button_to "Update users", :sync, class: "btn btn-primary"
     h1 All users
     .list-group
       - @users.each do |user|
