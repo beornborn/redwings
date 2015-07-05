@@ -16,16 +16,23 @@ class User < ActiveRecord::Base
     data = Slack.get("https://ruby-redwings.slack.com/api/users.list")
     members = data["members"]
 
+    puts members.size
+
     users = []
 
     members.map do |member|
       user = {}
-      user["username"] =   member["name"]
-      user["deleted"] =    member["deleted"]
-      user["first_name"] = member["profile"]["first_name"]
-      user["last_name"] =  member["profile"]["last_name"]
+
+      username =   member["name"]
+      first_name = member["profile"]["first_name"]
+      last_name =  member["profile"]["last_name"]
+
+      user["username"] =   ( /[a-z]*\.[a-z]*/ =~ username ) ? username : "no.username"
+      user["first_name"] = ( first_name.nil? ) ? "Noname" : first_name
+      user["last_name"]  = ( last_name.nil?  ) ? "Noname" : last_name
       user["image_48"] =   member["profile"]["image_48"]
       user["email"] =      member["profile"]["email"]
+      user["deleted"] =    member["deleted"]
       users.push(user)
     end
     users
