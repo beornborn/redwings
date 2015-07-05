@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def sync
     slack_users = User.slack_users
 
-    slack_users.each do |slack_user|
+    slack_users.map do |slack_user|
       if User.is_new?(slack_user["email"])
         username =   slack_user["username"]
       	deleted =    slack_user["deleted"]
@@ -16,11 +16,12 @@ class UsersController < ApplicationController
       	last_name =  slack_user["last_name"]
       	image_48 =   slack_user["image_48"]
       	email =      slack_user["email"]
-      	User.create(username: username, first_name: first_name, last_name: last_name, email: email,
-      		    deleted: deleted, image_48: image_48, password: "1111", password_confirmation: "1111")
+      	User.create(username: username, first_name: first_name, last_name: last_name,
+      		email: email, deleted: deleted, image_48: image_48,
+      		password: "1111", password_confirmation: "1111")
       end
     end
-    redirect_to :users
+    redirect_to root_path
   end
 
 end

@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
 
-  root :to => 'static_pages#home'
+  root :to => 'users#index'
 
   get 'password_resets/edit'
 
-  get  'users'  => 'users#index',           :as => :users
   post 'sync'   => 'users#sync',            :as => :sync
   get  'login'  => 'user_sessions#new',     :as => :login
   post 'logout' => 'user_sessions#destroy', :as => :logout
@@ -12,5 +11,6 @@ Rails.application.routes.draw do
   resources :users
   resources :user_sessions
   resources :password_resets
+
 end
 
