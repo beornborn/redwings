@@ -1,0 +1,12 @@
+h1 Trello API usage examples
+
+p Trello user name:
+strong = @trello_user.full_name
+
+p Organization:
+strong = @org.display_name
+
+p Organization boards:
+strong
+  - @org.boards.each  do |board|
+    => board.attributes[:name]
