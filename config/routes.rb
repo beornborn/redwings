@@ -10,6 +10,4 @@ Rails.application.routes.draw do
   resources :users
   resources :user_sessions
   resources :password_resets
-
 end
-

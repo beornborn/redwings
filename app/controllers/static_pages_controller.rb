@@ -5,6 +5,5 @@ class StaticPagesController < ApplicationController
 
   def greeting
   end
-  
 end
 
