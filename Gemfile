@@ -14,6 +14,7 @@ gem 'pg'
 # Magical Authentication for Rails 3 and 4. Read more: https://github.com/NoamB/sorcery
 gem 'sorcery'
 
+gem 'ruby-trello', '1.2.1'
 
 # Twitter Bootstrap 3.2 for Rails 4 Asset Pipeline
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
