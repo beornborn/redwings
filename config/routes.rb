@@ -2,8 +2,6 @@ Rails.application.routes.draw do
 
   root :to => 'static_pages#home'
 
-  get 'trello' => 'static_pages#trello'
-
   get 'password_resets/edit'
 
   get  'login'  => 'user_sessions#new',     :as => :login
