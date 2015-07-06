@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   scope :deleted, -> (deleted) { where deleted: deleted }
 
 
-  def User.slack_users
+  def self.slack_users
     data = Slack.get('https://ruby-redwings.slack.com/api/users.list')
     members = data['members']
     users = []

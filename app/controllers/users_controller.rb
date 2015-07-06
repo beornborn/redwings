@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     @users_deleted = User.admin(false).deleted(true)
   end
 
-  def sync
+  def slack_sync
     slack_users = User.slack_users
     slack_users.map do |slack_user|
       unless User.where(email: slack_user['email']).exists?
