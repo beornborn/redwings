@@ -1,11 +1,10 @@
 class User < ActiveRecord::Base
-  authenticates_with_sorcery!
-  validates :username,   presence: true, length: { maximum: 50 }, format: { with: /[a-z]*\.[a-z]*/ }
-  validates :first_name, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
-  validates :last_name,  presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
-  validates :email,      presence: true, uniqueness: true
 
-  validates :password, confirmation: true, length: { minimum: 4 }
+  before_save :user_validation
+
+  authenticates_with_sorcery!
+
+  validates :password, confirmation: true
   validates :password_confirmation, presence: true
 
   scope :admin, -> (admin) { where admin: admin }
@@ -13,33 +12,28 @@ class User < ActiveRecord::Base
 
 
   def User.slack_users
-    data = Slack.get("https://ruby-redwings.slack.com/api/users.list")
-    members = data["members"]
-
-    puts members.size
-
+    data = Slack.get('https://ruby-redwings.slack.com/api/users.list')
+    members = data['members']
     users = []
-
     members.map do |member|
       user = {}
-
-      username =   member["name"]
-      first_name = member["profile"]["first_name"]
-      last_name =  member["profile"]["last_name"]
-
-      user["username"] =   ( /[a-z]*\.[a-z]*/ =~ username ) ? username : "no.username"
-      user["first_name"] = ( first_name.nil? ) ? "Noname" : first_name
-      user["last_name"]  = ( last_name.nil?  ) ? "Noname" : last_name
-      user["image_48"] =   member["profile"]["image_48"]
-      user["email"] =      member["profile"]["email"]
-      user["deleted"] =    member["deleted"]
+      user['username'] =   member['name']
+      user['first_name'] = member['profile']['first_name']
+      user['last_name']  = member['profile']['last_name']
+      user['image_48'] =   member['profile']['image_48']
+      user['email'] =      member['profile']['email']
+      user['deleted'] =    member['deleted']
       users.push(user)
     end
     users
   end
 
-  def User.is_new?(email)
-    !User.where(email: email).exists?
+  private
+
+  def user_validation
+    self.username =   ( /[a-z]*\.[a-z]*/ =~ self.username ) ? self.username : 'no.username'
+    self.first_name = ( self.first_name.nil? ) ? 'Noname' : self.first_name
+    self.last_name =  ( self.last_name.nil?  ) ? 'Noname' : self.last_name
   end
 
 end
