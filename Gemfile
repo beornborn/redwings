@@ -26,7 +26,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # Slim is a fast, lightweight templating engine with support for Rails 3 and 4 Read more: https://github.com/slim-template/slim
 gem 'slim', '~> 3.0.6'
-
+gem 'httparty', '~> 0.13.3'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
