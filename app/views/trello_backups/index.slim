@@ -1,0 +1,9 @@
+= button_to "Back up Trello boards", trello_backups_path, action: "create", class: 'btn btn-primary', id: 'backup'
+.panel.panel-default
+  .panel-heading
+    strong Trello Backups
+  table.table
+    tr
+      th Board's name
+      th Time of backup
+    = render @trello_backups
