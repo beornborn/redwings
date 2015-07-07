@@ -1,6 +1,6 @@
 .row
   .col-md-4
-    = button_to :slack_sync, { :class=>'btn btn-primary' } do
+    = button_to users_slack_index_path, { :method => :get, :class => 'btn btn-primary' } do
       i[class='fa fa-refresh']
         span  Update users
     h1 All users

@@ -6,9 +6,13 @@ Rails.application.routes.draw do
 
   get  'login'  => 'user_sessions#new',     :as => :login
   post 'logout' => 'user_sessions#destroy', :as => :logout
-  post 'slack_sync' => 'slack#users_sync',  :as => :slack_sync
 
-  resources :slack
+  scope '/service' do
+    resources :slack, only: [] do
+      get :users, on: :collection
+    end
+  end
+
   resources :users
   resources :user_sessions
   resources :password_resets
