@@ -78,11 +78,8 @@ GEM
       websocket-driver (>= 0.5.1)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
-    httparty (0.13.5)
-      json (~> 1.8)
-      multi_xml (>= 0.5.2)
     i18n (0.7.0)
-    jbuilder (2.3.0)
+    jbuilder (2.3.1)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jquery-rails (4.0.4)
@@ -237,7 +234,6 @@ DEPENDENCIES
   awesome_print
   byebug
   coffee-rails (~> 4.1.0)
-  httparty (~> 0.13.3)
   jbuilder (~> 2.0)
   jquery-rails
   pg
