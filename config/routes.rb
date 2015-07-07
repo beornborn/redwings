@@ -4,9 +4,14 @@ Rails.application.routes.draw do
 
   get 'password_resets/edit'
 
-  post 'sync'   => 'users#sync',            :as => :sync
   get  'login'  => 'user_sessions#new',     :as => :login
   post 'logout' => 'user_sessions#destroy', :as => :logout
+
+  scope '/service' do
+    resources :slack, only: [] do
+      get :users, on: :collection
+    end
+  end
 
   resources :users
   resources :user_sessions
