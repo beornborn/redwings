@@ -1,4 +1,4 @@
-class SlackController < ApplicationController
+class Services::SlackController < ApplicationController
 
   def users
     slack_users = User.slack_users
