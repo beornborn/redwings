@@ -1,13 +1,13 @@
 class User < ActiveRecord::Base
 
-  before_save :user_correction
+  before_validation :user_correction
 
   authenticates_with_sorcery!
 
-  validates :username, presence: true, length: { maximum: 50 }, format: { with: /[a-z]*\.[a-z]*/ }
-  validates :first_name,     presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
-  validates :last_name, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
-  validates :email,    presence: true, uniqueness: true
+  validates :username,   presence: true, length: { maximum: 50 }, format: { with: /[a-z]*\.[a-z]*/ }
+  validates :first_name, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
+  validates :last_name,  presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
+  validates :email,      presence: true, uniqueness: true
   validates :password, confirmation: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
 
@@ -33,8 +33,8 @@ class User < ActiveRecord::Base
 
   def user_correction
     self.username =   ( /[a-z]*\.[a-z]*/ =~ self.username ) ? self.username : 'no.username'
-    self.first_name.presence || 'Noname'
-    self.last_name.presence  || 'Noname'
+    self.first_name = 'Noname' if self.last_name.blank?
+    self.last_name =  'Noname' if self.last_name.blank?
   end
 
 end
