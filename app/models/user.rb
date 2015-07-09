@@ -18,14 +18,15 @@ class User < ActiveRecord::Base
     slack_users = SlackApi.get_users
 
     slack_users.map do |slack_user|
-      user = User.where(email: slack_user['email'])
+      user = User.find_or_create_by!(email: slack_user['email']) do |user|
+        user.update(slack_user)
 
-      unless user.exists?
-        User.create slack_user.merge(password: 'redwings', password_confirmation: 'redwings')
-      else
-        user.update_all(slack_user)
+        unless user.password
+          user.password = 'redwings'
+          user.password_confirmation = 'redwings'
+        end
+
       end
-
     end
   end
 
