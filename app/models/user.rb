@@ -18,14 +18,12 @@ class User < ActiveRecord::Base
     slack_users = SlackApi.get_users
 
     slack_users.map do |slack_user|
-      user = User.find_or_create_by(email: slack_user['email']) do |user|
+      user = User.find_or_initialize_by(email: slack_user['email']) do |user|
+        password_params = { password: 'redwings', password_confirmation: 'redwings' }
+
+        slack_user.merge! password_params if user.new_record?
+
         user.update(slack_user)
-
-        unless user.password
-          user.password = 'redwings'
-          user.password_confirmation = 'redwings'
-        end
-
       end
     end
   end
@@ -33,7 +31,7 @@ class User < ActiveRecord::Base
   private
 
   def user_correction
-    self.username =   ( /[a-z]*\.[a-z]*/ =~ self.username ) ? self.username : 'no.username'
+    self.username =   (/[a-z]*\.[a-z]*/ =~ self.username) ? self.username : 'no.username'
     self.first_name = 'Noname' if self.last_name.blank?
     self.last_name =  'Noname' if self.last_name.blank?
   end
