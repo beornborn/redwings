@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
     slack_users = SlackApi.get_users
 
     slack_users.map do |slack_user|
-      user = User.find_or_create_by!(email: slack_user['email']) do |user|
+      user = User.find_or_create_by(email: slack_user['email']) do |user|
         user.update(slack_user)
 
         unless user.password
