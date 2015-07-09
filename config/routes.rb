@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   namespace :services do
     resources :slack, only: [] do
-      get :users, on: :collection
+      post :users, on: :collection
     end
   end
 

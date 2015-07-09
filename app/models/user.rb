@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
 
-  include SlackApi
-
-  before_save :user_validation
+  before_save :user_correction
 
   authenticates_with_sorcery!
 
@@ -13,29 +11,16 @@ class User < ActiveRecord::Base
   validates :password, confirmation: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
 
-  scope :admin,   -> (admin) { where admin: admin }
+  scope :admin,   -> (admin)   { where admin: admin }
   scope :deleted, -> (deleted) { where deleted: deleted }
 
   def self.slack_users
-    members = SlackApi.get_members
-
-    users = members.map do |member|
-      user = {}
-      user['username'] =   member['name']
-      user['first_name'] = member['profile']['first_name']
-      user['last_name']  = member['profile']['last_name']
-      user['image_48'] =   member['profile']['image_48']
-      user['email'] =      member['profile']['email']
-      user['deleted'] =    member['deleted']
-      user
-    end
-
-    users
+    SlackApi.get_users
   end
 
   private
 
-  def user_validation
+  def user_correction
     self.username =   ( /[a-z]*\.[a-z]*/ =~ self.username ) ? self.username : 'no.username'
     self.first_name.presence || 'Noname'
     self.last_name.presence  || 'Noname'
