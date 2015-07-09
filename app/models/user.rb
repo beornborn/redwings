@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
   authenticates_with_sorcery!
 
   validates :username, presence: true, length: { maximum: 50 }, format: { with: /[a-z]*\.[a-z]*/ }
-  validates :name,     presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
-  validates :lastname, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
+  validates :first_name,     presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
+  validates :last_name, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
   validates :email,    presence: true, uniqueness: true
   validates :password, confirmation: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
@@ -14,8 +14,19 @@ class User < ActiveRecord::Base
   scope :admin,   -> (admin)   { where admin: admin }
   scope :deleted, -> (deleted) { where deleted: deleted }
 
-  def self.slack_users
-    SlackApi.get_users
+  def self.update_users
+    slack_users = SlackApi.get_users
+
+    slack_users.map do |slack_user|
+      user = User.where(email: slack_user['email'])
+
+      unless user.exists?
+        User.create slack_user.merge(password: 'redwings', password_confirmation: 'redwings')
+      else
+        user.update_all(slack_user)
+      end
+
+    end
   end
 
   private

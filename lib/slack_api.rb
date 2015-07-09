@@ -12,7 +12,6 @@ module SlackApi
       user['image_48'] =   member['profile']['image_48']
       user['email'] =      member['profile']['email']
       user['deleted'] =    member['deleted']
-      user
     end
 
     users
