@@ -11,12 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150706150125) do
-=======
-ActiveRecord::Schema.define(version: 20150704091541) do
->>>>>>> add untracked db files + fix user validataion problem
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
