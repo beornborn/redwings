@@ -15,6 +15,7 @@ gem 'pg'
 gem 'sorcery'
 
 gem 'ruby-trello', '1.2.1'
+gem 'slack-api', '1.1.6', require: 'slack'
 
 # Twitter Bootstrap 3.2 for Rails 4 Asset Pipeline
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
