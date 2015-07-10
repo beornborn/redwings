@@ -58,7 +58,7 @@ group :development, :test do
   gem 'awesome_print'
 
   # Rspec-rails is a testing framework for Rails 4.x. Read more: https://github.com/rspec/rspec-rails
-  gem 'rspec-rails', '~> 3.3.2'
+  gem 'rspec-rails', '3.3.2'
 end
 
 group :production do
