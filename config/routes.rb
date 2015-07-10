@@ -7,9 +7,9 @@ Rails.application.routes.draw do
   get  'login'  => 'user_sessions#new',     :as => :login
   post 'logout' => 'user_sessions#destroy', :as => :logout
 
-  scope '/service' do
+  namespace :services do
     resources :slack, only: [] do
-      get :users, on: :collection
+      post :update_users, on: :collection
     end
   end
 
