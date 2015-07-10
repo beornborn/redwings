@@ -56,6 +56,9 @@ group :development, :test do
 
   # Awesome Print is a Ruby library that pretty prints Ruby objects in full color exposing their internal structure with proper indentation. Read more: https://github.com/michaeldv/awesome_print
   gem 'awesome_print'
+
+  # Rspec-rails is a testing framework for Rails 4.x. Read more: https://github.com/rspec/rspec-rails
+  gem 'rspec-rails', '3.3.2'
 end
 
 group :production do
