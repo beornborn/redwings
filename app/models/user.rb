@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  before_validation :user_correction
+  before_save :user_correction
 
   authenticates_with_sorcery!
 
@@ -8,10 +8,10 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
   validates :last_name,  presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
   validates :email,      presence: true, uniqueness: true
-  validates :password, confirmation: true, length: { minimum: 6 }, on: :create
-  validates :password_confirmation, presence: true, on: :create
+  validates :password, confirmation: true, length: { minimum: 6 }
+  validates :password_confirmation, presence: true
 
-  scope :admin,   -> (admin)   { where admin: admin }
+  scope :admin,   -> (admin)   { where admin:   admin }
   scope :deleted, -> (deleted) { where deleted: deleted }
 
   def self.update_users
@@ -25,7 +25,8 @@ class User < ActiveRecord::Base
         slack_user.merge! password_params
       end
 
-      user.update(slack_user)
+      user.attributes = slack_user
+      user.save validate: false
     end
   end
 
