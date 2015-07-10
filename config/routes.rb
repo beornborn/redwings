@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   namespace :services do
     resources :slack, only: [] do
-      post :users, on: :collection
+      post :update_users, on: :collection
     end
   end
 

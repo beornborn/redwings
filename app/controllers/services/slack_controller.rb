@@ -1,6 +1,6 @@
 class Services::SlackController < ApplicationController
 
-  def users
+  def update_users
     User.update_users
     redirect_to root_path
   end
