@@ -45,3 +45,13 @@ body {
   background-color: #e5e5e5;
 }
 
+#deleted_users {
+  input[type='text'] {
+    height: 22px;
+    margin-right: 5px;
+  }
+  .form-inline {
+    display: none;
+  }
+}
+
