@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def ololo
+    'asd'
+  end
+
   private
 
   def user_correction
