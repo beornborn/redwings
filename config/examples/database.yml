@@ -1,15 +1,15 @@
-development:  
+development:
   adapter: postgresql
   encoding: unicode
-  database: [insert your dev database name]
+  database: redwings_development
   pool: 5
   username: [insert your user name]
   password:
 
-test:  
+test:
   adapter: postgresql
   encoding: unicode
-  database: [insert your test database name]
+  database: redwings_test
   pool: 5
   username: [insert your user name]
   password:
