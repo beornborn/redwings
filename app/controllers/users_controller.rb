@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   attr_accessor :goodbye_reason
 
   def index
@@ -7,8 +8,8 @@ class UsersController < ApplicationController
   end
 
   def update
-  	user = User.find(params[:id])
-  	user.attributes = user_params
+    user = User.find(params[:id])
+    user.attributes = user_params
     user.save validate: false
   end
 
