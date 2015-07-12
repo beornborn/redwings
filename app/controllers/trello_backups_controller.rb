@@ -6,7 +6,9 @@ class TrelloBackupsController < ApplicationController
 
   def create
     @backups_count = TrelloBackup.all.count
+
     Service::Trello.board_backup
+
     if TrelloBackup.all.count == @backups_count + 2
       flash[:success] = 'Backup successful!'
       redirect_to trello_backups_path
@@ -18,7 +20,9 @@ class TrelloBackupsController < ApplicationController
 
   def destroy
     @trello_backup = TrelloBackup.find(params[:id])
+
     @trello_backup.destroy
+
     flash[:success] = 'Backup was successfully destroyed.'
     redirect_to trello_backups_path
   end
