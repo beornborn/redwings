@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/kiev-ruby/redwings/badges/gpa.svg)](https://codeclimate.com/github/kiev-ruby/redwings)
+
 # redwings
 team management service
 
