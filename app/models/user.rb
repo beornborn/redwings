@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  before_save :user_correction
+  before_validation :user_correction
 
   authenticates_with_sorcery!
 
@@ -21,12 +21,11 @@ class User < ActiveRecord::Base
       user = User.find_or_initialize_by(email: slack_user['email'])
 
       if user.new_record?
-        password_params = { password: 'redwings', password_confirmation: 'redwings' }
-        slack_user.merge! password_params
+        User.create slack_user.merge(password: 'redwings', password_confirmation: 'redwings')
+      else
+        user.attributes = slack_user
+        user.save validate: false
       end
-
-      user.attributes = slack_user
-      user.save validate: false
     end
   end
 
