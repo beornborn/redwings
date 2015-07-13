@@ -8,12 +8,26 @@ $(document).ready ->
     $(this).parent().parent().hide().next().show()
     false
 
-  $(".form-inline").submit ->
+  $(".form-inline").submit (event) ->
+    event.preventDefault()
+
+    action = $(this).attr("action")
+    method = $(this).children().next().val()
+    token  = $(this).children().next().next().val()
+    reason = $(this).children().next().next().next().val()
+
+    $.ajax({
+      async: true,
+      method: method,
+      dataType: "json",
+      contentType: "application/json",
+      url: action,
+      data: JSON.stringify({"authenticity_token": token,"goodbye_reason": reason}),
+    })
+
     $(this).hide()
-    val = $(this).children().next().next().val()
-    label = '<div class="label label-danger">' + val.toString() + '</div>'
+    label = '<div class="label label-danger">' + reason + '</div>'
     $(this).parent().html label
-    true
 
   return
 

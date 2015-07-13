@@ -11,6 +11,13 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     user.attributes = user_params
     user.save validate: false
+    respond_to do |format|
+      if user.save
+        format.json { render :json => { :goodbye_reason => user.goodbye_reason } }
+      else
+        format.json { render :json => user.errors }
+      end
+    end
   end
 
   private

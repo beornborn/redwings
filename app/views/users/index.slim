@@ -14,7 +14,7 @@
           = user.username
           span.pull-right
             - if user.goodbye_reason.blank?
-              = form_for user, remote: true, :html => { :method => :put, :class => "form-inline" } do |f|
+              = form_for user, :html => { :method => :patch, :class => "form-inline" } do |f|
                 = f.text_field :goodbye_reason, class: "form-control", placeholder: "goodbye reason"
                 .btn-group.btn-group-xs
                   = f.submit "Add", class: "btn btn-success"
