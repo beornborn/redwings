@@ -12,11 +12,7 @@ class UsersController < ApplicationController
     user.attributes = user_params
     user.save validate: false
     respond_to do |format|
-      if user.save
-        format.json { render :json => { :goodbye_reason => user.goodbye_reason } }
-      else
-        format.json { render :json => user.errors }
-      end
+      format.json { render :json => { :goodbye_reason => user.goodbye_reason } }
     end
   end
 
