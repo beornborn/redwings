@@ -1,33 +1,31 @@
 $(document).ready ->
 
-  $(".btn-info").click ->
-    $(this).hide().prev().show()
-    false
-
-  $(".btn-danger").click ->
-    $(this).parent().parent().hide().next().show()
-    false
-
-  $(".form-inline").submit (event) ->
-    event.preventDefault()
-
-    action = $(this).attr("action")
-    method = $(this).children().next().val()
-    token  = $(this).children().next().next().val()
-    reason = $(this).children().next().next().next().val()
-
-    $.ajax({
-      async: true,
-      method: method,
-      dataType: "json",
-      contentType: "application/json",
-      url: action,
-      data: JSON.stringify({"authenticity_token": token,"goodbye_reason": reason}),
-    })
+  $('.goodbye-reason').find('.add-reason-button').click ->
+    name = $(this).attr('name')
 
     $(this).hide()
-    label = '<div class="label label-danger">' + reason + '</div>'
-    $(this).parent().html label
+    $("form[name='#{name}']").show()
 
-  return
+  $('.goodbye-reason').find('.btn-danger').click ->
+    name = $(this).attr('name')
+
+    $("form[name='#{name}']").hide()
+    $(".add-reason-button[name='#{name}']").show()
+
+  $('.goodbye-reason').find('.form-inline').submit (event) ->
+    event.preventDefault()
+
+    form = $(this)
+    url  = form.attr('action')
+    name = form.attr('name')
+    data = form.serialize()
+
+    $.ajax({
+      method: 'PATCH',
+      url: url,
+      data: data,
+      success: (data) ->
+        form.hide()
+        $(".goodbye-reason[name='#{name}']").text data.goodbye_reason
+    })
 

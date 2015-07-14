@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 
-  attr_accessor :goodbye_reason
+  before_filter :find_user, only: [:update]
+
+  attr_accessor :skip_password_validation
 
   def index
     @users = User.admin(false).deleted(false)
@@ -8,15 +10,16 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(params[:id])
-    user.attributes = user_params
-    user.save validate: false
-    respond_to do |format|
-      format.json { render :json => { :goodbye_reason => user.goodbye_reason } }
-    end
+    @user.attributes = user_params
+    @user.save validate: false
+    render json: { goodbye_reason: @user.goodbye_reason }
   end
 
   private
+
+  def find_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:goodbye_reason)
