@@ -16,12 +16,13 @@ $(document).ready ->
     event.preventDefault()
 
     form = $(this)
+    method = form.attr('method')
     url  = form.attr('action')
     name = form.attr('name')
     data = form.serialize()
 
     $.ajax({
-      method: 'PATCH',
+      method: method,
       url: url,
       data: data,
       success: (data) ->
