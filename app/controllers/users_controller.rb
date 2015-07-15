@@ -11,7 +11,8 @@ class UsersController < ApplicationController
 
   def update
     @user.attributes = user_params
-    @user.save validate: false
+    @user.skip_password_validation = true
+    @user.save
     render json: { goodbye_reason: @user.goodbye_reason }
   end
 

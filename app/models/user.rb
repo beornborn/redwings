@@ -4,12 +4,14 @@ class User < ActiveRecord::Base
 
   authenticates_with_sorcery!
 
+  attr_accessor :skip_password_validation
+
   validates :username,   presence: true, length: { maximum: 50 }, format: { with: /[a-z]*\.[a-z]*/ }
   validates :first_name, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
   validates :last_name,  presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
   validates :email,      presence: true, uniqueness: true
-  validates :password, confirmation: true, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
+  validates :password, confirmation: true, length: { minimum: 6 }, unless: :skip_password_validation
+  validates :password_confirmation, presence: true, unless: :skip_password_validation
 
   scope :admin,   -> (admin)   { where admin:   admin }
   scope :deleted, -> (deleted) { where deleted: deleted }
@@ -24,7 +26,8 @@ class User < ActiveRecord::Base
         User.create! slack_user.merge(password: 'redwings', password_confirmation: 'redwings')
       else
         user.attributes = slack_user
-        user.save validate: false
+        user.skip_password_validation = true
+        user.save
       end
     end
   end

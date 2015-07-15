@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714192520) do
+ActiveRecord::Schema.define(version: 20150712072917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 20150714192520) do
     t.string   "image_48"
     t.string   "first_name"
     t.string   "goodbye_reason"
-    t.boolean  "skip_password_validation",        default: false
   end
 
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
