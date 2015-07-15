@@ -1,14 +1,39 @@
 .row
-  .col-md-4
-    = button_to update_users_services_slack_index_path, { :class => 'btn btn-primary' } do
-      i[class='fa fa-refresh']
+  .col-md-3
+    = button_to update_users_services_slack_index_path, { class: 'btn btn-sm btn-info' } do
+      i.fa.fa-refresh
         span  Update users
-    h1 All users
-    .list-group
-      - @users.each do |user|
-        = link_to user.username, user, class: 'list-group-item'
-    .divider
-    .list-group
-      - @users_deleted.each do |user|
-        = link_to user.username, user, class: 'list-group-item disabled'
+
+    table.table
+      thead
+        tr
+          td
+            h3 Users in project
+      tbody
+        - @users.each do |user|
+          tr
+            td = user.username
+.row
+  .col-md-7
+
+    table.table#deleted_users
+      thead
+        tr
+          td
+            h3 Deleted Users
+          td
+            h3 Goodbye reasons
+      tbody
+        - @users_deleted.each do |user|
+          tr
+            td.username = user.username
+            td.goodbye-reason[name='#{user.username}']
+              - if user.goodbye_reason.blank?
+                = form_for user, html: { method: 'patch', class: 'form-inline', name: user.username } do |f|
+                  = f.text_area :goodbye_reason, class: 'form-control', placeholder: 'goodbye reason', required: true, row: '2'
+                  = f.submit 'Add', class: 'btn btn-success', name: user.username
+                  .btn.btn-danger[name='#{user.username}'] Cancel
+                a.btn.btn-sm.btn-info.add-reason-button[name='#{user.username}'] add goodbye reason
+              - else
+                = user.goodbye_reason
 

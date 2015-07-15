@@ -3,7 +3,7 @@
 
     h1 Forgot Password?
 
-    = form_tag password_resets_path, :method => :post, class: "form-horizontal" do
+    = form_tag password_resets_path, :method => :post, class: "form-horizontal"
       .form-group
         .col-md-12
           = text_field_tag :email, nil, class: "form-control", placeholder: "Email"
