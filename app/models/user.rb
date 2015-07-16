@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
       user = User.find_or_initialize_by(email: slack_user['email'])
 
       if user.new_record?
-        User.create! slack_user.merge(password: 'redwings', password_confirmation: 'redwings')
+        User.create! slack_user.merge(password: 'redwings', password_confirmation: 'redwings', started_at: Time.now)
       else
         user.attributes = slack_user
         user.skip_password_validation = true
