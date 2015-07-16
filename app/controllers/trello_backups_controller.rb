@@ -5,17 +5,19 @@ class TrelloBackupsController < ApplicationController
   end
 
   def create
-    @backups_count = TrelloBackup.all.count
+    backup_results = Service::Trello.boards_backup(Service::Trello::BOARDS)
 
-    Service::Trello.board_backup
-
-    if TrelloBackup.all.count == @backups_count + 2
-      flash[:success] = 'Backup successful!'
-      redirect_to trello_backups_path
-    else
-      flash[:danger] = 'Backup failed!'
-      redirect_to trello_backups_path
+    backup_results.each do |key, value|
+      if value == true
+        flash[:success] ||= ''
+        flash[:success] << "#{key}'s backup succeed. "
+      else
+        flash[:danger]  ||= ''
+        flash[:danger] << "#{key}'s backup failed. "
+      end
     end
+
+    redirect_to trello_backups_path
   end
 
   def destroy

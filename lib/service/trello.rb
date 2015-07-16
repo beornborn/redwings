@@ -1,14 +1,24 @@
 module Service::Trello
+  BOARDS = { 'KNOWLEDGE' => 'Y1hS3CKr', 'PROCESS' => 'bRBjLqcF' }
 
-  def self.board_backup
-    boards = Trello::Board.all
+  def self.boards_backup (boards)
+    backup_results = {}
 
-    boards.each do |board|
+    boards.each do |key, value|
+      trello_board = Trello::Board.find(value)
+
       board_backup = TrelloBackup.new(
-                      board: board.name,
-                      data: get_board_json(board.id, board.url, board.name))
-      board_backup.save
+                      board: trello_board.name,
+                      data: get_board_json(trello_board.id,
+                                           trello_board.url,
+                                           trello_board.name))
+
+      result = board_backup.save
+
+      backup_results.merge!(board_backup.board => result)
     end
+
+    backup_results
   end
 
   def self.get_board_json(id, url, name)
