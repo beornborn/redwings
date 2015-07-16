@@ -2,6 +2,12 @@ class TrelloBackupsController < ApplicationController
 
   def index
     @trello_backups = TrelloBackup.all
+
+    boards_names = []
+
+    (Service::Trello::BOARDS).each { |key, value| boards_names << key }
+
+    @boards_to_backup = boards_names.join(", ")
   end
 
   def create
