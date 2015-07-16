@@ -1,11 +1,12 @@
 module Service::Trello
+
   def self.board_backup
     boards = Trello::Board.all
 
     boards.each do |board|
-      board_backup = TrelloBackup.new
-                      (board: board.name,
-                       data: get_board_json(board.id, board.url, board.name))
+      board_backup = TrelloBackup.new(
+                      board: board.name,
+                      data: get_board_json(board.id, board.url, board.name))
       board_backup.save
     end
   end
