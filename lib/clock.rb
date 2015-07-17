@@ -4,5 +4,5 @@ require 'clockwork'
 
 include Clockwork
 
-every(3.hour, 'User updating from Slack...') { User.update_users }
+every(3.hour, 'Users updating from Slack...') { User.update_users }
 
