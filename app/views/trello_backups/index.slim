@@ -1,4 +1,6 @@
-= button_to "Back up Trello boards: #{@boards_to_backup.join(', ')}", trello_backups_path, action: "create", class: 'btn btn-primary', id: 'backup'
+= button_to "Back up Trello boards: #{@boards_to_backup.join(', ')}", trello_backups_path, action: "create",
+                       class: 'btn btn-primary',
+                       id: 'backup-button'
 .panel.panel-default
   .panel-heading
     strong Trello Backups

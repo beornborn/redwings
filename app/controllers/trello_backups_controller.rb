@@ -1,25 +1,15 @@
 class TrelloBackupsController < ApplicationController
 
   def index
-    @trello_backups = TrelloBackup.all
+    @trello_backups = TrelloBackup.all.order(created_at: :desc)
 
-    @boards_to_backup = []
-
-    Service::Trello::BOARDS.each { |board| @boards_to_backup << board.name }
+    @boards_to_backup = Trello::Board.all.map { |board| board.name }
   end
 
   def create
-    backup_results = Service::Trello.boards_backup
+    Service::Trello.boards_backup
 
-    backup_results.each do |name, result|
-      if result == true
-        flash[:success] ||= ''
-        flash[:success] << "#{name}'s backup succeed. "
-      else
-        flash[:danger]  ||= ''
-        flash[:danger] << "#{name}'s backup failed. "
-      end
-    end
+    flash[:success] = 'Backup successful!'
 
     redirect_to trello_backups_path
   end

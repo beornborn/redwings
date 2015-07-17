@@ -1,5 +1,5 @@
 tr
-  td = trello_backup.name
+  td = trello_backup.board
   td = distance_of_time_in_words_to_now(trello_backup.created_at).to_s + " ago"
   td = link_to 'destroy', trello_backup_path(trello_backup),
                             method: :delete,
