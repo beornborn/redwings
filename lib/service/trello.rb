@@ -1,27 +1,22 @@
 module Service::Trello
-  BOARDS = { 'KNOWLEDGE' => 'Y1hS3CKr', 'PROCESS' => 'bRBjLqcF' }
+  BOARDS = Trello::Board.all
 
-  def self.boards_backup (boards)
+  def self.boards_backup
     backup_results = {}
 
-    boards.each do |key, value|
-      trello_board = Trello::Board.find(value)
-
-      board_backup = TrelloBackup.new(
-                      board: trello_board.name,
-                      data: get_board_json(trello_board.id,
-                                           trello_board.url,
-                                           trello_board.name))
+    BOARDS.each do |board|
+      board_backup = TrelloBackup.new(name: board.name,
+                                      data: get_board_json(board.id))
 
       result = board_backup.save
 
-      backup_results.merge!(board_backup.board => result)
+      backup_results.merge!(board_backup.name => result)
     end
 
     backup_results
   end
 
-  def self.get_board_json(id, url, name)
+  def self.get_board_json(id)
     endpoint = "https://api.trello.com/1/boards/#{id}"
 
     uri = Addressable::URI.parse(endpoint)

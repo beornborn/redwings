@@ -3,23 +3,21 @@ class TrelloBackupsController < ApplicationController
   def index
     @trello_backups = TrelloBackup.all
 
-    boards_names = []
+    @boards_to_backup = []
 
-    (Service::Trello::BOARDS).each { |key, value| boards_names << key }
-
-    @boards_to_backup = boards_names.join(", ")
+    Service::Trello::BOARDS.each { |board| @boards_to_backup << board.name }
   end
 
   def create
-    backup_results = Service::Trello.boards_backup(Service::Trello::BOARDS)
+    backup_results = Service::Trello.boards_backup
 
-    backup_results.each do |key, value|
-      if value == true
+    backup_results.each do |name, result|
+      if result == true
         flash[:success] ||= ''
-        flash[:success] << "#{key}'s backup succeed. "
+        flash[:success] << "#{name}'s backup succeed. "
       else
         flash[:danger]  ||= ''
-        flash[:danger] << "#{key}'s backup failed. "
+        flash[:danger] << "#{name}'s backup failed. "
       end
     end
 
