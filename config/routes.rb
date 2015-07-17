@@ -13,8 +13,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users
-  resources :user_sessions
-  resources :password_resets
+  resources :users, only: [:index, :update]
+  resources :user_sessions, only: [:new, :create, :destroy]
+  resources :password_resets, only: [:new, :create, :edit, :update]
+  resources :trello_backups, only: [:index, :create, :destroy]
 end
 
