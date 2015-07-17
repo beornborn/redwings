@@ -1,7 +1,5 @@
 class User < ActiveRecord::Base
 
-  belongs_to :project
-
   before_save :user_correction
 
   authenticates_with_sorcery!
