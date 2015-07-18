@@ -32,6 +32,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.safe_parse(date)
+    Date.parse(date.to_s).strftime '%e %B %Y'
+  rescue ArgumentError
+    nil
+  end
+
   private
 
   def user_correction

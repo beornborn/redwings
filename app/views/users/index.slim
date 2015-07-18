@@ -15,7 +15,7 @@
         - @users.each do |user|
           tr
             td = user.username
-            td = Date.parse(user.started_at.to_s).strftime '%e %B %Y'
+            td = User.safe_parse(user.started_at)
 
 .row#deleted_users
   .col-md-7
