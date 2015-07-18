@@ -33,9 +33,7 @@ class User < ActiveRecord::Base
   end
 
   def self.safe_parse(date)
-    Date.parse(date.to_s).strftime '%e %B %Y'
-  rescue ArgumentError
-    nil
+    date.present? && date.strftime('%e %B %Y')
   end
 
   private
