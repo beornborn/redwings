@@ -5,8 +5,8 @@ class UsersController < ApplicationController
   attr_accessor :skip_password_validation
 
   def index
-    @users = User.admin(false).deleted(false)
-    @users_deleted = User.admin(false).deleted(true)
+    @users = User.admin(false).deleted(false).order(created_at: :desc)
+    @users_deleted = User.admin(false).deleted(true).order(created_at: :desc)
   end
 
   def update

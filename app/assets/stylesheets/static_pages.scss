@@ -52,20 +52,16 @@ body {
   .goodbye-reason {
     word-break: break-all;
   }
-  .username {
-    width: 1%;
+  .table tbody>tr>td{
+    vertical-align: middle;
   }
+}
+
+.username {
+  width: 1%;
 }
 
 .table th, .table td {
   border-top: none !important;
-}
-
-.table tbody>tr>td{
-    vertical-align: middle;
-}
-
-th{
-  text-align:center;
 }
 

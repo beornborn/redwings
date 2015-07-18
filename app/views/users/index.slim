@@ -1,5 +1,5 @@
-.row
-  .col-md-3
+.row#users
+  .col-md-4
     = button_to update_users_services_slack_index_path, { class: 'btn btn-sm btn-info' } do
       i.fa.fa-refresh
         span  Update users
@@ -9,14 +9,18 @@
         tr
           td
             h3 Users in project
+          td
+            h3 Started at
       tbody
         - @users.each do |user|
           tr
             td = user.username
-.row
+            td = user.started_at.strftime('%e %B %Y')
+
+.row#deleted_users
   .col-md-7
 
-    table.table#deleted_users
+    table.table
       thead
         tr
           td
