@@ -32,10 +32,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.safe_parse(date)
-    date.present? && date.strftime('%e %B %Y')
-  end
-
   private
 
   def user_correction
