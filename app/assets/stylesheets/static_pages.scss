@@ -36,12 +36,32 @@ body {
   margin: 20px 0;
 }
 
-.divider {
-  height: 1px;
-  width:100%;
-  display:block;
-  margin: 18px 0;
-  overflow: hidden;
-  background-color: #e5e5e5;
+#deleted_users {
+  .form-inline {
+    display: none;
+  }
+  textarea.form-control {
+    height: auto;
+    width: 250px !important;
+    margin-right: 7px;
+  }
+  .btn-success {
+    margin-right: 7px;
+    margin-top: 0px;
+  }
+  .goodbye-reason {
+    word-break: break-all;
+  }
+  .table tbody>tr>td{
+    vertical-align: middle;
+  }
+}
+
+.username {
+  width: 1%;
+}
+
+.table th, .table td {
+  border-top: none !important;
 }
 

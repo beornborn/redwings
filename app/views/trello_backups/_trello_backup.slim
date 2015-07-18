@@ -1,0 +1,8 @@
+tr
+  td = trello_backup.board
+  td = distance_of_time_in_words_to_now(trello_backup.created_at).to_s + " ago"
+  td = link_to 'destroy', trello_backup_path(trello_backup),
+                            method: :delete,
+                            data: { confirm: "Are you shure?" },
+                            class: 'btn btn-small btn-danger'
+  td = link_to 'restore this backup', '#', class: 'btn btn-small btn-success'

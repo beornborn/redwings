@@ -1,15 +1,17 @@
 class User < ActiveRecord::Base
 
-  before_save :user_correction
+  before_validation :user_correction
 
   authenticates_with_sorcery!
+
+  attr_accessor :skip_password_validation
 
   validates :username,   presence: true, length: { maximum: 50 }, format: { with: /[a-z]*\.[a-z]*/ }
   validates :first_name, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
   validates :last_name,  presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
   validates :email,      presence: true, uniqueness: true
-  validates :password, confirmation: true, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
+  validates :password, confirmation: true, length: { minimum: 6 }, unless: :skip_password_validation
+  validates :password_confirmation, presence: true, unless: :skip_password_validation
 
   scope :admin,   -> (admin)   { where admin:   admin }
   scope :deleted, -> (deleted) { where deleted: deleted }
@@ -21,12 +23,12 @@ class User < ActiveRecord::Base
       user = User.find_or_initialize_by(email: slack_user['email'])
 
       if user.new_record?
-        password_params = { password: 'redwings', password_confirmation: 'redwings' }
-        slack_user.merge! password_params
+        User.create! slack_user.merge(password: 'redwings', password_confirmation: 'redwings', started_at: Time.now)
+      else
+        user.attributes = slack_user
+        user.skip_password_validation = true
+        user.save
       end
-
-      user.attributes = slack_user
-      user.save validate: false
     end
   end
 

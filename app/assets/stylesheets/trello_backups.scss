@@ -1,0 +1,16 @@
+// Place all the styles related to the trello_backups controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#backup-button {
+  margin-bottom: 20px;
+}
+.panel-heading {
+  font-size: 1.4em;
+  text-align: center;
+  text-transform: uppercase;
+}
+#trello-backups td, th {
+  text-align: center;
+}
+
