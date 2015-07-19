@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  belongs_to :project
+
   before_validation :user_correction
 
   authenticates_with_sorcery!

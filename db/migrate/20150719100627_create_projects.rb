@@ -8,6 +8,8 @@ class CreateProjects < ActiveRecord::Migration
       t.timestamps null: false
     end
 
+    add_index :projects, :data, using: :gin
+
     Project.create name: 'Academy'
     Project.create name: 'Redwings'
   end

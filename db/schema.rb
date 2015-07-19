@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20150719100627) do
     t.datetime "updated_at",              null: false
   end
 
+  add_index "projects", ["data"], name: "index_projects_on_data", using: :gin
+
   create_table "trello_backups", force: :cascade do |t|
     t.string   "board"
     t.text     "data"
