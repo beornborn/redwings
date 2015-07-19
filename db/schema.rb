@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716080425) do
+ActiveRecord::Schema.define(version: 20150719100627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "name"
+    t.jsonb    "data",       default: {}
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
   create_table "trello_backups", force: :cascade do |t|
     t.string   "board"
@@ -48,3 +55,4 @@ ActiveRecord::Schema.define(version: 20150716080425) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
 
 end
+
