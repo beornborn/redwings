@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  belongs_to :project
+  has_and_belongs_to_many :projects
 
   before_validation :user_correction
 
