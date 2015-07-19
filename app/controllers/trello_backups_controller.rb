@@ -2,8 +2,6 @@ class TrelloBackupsController < ApplicationController
 
   def index
     @trello_backups = TrelloBackup.all.order(created_at: :desc)
-
-    @boards_to_backup = Trello::Board.all.map(&:name)
   end
 
   def create
