@@ -63,7 +63,11 @@ end
 group :production do
   # Makes running your Rails app easier. For Heroku.
   gem 'rails_12factor'
+
   # Puma is a simple, fast, threaded, and highly concurrent HTTP 1.1 server for Ruby/Rack applications. Read more: https://github.com/puma/puma
   gem 'puma'
+
+  # Clockwork - a clock process to replace cron. Read more: https://github.com/tomykaira/clockwork
+  gem 'clockwork'
 end
 
