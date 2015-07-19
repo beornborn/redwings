@@ -36,6 +36,22 @@ body {
   margin: 20px 0;
 }
 
+#users {
+  img {
+    margin-right: 10px;
+    height: 42px;
+  }
+  .email {
+    font-style: italic;
+    color: gray;
+  }
+  .progress {
+    height: 10px;
+    margin-top: 8px;
+    margin-bottom: 0px;
+  }
+}
+
 #deleted_users {
   .form-inline {
     display: none;
