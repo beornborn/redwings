@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
 
+  has_many :project_users
+  has_many :projects, through: :project_users
+
   before_validation :user_correction
 
   authenticates_with_sorcery!
