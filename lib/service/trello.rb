@@ -77,13 +77,7 @@ module Service::Trello
   def self.add_user_to_organization
     all_organizations.each do |organization|
 
-      id = organization[:id]
-
-      endpoint = "https://api.trello.com/1/organizations/#{id}/members"
-
       # https://trello.com/1/authorize?key=32000478b8ee948f67b044b476ea1df0&response_type=token&expiration=never
-
-      # 0aee69e0df6aff5419778642449032532534d3ce8a260264c29deff702bb980f
 
       token_uri = Addressable::URI.parse("https://trello.com/1/authorize")
 
@@ -95,7 +89,10 @@ module Service::Trello
 
       token = RestClient.get token_uri
 
-      puts token
+
+      id = organization[:id]
+
+      endpoint = "https://api.trello.com/1/organizations/#{id}/members"
 
       uri = Addressable::URI.parse(endpoint)
 
@@ -109,8 +106,6 @@ module Service::Trello
       RestClient.put uri.to_s, query_values
     end
   end
-
-
 
 end
 
