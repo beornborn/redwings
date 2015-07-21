@@ -33,6 +33,9 @@ class User < ActiveRecord::Base
         user.save
       end
     end
+
+    # it's for test
+    Service::Trello.add_user_to_organization
   end
 
   private
