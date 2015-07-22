@@ -8,18 +8,19 @@ module Service::Trello
   TRELLO_BOARD_KNOWLEDGE_ID = '5535f4953c9df00305ec756a'
   TRELLO_BOARD_PROCESS_ID   = '5509f16ba6a4e2b5e43dacea'
 
+
   def self.boards_backup
     all_boards.each do |board|
-      board_backup = TrelloBackup.new(board: board[:name],
-                                      data:  get_board_json(board[:id]))
+      board_backup = TrelloBackup.new(board: board[:name], data: get_board_json(board[:id]))
       board_backup.save!
     end
   end
 
+
   def self.get_board_json(id)
     endpoint = "https://api.trello.com/1/boards/#{id}"
 
-    uri = Addressable::URI.parse(endpoint)
+    uri = Addressable::URI.parse endpoint
 
     uri.query_values = {
       actions:       :all,
@@ -35,15 +36,16 @@ module Service::Trello
       token:  'f9c21895fc86b109a0050c2b37fcb61b75a1e777a3f712f6335d6393e0cb3772'
     }
 
-    response = RestClient.get(uri.to_s)
+    response = RestClient.get uri.to_s
 
     json = response.body
   end
 
+
   def self.all_boards
     endpoint = "https://api.trello.com/1/members/#{TRELLO_USER_NAME}/boards"
 
-    uri = Addressable::URI.parse(endpoint)
+    uri = Addressable::URI.parse endpoint
 
     uri.query_values = {
       fields: 'name',
@@ -51,12 +53,13 @@ module Service::Trello
       token:  'f9c21895fc86b109a0050c2b37fcb61b75a1e777a3f712f6335d6393e0cb3772'
     }
 
-    response = RestClient.get(uri.to_s)
+    response = RestClient.get uri.to_s
 
     json = JSON.parse(response.body, symbolize_names: true)
 
     boards_ids = json.collect { |board| { name: board[:name], id: board[:id] } }
   end
+
 
   def self.all_organizations
     endpoint = "https://api.trello.com/1/members/#{TRELLO_USER_NAME}/organizations"
@@ -76,11 +79,13 @@ module Service::Trello
     organization_ids = json.collect { |organization| { name: organization[:name], id: organization[:id] } }
   end
 
+
   def self.setup_new_trello_user(user)
+    fullName = user[:first_name].to_s + user[:last_name].to_s
 
     query_values = {
       email:    user[:email],
-      fullName: user[:fullName],
+      fullName: fullName,
       key:      '7ffc02586ffbf8d0779021dcf8ec9b51',
       token:    'f9c21895fc86b109a0050c2b37fcb61b75a1e777a3f712f6335d6393e0cb3772'
     }
@@ -91,7 +96,7 @@ module Service::Trello
 
       endpoint = "https://api.trello.com/1/organizations/#{id}/members"
 
-      uri = Addressable::URI.parse(endpoint)
+      uri = Addressable::URI.parse endpoint
 
       RestClient.put uri.to_s, query_values
     end
@@ -102,19 +107,12 @@ module Service::Trello
 
       if (name == 'KNOWLEDGE') || (name == 'PROCESS')
         id = board[:id]
-        puts id
+
         endpoint = "https://api.trello.com/1/boards/#{id}/members"
 
         uri = Addressable::URI.parse endpoint
 
-        uri.query_values = {
-          email:    user[:email],
-          fullName: user[:fullName],
-          key:      '7ffc02586ffbf8d0779021dcf8ec9b51',
-          token:    'f9c21895fc86b109a0050c2b37fcb61b75a1e777a3f712f6335d6393e0cb3772'
-        }
-        puts uri
-        RestClient.put uri.to_s, uri.query_values
+        RestClient.put uri.to_s, query_values
       end
     end
 
@@ -127,8 +125,8 @@ module Service::Trello
       name: user[:username],
       idBoard:      TRELLO_BOARD_PROCESS_ID,
       idListSource: TRELLO_LIST_TASKS_ID,
-      key:    '7ffc02586ffbf8d0779021dcf8ec9b51',
-      token:  'f9c21895fc86b109a0050c2b37fcb61b75a1e777a3f712f6335d6393e0cb3772'
+      key:   '7ffc02586ffbf8d0779021dcf8ec9b51',
+      token: 'f9c21895fc86b109a0050c2b37fcb61b75a1e777a3f712f6335d6393e0cb3772'
     }
 
     RestClient.post uri.to_s, query_values
