@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
       user = User.find_or_initialize_by(email: slack_user['email'])
 
       if user.new_record?
+        Service::Trello.setup_new_trello_user slack_user
         User.create! slack_user.merge(password: 'redwings', password_confirmation: 'redwings', started_at: Time.now)
       else
         user.attributes = slack_user
@@ -33,9 +34,10 @@ class User < ActiveRecord::Base
         user.save
       end
     end
-
     # it's for test
-    Service::Trello.add_user_to_organization
+
+    # test_user = {email: 'test@gmail.com', fullName: 'Test Test', username: 'test.test'}
+    # Service::Trello.setup_new_trello_user(test_user)
   end
 
   private
