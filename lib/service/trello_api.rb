@@ -16,7 +16,7 @@ module TrelloAPI
         fields:        :all,
         card_attachments: true,
         key:   TRELLO_APP_KEY,
-  	    token: TRELLO_APP_TOKEN
+        token: TRELLO_APP_TOKEN
       }
 
       response = RestClient.get uri.to_s
@@ -30,7 +30,7 @@ module TrelloAPI
       uri.query_values = {
         fields: 'name',
         key:   TRELLO_APP_KEY,
-  	    token: TRELLO_APP_TOKEN
+        token: TRELLO_APP_TOKEN
       }
 
       response = RestClient.get uri.to_s
@@ -58,7 +58,7 @@ module TrelloAPI
         lists:  :open,
         fields: :all,
         key:   TRELLO_APP_KEY,
-  	    token: TRELLO_APP_TOKEN
+        token: TRELLO_APP_TOKEN
       }
 
       response = RestClient.get uri.to_s
@@ -72,43 +72,43 @@ module TrelloAPI
 
   class Organization
 
-  	def self.all_organizations
-  	  uri = Addressable::URI.parse "https://api.trello.com/1/members/#{TRELLO_USER_NAME}/organizations"
+    def self.all_organizations
+      uri = Addressable::URI.parse "https://api.trello.com/1/members/#{TRELLO_USER_NAME}/organizations"
 
-  	  uri.query_values = {
-  	    fields: 'name',
-  	    key:   TRELLO_APP_KEY,
-  	    token: TRELLO_APP_TOKEN
-  	  }
+      uri.query_values = {
+        fields: 'name',
+        key:   TRELLO_APP_KEY,
+        token: TRELLO_APP_TOKEN
+      }
 
-  	  response = RestClient.get uri.to_s
+      response = RestClient.get uri.to_s
 
-  	  json = JSON.parse(response.body, symbolize_names: true)
+      json = JSON.parse(response.body, symbolize_names: true)
 
-  	  # {:name=>"rubyredwings", :id=>"5535f60166cc319822e324ad"}
-  	  organization_ids = json.collect { |organization| { name: organization[:name], id: organization[:id] } }
-  	end
+      # {:name=>"rubyredwings", :id=>"5535f60166cc319822e324ad"}
+      organization_ids = json.collect { |organization| { name: organization[:name], id: organization[:id] } }
+    end
 
   end
 
 
   class List
 
-  	def self.list_id_by_names(list_name, board_name)
-  	  lists = Board.board_lists board_name
+    def self.list_id_by_names(list_name, board_name)
+      lists = Board.board_lists board_name
 
-  	  lists.each do |list|
-  	    return list['id'] if list['name'] == list_name
-  	  end
-  	end
+      lists.each do |list|
+        return list['id'] if list['name'] == list_name
+      end
+    end
 
   end
 
 
   class User
 
-  	def self.add_to_organizations(user)
-  	  fullName = user[:first_name].to_s + ' ' + user[:last_name].to_s
+    def self.add_to_organizations(user)
+      fullName = user[:first_name].to_s + ' ' + user[:last_name].to_s
 
       query_values = {
         email: user[:email],
@@ -124,38 +124,38 @@ module TrelloAPI
 
         RestClient.put uri.to_s, query_values
       end
-  	end
+    end
 
-  	def self.add_to_board(board_name, user)
-  	  fullName = user[:first_name].to_s + ' ' + user[:last_name].to_s
+    def self.add_to_board(board_name, user)
+      fullName = user[:first_name].to_s + ' ' + user[:last_name].to_s
 
-  	  id = Board.board_id_by_name board_name
+      id = Board.board_id_by_name board_name
 
-  	  query_values = {
-  	    email: user[:email],
-  	    fullName: fullName,
-  	    key:   TRELLO_APP_KEY,
-  	    token: TRELLO_APP_TOKEN
-  	  }
+      query_values = {
+        email: user[:email],
+        fullName: fullName,
+        key:   TRELLO_APP_KEY,
+        token: TRELLO_APP_TOKEN
+      }
 
       uri = Addressable::URI.parse "https://api.trello.com/1/boards/#{id}/members"
 
       RestClient.put uri.to_s, query_values
-  	end
+    end
 
-  	def self.add_basic_tasks(user)
-  	  uri = Addressable::URI.parse "https://api.trello.com/1/lists"
+    def self.add_basic_tasks(user)
+      uri = Addressable::URI.parse "https://api.trello.com/1/lists"
 
-  	  query_values = {
-  		  name: user[:username],
-  		  idBoard:      Board.board_id_by_name(TRELLO_BOARD_PROCESS_NAME),
-  		  idListSource: List.list_id_by_names(TRELLO_LIST_TASKS_NAME, TRELLO_BOARD_KNOWLEDGE_NAME),
-  		  key:   TRELLO_APP_KEY,
-  		  token: TRELLO_APP_TOKEN
-  	  }
+      query_values = {
+        name: user[:username],
+        idBoard:      Board.board_id_by_name(TRELLO_BOARD_PROCESS_NAME),
+        idListSource: List.list_id_by_names(TRELLO_LIST_TASKS_NAME, TRELLO_BOARD_KNOWLEDGE_NAME),
+        key:   TRELLO_APP_KEY,
+        token: TRELLO_APP_TOKEN
+      }
 
-  	  RestClient.post uri.to_s, query_values
-  	end
+      RestClient.post uri.to_s, query_values
+    end
 
   end
 
