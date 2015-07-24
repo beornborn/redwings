@@ -13,7 +13,7 @@ module Service::Trello
   end
 
 
-  def self.setup_trello_user(user)
+  def self.setup_user(user)
   	TrelloAPI::User.add_to_organizations user
 
     TrelloAPI::User.add_to_board TRELLO_BOARD_KNOWLEDGE_NAME, user
