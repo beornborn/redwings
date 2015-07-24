@@ -6,8 +6,8 @@ include TrelloAPI
 module Service::Trello
 
   def self.boards_backup
-    TrelloAPI::Board.all_boards.each do |board|
-      board_backup = TrelloBackup.new(board: board[:name], data: TrelloAPI::Board.board_data_by_id(board[:id]))
+    TrelloAPI::Board.all.each do |board|
+      board_backup = TrelloBackup.new(board: board[:name], data: TrelloAPI::Board.data_by_id(board[:id]))
       board_backup.save!
     end
   end
