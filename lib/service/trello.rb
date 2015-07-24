@@ -1,25 +1,33 @@
-require 'rest-client'
-require 'addressable/uri'
+require_relative './TrelloApi/Organization.rb'
+require_relative './TrelloApi/Board.rb'
+require_relative './TrelloApi/List.rb'
+require_relative './TrelloApi/User.rb'
 
-include TrelloAPI
+TRELLO_USER_NAME       = 'redwingsruby'
+TRELLO_LIST_TASKS_NAME = 'tasks'
 
-module Service::Trello
+TRELLO_BOARD_PROCESS_NAME   = 'PROCESS'
+TRELLO_BOARD_KNOWLEDGE_NAME = 'KNOWLEDGE'
 
-  def self.boards_backup
-    TrelloAPI::Board.all.each do |board|
-      board_backup = TrelloBackup.new(board: board[:name], data: TrelloAPI::Board.data_by_id(board[:id]))
-      board_backup.save!
+module Service
+
+  module Trello
+
+    def self.boards_backup
+      TrelloApi::Board.all.each do |board|
+        board_backup = TrelloBackup.create!(board: board[:name], data: TrelloApi::Board.data_by_id(board[:id]))
+      end
     end
-  end
 
+    def self.setup_user(user)
+      TrelloApi::User.add_to_organizations user
 
-  def self.setup_user(user)
-    TrelloAPI::User.add_to_organizations user
+      TrelloApi::User.add_to_board TRELLO_BOARD_KNOWLEDGE_NAME, user
+      TrelloApi::User.add_to_board TRELLO_BOARD_PROCESS_NAME,   user
 
-    TrelloAPI::User.add_to_board TRELLO_BOARD_KNOWLEDGE_NAME, user
-    TrelloAPI::User.add_to_board TRELLO_BOARD_PROCESS_NAME,   user
+      TrelloApi::User.add_basic_tasks user
+    end
 
-    TrelloAPI::User.add_basic_tasks user
   end
 
 end
