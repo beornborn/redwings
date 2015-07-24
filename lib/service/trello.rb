@@ -14,7 +14,7 @@ module Service::Trello
 
 
   def self.setup_user(user)
-  	TrelloAPI::User.add_to_organizations user
+    TrelloAPI::User.add_to_organizations user
 
     TrelloAPI::User.add_to_board TRELLO_BOARD_KNOWLEDGE_NAME, user
     TrelloAPI::User.add_to_board TRELLO_BOARD_PROCESS_NAME,   user
