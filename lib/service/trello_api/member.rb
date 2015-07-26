@@ -1,16 +1,13 @@
-require 'rest-client'
-require 'addressable/uri'
+module Service::TrelloApi
 
-module TrelloApi
+  class Member
 
-  class Organization
-
-    def self.all
-      uri = Addressable::URI.parse "https://api.trello.com/1/members/#{TRELLO_USER_NAME}/organizations"
+    def self.organizations(username)
+      uri = Addressable::URI.parse "https://api.trello.com/1/members/#{username}/organizations"
 
       uri.query_values = {
         fields: 'name',
-        key:   TRELLO_APP_KEY,
+        key: TRELLO_APP_KEY,
         token: TRELLO_APP_TOKEN
       }
 

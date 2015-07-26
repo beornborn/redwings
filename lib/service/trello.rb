@@ -1,31 +1,89 @@
-require_relative './TrelloApi/Organization.rb'
-require_relative './TrelloApi/Board.rb'
-require_relative './TrelloApi/List.rb'
-require_relative './TrelloApi/User.rb'
-
-TRELLO_USER_NAME       = 'redwingsruby'
-TRELLO_LIST_TASKS_NAME = 'tasks'
-
-TRELLO_BOARD_PROCESS_NAME   = 'PROCESS'
-TRELLO_BOARD_KNOWLEDGE_NAME = 'KNOWLEDGE'
-
 module Service
 
   module Trello
 
+    USER_NAME = 'redwingsruby'
+    LIST_TASKS = 'tasks'
+    BOARD_PROCESS  = 'PROCESS'
+    BOARD_KNOWLEDGE = 'KNOWLEDGE'
+
     def self.boards_backup
-      TrelloApi::Board.all.each do |board|
-        board_backup = TrelloBackup.create!(board: board[:name], data: TrelloApi::Board.data_by_id(board[:id]))
+      TrelloApi::Board.all(USER_NAME).each do |board|
+        board_backup = TrelloBackup.create!(board: board[:name], data: TrelloApi::Board.data(board[:id]))
       end
     end
 
     def self.setup_user(user)
-      TrelloApi::User.add_to_organizations user
 
-      TrelloApi::User.add_to_board TRELLO_BOARD_KNOWLEDGE_NAME, user
-      TrelloApi::User.add_to_board TRELLO_BOARD_PROCESS_NAME,   user
+      email = user[:email]
+      fullName = user[:first_name].to_s + ' ' + user[:last_name].to_s
 
-      TrelloApi::User.add_basic_tasks user
+      # add user to organization
+      options = {
+        username: USER_NAME,
+        fullName: fullName,
+      }
+
+      TrelloApi::Organization.add_user(email, options)
+
+
+      # add user to board KNOWLEDGE
+      board = board_by_name(BOARD_KNOWLEDGE)
+      idBoard = board[:id]
+
+      options = {
+        idBoard: idBoard,
+        fullName: fullName
+      }
+
+      TrelloApi::Board.add_user(email, options)
+
+
+      # add user to board PROCESS
+      board = board_by_name(BOARD_PROCESS)
+      idBoard = board[:id]
+
+      options = {
+        idBoard: idBoard,
+        fullName: fullName
+      }
+
+      TrelloApi::Board.add_user(email, options)
+
+
+      # set basic tasks for user
+      board = board_by_name(BOARD_PROCESS)
+      idBoard = board[:id]
+
+      list = list_by_names(LIST_TASKS, BOARD_KNOWLEDGE)
+      idListSource = list['id']
+
+      options = {
+        name: user[:username],
+        idBoard: idBoard,
+        idListSource: idListSource
+      }
+
+      TrelloApi::List.add_list_to_board options
+    end
+
+    private
+
+    def self.board_by_name(board_name)
+      TrelloApi::Board.all(USER_NAME).each do |board|
+        return board if board[:name] == board_name
+      end
+    end
+
+    def self.list_by_names(list_name, board_name)
+      board = board_by_name board_name
+      board_id = board[:id]
+
+      lists = TrelloApi::Board.lists board_id
+
+      lists.each do |list|
+        return list if list['name'] == list_name
+      end
     end
 
   end
