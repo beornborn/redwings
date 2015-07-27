@@ -20,6 +20,7 @@ module Service::TrelloApi
 
       response = RestClient.get uri.to_s
 
+      # {:id=>"55b2621d76834b6aa079134e", :name=>"KNOWLEDGE-2015-07-24 11:49:38 +0300", :desc=>"", :descData=>nil, :closed=>true, :idOrganization=>nil, :invited=>false, :pinned=>false, :starred=>false, :url=>"https://trello.com/b/pR9Z53X5/knowledge-2015-07-24-11-49-38-0300", ..
       JSON.parse response.body, symbolize_names: true
     end
 
