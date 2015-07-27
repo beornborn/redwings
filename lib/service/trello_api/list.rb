@@ -1,5 +1,4 @@
 module Service::TrelloApi
-
   class List
 
     def self.add_list_to_board(new_list_name, board_id, list_source_id)
@@ -17,6 +16,5 @@ module Service::TrelloApi
     end
 
   end
-
 end
 

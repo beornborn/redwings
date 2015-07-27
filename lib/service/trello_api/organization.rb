@@ -1,5 +1,4 @@
 module Service::TrelloApi
-
   class Organization
 
     def self.add_user(email, fullName, organization_id)
@@ -17,6 +16,5 @@ module Service::TrelloApi
     end
 
   end
-
 end
 

@@ -1,5 +1,4 @@
 module Service::TrelloApi
-
   class Member
 
     def self.organizations(username)
@@ -13,7 +12,7 @@ module Service::TrelloApi
 
       response = RestClient.get uri.to_s
 
-      # {:id=>"5535f60166cc319822e324ad", :name=>"rubyredwings", :displayName=>"RUBY", ..
+      # {:id=>"5535f60166cc319822e324ad", :name=>"rubyredwings", :displayName=>"RUBY", :desc=>"", :descData=>{:emoji=>{}}, :idBoards=>["5535f4953c9df00305ec756a",..
       JSON.parse response.body, symbolize_names: true
     end
 
@@ -33,6 +32,5 @@ module Service::TrelloApi
     end
 
   end
-
 end
 

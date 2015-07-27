@@ -1,5 +1,4 @@
 module Service::TrelloApi
-
   class Board
 
     def self.data(board_id)
@@ -56,6 +55,5 @@ module Service::TrelloApi
     end
 
   end
-
 end
 
