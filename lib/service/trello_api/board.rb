@@ -41,11 +41,11 @@ module Service::TrelloApi
       JSON.parse response.body, symbolize_names: true
     end
 
-    def self.add_user(email, fullName, board_id)
+    def self.add_user(email, full_name, board_id)
 
       query_values = {
         email:    email,
-        fullName: fullName,
+        fullName: full_name,
         key:   TRELLO_APP_KEY,
         token: TRELLO_APP_TOKEN
       }

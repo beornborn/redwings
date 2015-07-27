@@ -28,24 +28,20 @@ module Service
       TrelloApi::Member.organizations(USER_NAME).each do |organization|
         organization_id = organization[:id]
 
-        puts organization
-
-        puts organization_id
-
-        #TrelloApi::Organization.add_user(email, full_name, organization_id)
+        TrelloApi::Organization.add_user(email, full_name, organization_id)
       end
 
       # add user to board KNOWLEDGE
       board    = board_by_name(BOARD_KNOWLEDGE)
       board_id = board[:id]
 
-      #TrelloApi::Board.add_user(email, full_name, board_id)
+      TrelloApi::Board.add_user(email, full_name, board_id)
 
       # add user to board PROCESS
       board    = board_by_name(BOARD_PROCESS)
       board_id = board[:id]
 
-      #TrelloApi::Board.add_user(email, full_name, board_id)
+      TrelloApi::Board.add_user(email, full_name, board_id)
 
       # set basic tasks for user
       board    = board_by_name(BOARD_PROCESS)
@@ -54,7 +50,7 @@ module Service
       list = list_by_names(LIST_TASKS, BOARD_KNOWLEDGE)
       list_source_id = list[:id]
 
-      #TrelloApi::List.add_list_to_board(new_list_name, board_id, list_source_id)
+      TrelloApi::List.add_list_to_board(new_list_name, board_id, list_source_id)
     end
 
     private
