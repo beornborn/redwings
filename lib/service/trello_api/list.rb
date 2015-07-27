@@ -2,14 +2,14 @@ module Service::TrelloApi
 
   class List
 
-    def self.add_list_to_board(options)
-      uri = Addressable::URI.parse "https://api.trello.com/1/lists"
+    def self.add_list_to_board(new_list_name, board_id, list_source_id)
+      uri = Addressable::URI.parse(API_PATH + "/lists")
 
       query_values = {
-        name: options[:name],
-        idBoard: options[:idBoard],
-        idListSource: options[:idListSource],
-        key: TRELLO_APP_KEY,
+        name:    new_list_name,
+        idBoard: board_id,
+        idListSource: list_source_id,
+        key:   TRELLO_APP_KEY,
         token: TRELLO_APP_TOKEN
       }
 

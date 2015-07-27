@@ -1,92 +1,76 @@
 module Service
-
   module Trello
 
+    API_PATH = 'https://api.trello.com/1'
     USER_NAME = 'redwingsruby'
     LIST_TASKS = 'tasks'
     BOARD_PROCESS  = 'PROCESS'
     BOARD_KNOWLEDGE = 'KNOWLEDGE'
 
     def self.boards_backup
-      TrelloApi::Board.all(USER_NAME).each do |board|
+      TrelloApi::Member.boards(USER_NAME).each do |board|
         board_backup = TrelloBackup.create!(board: board[:name], data: TrelloApi::Board.data(board[:id]))
       end
     end
 
-    def self.setup_user(user)
 
+    def self.setup_user(user)
       email = user[:email]
-      fullName = user[:first_name].to_s + ' ' + user[:last_name].to_s
+      full_name = user[:first_name] + ' ' + user[:last_name]
+      new_list_name = user[:username]
+
+      if full_name.empty?
+        full_name = 'Noname'
+        new_list_name = 'Noname'
+      end
 
       # add user to organization
-      options = {
-        username: USER_NAME,
-        fullName: fullName,
-      }
+      TrelloApi::Member.organizations(USER_NAME).each do |organization|
+        organization_id = organization[:id]
 
-      TrelloApi::Organization.add_user(email, options)
+        puts organization
 
+        puts organization_id
+
+        #TrelloApi::Organization.add_user(email, full_name, organization_id)
+      end
 
       # add user to board KNOWLEDGE
-      board = board_by_name(BOARD_KNOWLEDGE)
-      idBoard = board[:id]
+      board    = board_by_name(BOARD_KNOWLEDGE)
+      board_id = board[:id]
 
-      options = {
-        idBoard: idBoard,
-        fullName: fullName
-      }
-
-      TrelloApi::Board.add_user(email, options)
-
+      #TrelloApi::Board.add_user(email, full_name, board_id)
 
       # add user to board PROCESS
-      board = board_by_name(BOARD_PROCESS)
-      idBoard = board[:id]
+      board    = board_by_name(BOARD_PROCESS)
+      board_id = board[:id]
 
-      options = {
-        idBoard: idBoard,
-        fullName: fullName
-      }
-
-      TrelloApi::Board.add_user(email, options)
-
+      #TrelloApi::Board.add_user(email, full_name, board_id)
 
       # set basic tasks for user
-      board = board_by_name(BOARD_PROCESS)
-      idBoard = board[:id]
+      board    = board_by_name(BOARD_PROCESS)
+      board_id = board[:id]
 
       list = list_by_names(LIST_TASKS, BOARD_KNOWLEDGE)
-      idListSource = list['id']
+      list_source_id = list[:id]
 
-      options = {
-        name: user[:username],
-        idBoard: idBoard,
-        idListSource: idListSource
-      }
-
-      TrelloApi::List.add_list_to_board options
+      #TrelloApi::List.add_list_to_board(new_list_name, board_id, list_source_id)
     end
 
     private
 
     def self.board_by_name(board_name)
-      TrelloApi::Board.all(USER_NAME).each do |board|
-        return board if board[:name] == board_name
-      end
+      TrelloApi::Member.boards(USER_NAME).find { |board| board[:name] == board_name }
     end
 
     def self.list_by_names(list_name, board_name)
       board = board_by_name board_name
-      board_id = board[:id]
 
-      lists = TrelloApi::Board.lists board_id
+      lists = TrelloApi::Board.lists board[:id]
 
-      lists.each do |list|
-        return list if list['name'] == list_name
-      end
+      lists.find { |list| list[:name] == list_name }
     end
 
   end
-
 end
 
