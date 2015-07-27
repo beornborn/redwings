@@ -20,7 +20,7 @@ module Service::TrelloApi
 
       response = RestClient.get uri.to_s
 
-      # {:id=>"55b2621d76834b6aa079134e", :name=>"KNOWLEDGE-2015-07-24 11:49:38 +0300", :desc=>"", :descData=>nil, :closed=>true, :idOrganization=>nil, :invited=>false, :pinned=>false, :starred=>false, :url=>"https://trello.com/b/pR9Z53X5/knowledge-2015-07-24-11-49-38-0300", ..
+      # {:id=>"55b2621d76834b6aa079134e", :name=>"KNOWLEDGE-2015-07-24 11:49:38 +0300", ..
       JSON.parse response.body, symbolize_names: true
     end
 
@@ -42,6 +42,7 @@ module Service::TrelloApi
     end
 
     def self.add_user(email, full_name, board_id)
+      uri = Addressable::URI.parse(API_PATH + "/boards/#{board_id}/members")
 
       query_values = {
         email:    email,
@@ -49,8 +50,6 @@ module Service::TrelloApi
         key:   TRELLO_APP_KEY,
         token: TRELLO_APP_TOKEN
       }
-
-      uri = Addressable::URI.parse(API_PATH + "/boards/#{board_id}/members")
 
       RestClient.put uri.to_s, query_values
     end

@@ -11,10 +11,7 @@ module Service
 
       email     = user.email
       full_name = user.full_name
-
-      if full_name.empty?
-        full_name = 'Noname'
-      end
+      full_name = 'Noname' if full_name.empty?
 
       # add user to organization
       organization = organization_by_name(ORGANIZATION_NAME)
@@ -30,10 +27,7 @@ module Service
 
       # set basic tasks for user
       new_list_name = user.username
-
-      if new_list_name.empty?
-        new_list_name = 'Noname'
-      end
+      new_list_name = 'Noname' if new_list_name.empty?
 
       board       = board_by_name(BOARD_PROCESS)
       list_source = list_by_names(LIST_TASKS, BOARD_KNOWLEDGE)
