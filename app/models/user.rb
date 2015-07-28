@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
-  has_many :project_users
-  has_many :projects, through: :project_users
+  has_one :project_user
+  has_one :project, through: :project_users
 
   before_validation :user_correction
 
@@ -22,11 +22,14 @@ class User < ActiveRecord::Base
   def self.update_users
     slack_users = SlackApi.get_users
 
+    academy_project = Project.find_by(name: "Academy")
+
     slack_users.map do |slack_user|
       user = User.find_or_initialize_by(email: slack_user['email'])
 
       if user.new_record?
         User.create! slack_user.merge(password: 'redwings', password_confirmation: 'redwings', started_at: Time.now)
+        user.create_project_user!(project_id: "#{academy_project.id}", user_id: "#{user.id}")
       else
         user.attributes = slack_user
         user.skip_password_validation = true
