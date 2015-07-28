@@ -1,6 +1,5 @@
 module Service::TrelloApi
   class Member
-
     def self.organizations(username)
       uri = Addressable::URI.parse(API_PATH + "/members/#{username}/organizations")
 
@@ -30,7 +29,6 @@ module Service::TrelloApi
       # {:name=>"KNOWLEDGE", :id=>"5535f4953c9df00305ec756a"}
       JSON.parse response.body, symbolize_names: true
     end
-
   end
 end
 

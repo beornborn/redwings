@@ -1,6 +1,5 @@
 module Service::TrelloApi
   class Board
-
     def self.data(board_id)
       uri = Addressable::URI.parse(API_PATH + "/boards/#{board_id}")
 
@@ -53,7 +52,6 @@ module Service::TrelloApi
 
       RestClient.put uri.to_s, query_values
     end
-
   end
 end
 

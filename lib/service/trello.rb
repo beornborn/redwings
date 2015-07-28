@@ -1,6 +1,5 @@
 module Service
   module Trello
-
     USER_NAME         = 'redwingsruby'
     LIST_TASKS        = 'tasks'
     BOARD_PROCESS     = 'PROCESS'
@@ -14,10 +13,8 @@ module Service
     end
 
     def self.setup_user(user)
-
-      email     = user.email
-      full_name = user.full_name
-      full_name = 'Noname' if full_name.empty?
+      email = user[:email]
+      full_name = (user[:first_name] + ' ' + user[:last_name]).presence || 'Noname'
 
       # add user to organization
       organization = organization_by_name(ORGANIZATION_NAME)
@@ -32,13 +29,11 @@ module Service
       TrelloApi::Board.add_user(email, full_name, board_process[:id])
 
       # set basic tasks for user
-      new_list_name = user.username
-      new_list_name = 'Noname' if new_list_name.empty?
+      new_list_name = user[:username].presence || 'Noname'
 
-      board       = board_by_name(BOARD_PROCESS)
       list_source = list_by_names(LIST_TASKS, BOARD_KNOWLEDGE)
 
-      TrelloApi::List.add_list_to_board(new_list_name, board[:id], list_source[:id])
+      TrelloApi::List.add_list_to_board(new_list_name, board_process[:id], list_source[:id])
     end
 
     private
@@ -56,7 +51,6 @@ module Service
       lists = TrelloApi::Board.lists board[:id]
       lists.find { |list| list[:name] == list_name }
     end
-
   end
 end
 
