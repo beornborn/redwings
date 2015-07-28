@@ -13,23 +13,15 @@ module Service
     end
 
     def self.setup_user(user)
-      email = user[:email]
-      full_name = (user[:first_name] + ' ' + user[:last_name]).presence || 'Noname'
+      email = user.email
+      full_name = (user.first_name + ' ' + user.last_name).presence || 'Noname'
 
       # add user to organization
       organization = organization_by_name(ORGANIZATION_NAME)
       TrelloApi::Organization.add_user(email, full_name, organization[:id])
 
-      # add user to board KNOWLEDGE
-      board_knowledge = board_by_name(BOARD_KNOWLEDGE)
-      TrelloApi::Board.add_user(email, full_name, board_knowledge[:id])
-
-      # add user to board PROCESS
-      board_process = board_by_name(BOARD_PROCESS)
-      TrelloApi::Board.add_user(email, full_name, board_process[:id])
-
       # set basic tasks for user
-      new_list_name = user[:username].presence || 'Noname'
+      new_list_name = user.username.presence || 'Noname'
 
       list_source = list_by_names(LIST_TASKS, BOARD_KNOWLEDGE)
 
