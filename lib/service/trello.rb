@@ -1,6 +1,12 @@
 module Service
   module Trello
 
+    USER_NAME         = 'redwingsruby'
+    LIST_TASKS        = 'tasks'
+    BOARD_PROCESS     = 'PROCESS'
+    BOARD_KNOWLEDGE   = 'KNOWLEDGE'
+    ORGANIZATION_NAME = 'rubyredwings'
+
     def self.boards_backup
       TrelloApi::Member.boards(USER_NAME).each do |board|
         board_backup = TrelloBackup.create!(board: board[:name], data: TrelloApi::Board.data(board[:id]))
