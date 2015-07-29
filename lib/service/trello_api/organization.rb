@@ -3,7 +3,7 @@ module Service::TrelloApi
     def self.add_user(email, fullName, organization_id)
       uri = Addressable::URI.parse(API_PATH + "/organizations/#{organization_id}/members")
 
-      query_values = {
+      uri.query_values = {
         email:    email,
         fullName: fullName,
         key:   TRELLO_APP_KEY,
