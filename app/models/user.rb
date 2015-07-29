@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   validates :email,      presence: true, uniqueness: true
   validates :password, confirmation: true, length: { minimum: 6 }, unless: :skip_password_validation
   validates :password_confirmation, presence: true, unless: :skip_password_validation
+  validates :goodbye_reason, length: { maximum: 100 }
+  validates :goodbye_letter, length: { maximum: 500 }
 
   scope :admin,   -> (admin)   { where admin:   admin }
   scope :deleted, -> (deleted) { where deleted: deleted }

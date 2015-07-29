@@ -12,22 +12,9 @@
       = render @users
 
 .row#deleted_users
-  .col-md-7
+  .col-md-6
 
-    table.table
-      thead
-        tr
-          td
-            h3 Deleted Users
-          td
-            h3 Goodbye reasons
-      tbody
-        - @users_deleted.each do |user|
-          tr
-            td.username = user.username
-            td.goodbye-reason[name='#{user.username}']
-              - if user.goodbye_reason.blank?
-                a.btn.btn-sm.btn-info.add-reason-button[name='#{user.username}'] add goodbye reason
-              - else
-                = user.goodbye_reason
+    ul.list-group
+      = render partial: "user_deleted", collection: @users_deleted, as: :user
+
 

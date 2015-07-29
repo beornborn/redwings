@@ -6,5 +6,10 @@ class UserMailer < ApplicationMailer
     mail(:to => user.email, :subject => 'Your password has been reset')
   end
 
+  def goodbye_reason(user)
+  	@user = User.find user.id
+  	mail(to: user.email, subject: "Kiev-ruby")
+  end
+
 end
 

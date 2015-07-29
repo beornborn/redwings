@@ -1,0 +1,12 @@
+li.list-group-item.disabled
+  .row
+    .col-sm-8
+      img.img-rounded.pull-left src="#{user.image_48}"
+      h4.list-group-item-heading = user.first_name + ' ' + user.last_name
+      p.list-group-item-text.email = user.email
+    .col-sm-4
+      - if user.goodbye_reason.blank?
+        = link_to 'Add goodbye reason', edit_user_path(user), class: 'btn btn-sm btn-default pull-right'
+      - else
+        p.list-group-item-text.pull-right data-toggle="tooltip" data-placement="right" title="#{user.goodbye_letter}" = user.goodbye_reason
+

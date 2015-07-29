@@ -57,32 +57,16 @@ ul {
 }
 
 #deleted_users {
-  .form-inline {
-    display: none;
+  img {
+    margin-right: 10px;
+    height: 42px;
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
   }
-  textarea.form-control {
-    height: auto;
-    width: 250px !important;
-    margin-right: 7px;
+  .email {
+    font-style: italic;
+    color: gray;
   }
-  .btn-success {
-    margin-right: 7px;
-    margin-top: 0px;
-  }
-  .goodbye-reason {
-    word-break: break-all;
-  }
-  .table tbody>tr>td{
-    vertical-align: middle;
-  }
-}
-
-.username {
-  width: 1%;
-}
-
-.table th, .table td {
-  border-top: none !important;
 }
 
 .current_user {
