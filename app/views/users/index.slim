@@ -6,12 +6,10 @@
 
     br
 
-    .panel.panel-default
-      .list-group
-        = render current_user
-    .panel.panel-default
-      .list-group
-        = render @users
+    ul.list-group
+      = render current_user
+    ul.list-group
+      = render @users
 
 .row#deleted_users
   .col-md-7
