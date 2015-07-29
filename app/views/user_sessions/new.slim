@@ -3,21 +3,21 @@
 
     h1 Login
 
-    = form_tag user_sessions_path, :method => :post, class: "form-horizontal" do
+    = form_tag user_sessions_path, method: :post, class: 'form-horizontal' do
       .form-group
         .col-md-12
-          = text_field_tag :email, nil, class: "form-control", placeholder: "Email"
+          = text_field_tag :email, nil, class: 'form-control', placeholder: 'Email'
       .form-group
         .col-md-12
-          = password_field_tag :password, nil, class: "form-control", placeholder: "Password"
+          = password_field_tag :password, nil, class: 'form-control', placeholder: 'Password'
       .form-group
         .col-md-12
           = check_box_tag :remember_me, 1, params[:remember_me]
           = label_tag :remember_me
       .form-group
         .col-md-12
-          = submit_tag "Login", class: "btn btn btn-primary btn-block"
+          = submit_tag 'Login', class: 'btn btn btn-primary btn-block'
       .form-group
         .col-md-12
-          = link_to "Forgot Password?", new_password_reset_path
+          = link_to 'Forgot Password?', new_password_reset_path
 
