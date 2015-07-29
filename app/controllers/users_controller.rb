@@ -12,10 +12,18 @@ class UsersController < ApplicationController
   def update
     @user.attributes = user_params
     @user.skip_password_validation = true
-    if @user.save
-      flash[:success] = "Goodbye letter has been successfully sent to #{@user.email}"
-      UserMailer.goodbye_reason(@user).deliver_later
-      redirect_to users_path
+
+    if @user.goodbye_reason.presence && @user.goodbye_letter.presence
+
+      if @user.save
+        flash[:success] = "Goodbye letter has been successfully sent to #{@user.email}"
+        UserMailer.goodbye_reason(@user).deliver_later
+        redirect_to users_path
+      end
+
+    else
+      redirect_to edit_user_path(@user)
+      flash[:danger] = 'You must fill in all of the fields.'
     end
   end
 

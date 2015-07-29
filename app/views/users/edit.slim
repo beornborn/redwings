@@ -1,20 +1,17 @@
+= render 'shared/validation_errors'
+
 .row
   .col-md-4
-
     h4 Goodbye reason
 
-    = form_for @user, class: "form-horizontal" do |f|
-      - if @user.errors.any?
-        .alert.alert-danger
-          h4
-            = pluralize @user.errors.count, "error"
-          ul
-            - @user.errors.full_messages.each do |msg|
-              li = msg
+    = form_for @user, class: 'form-horizontal' do |f|
       .form-group
-        = f.text_field :goodbye_reason, class: "form-control", placeholder: "Reason"
+        = f.text_field :goodbye_reason, class: 'form-control', placeholder: 'Reason'
       .form-group
-        = f.text_area :goodbye_letter, class: "form-control", placeholder: "Letter", rows: 5
-      .form-group
-        = f.submit "Submit", class: "btn btn-default btn-block"
+        = f.text_area :goodbye_letter, class: 'form-control', placeholder: 'Letter', rows: 5
+      .row
+        .col-md-6
+          = link_to 'Cancel', :back, class: 'btn btn-danger btn-block'
+        .col-md-6
+          = f.submit 'Submit', class: 'btn btn-default btn-block'
 

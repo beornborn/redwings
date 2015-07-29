@@ -1,5 +1,4 @@
 class CreateProjects < ActiveRecord::Migration
-
   def change
     create_table :projects do |t|
       t.string :name
@@ -11,6 +10,5 @@ class CreateProjects < ActiveRecord::Migration
     Project.create name: 'Academy'
     Project.create name: 'Redwings'
   end
-
 end
 
