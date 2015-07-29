@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @user.attributes = user_params
     @user.skip_password_validation = true
     if @user.save
-      flash[:success] = "Goodbye letter has been successfully sent to #{@user.username}"
+      flash[:success] = "Goodbye letter has been successfully sent to #{@user.email}"
       UserMailer.goodbye_reason(@user).deliver_later
       redirect_to users_path
     end
