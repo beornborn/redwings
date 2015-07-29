@@ -40,14 +40,15 @@ ul {
   margin-left: 0px !important;
 }
 
+.email {
+  font-style: italic;
+  color: gray;
+}
+
 #users {
   img {
     margin-right: 10px;
     height: 42px;
-  }
-  .email {
-    font-style: italic;
-    color: gray;
   }
   .progress {
     height: 10px;
@@ -62,10 +63,6 @@ ul {
     height: 42px;
     -webkit-filter: grayscale(1);
     filter: grayscale(1);
-  }
-  .email {
-    font-style: italic;
-    color: gray;
   }
 }
 

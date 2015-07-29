@@ -7,8 +7,8 @@ class UserMailer < ApplicationMailer
   end
 
   def goodbye_reason(user)
-  	@user = User.find user.id
-  	mail(to: user.email, subject: "Kiev-ruby")
+    @user = User.find user.id
+    mail(to: user.email, subject: "Kiev-ruby")
   end
 
 end
