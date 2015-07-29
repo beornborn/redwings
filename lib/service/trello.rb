@@ -23,7 +23,8 @@ module Service
       # set basic tasks for user
       new_list_name = user.username.presence || 'Noname'
 
-      list_source = list_by_names(LIST_TASKS, BOARD_KNOWLEDGE)
+      board_process = board_by_name(BOARD_PROCESS)
+      list_source   = list_by_names(LIST_TASKS, BOARD_KNOWLEDGE)
 
       TrelloApi::List.add_list_to_board(new_list_name, board_process[:id], list_source[:id])
     end
