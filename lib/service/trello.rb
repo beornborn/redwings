@@ -1,57 +1,49 @@
-require 'rest-client'
-require 'addressable/uri'
+module Service
+  module Trello
+    USER_NAME         = 'redwingsruby'
+    LIST_TASKS        = 'tasks'
+    BOARD_PROCESS     = 'PROCESS'
+    BOARD_KNOWLEDGE   = 'KNOWLEDGE'
+    ORGANIZATION_NAME = 'rubyredwings'
 
-module Service::Trello
+    def self.boards_backup
+      TrelloApi::Member.boards(USER_NAME).each do |board|
+        board_backup = TrelloBackup.create!(board: board[:name], data: TrelloApi::Board.data(board[:id]))
+      end
+    end
 
-  TRELLO_USER_NAME = 'redwingsruby'
+    def self.setup_user(user)
+      email = user.email
+      full_name = (user.first_name + ' ' + user.last_name).presence || 'Noname'
 
-  def self.boards_backup
-    all_boards.each do |board|
-      board_backup = TrelloBackup.new(board: board[:name],
-                                      data:  get_board_json(board[:id]))
-      board_backup.save!
+      # add user to organization
+      organization = organization_by_name(ORGANIZATION_NAME)
+      TrelloApi::Organization.add_user(email, full_name, organization[:id])
+
+      # set basic tasks for user
+      new_list_name = user.username.presence || 'Noname'
+
+      board_process = board_by_name(BOARD_PROCESS)
+      list_source   = list_by_names(LIST_TASKS, BOARD_KNOWLEDGE)
+
+      TrelloApi::List.add_list_to_board(new_list_name, board_process[:id], list_source[:id])
+    end
+
+    private
+
+    def self.organization_by_name(organization_name)
+      TrelloApi::Member.organizations(USER_NAME).find { |organization| organization[:name] == organization_name }
+    end
+
+    def self.board_by_name(board_name)
+      TrelloApi::Member.boards(USER_NAME).find { |board| board[:name] == board_name }
+    end
+
+    def self.list_by_names(list_name, board_name)
+      board = board_by_name board_name
+      lists = TrelloApi::Board.lists board[:id]
+      lists.find { |list| list[:name] == list_name }
     end
   end
-
-  def self.get_board_json(id)
-    endpoint = "https://api.trello.com/1/boards/#{id}"
-
-    uri = Addressable::URI.parse(endpoint)
-
-    uri.query_values = {
-      :actions => :all,
-      :actions_limit => 1000,
-      :cards => :all,
-      :lists => :all,
-      :members => :all,
-      :member_fields => :all,
-      :checklists => :all,
-      :fields => :all,
-      :card_attachments => true,
-      :key => '32000478b8ee948f67b044b476ea1df0',
-      :token => '1ac9b0de81eaa3f58c2c21bd211429786a341f4a0d1aaa0f906d1492dc6a4e34'
-    }
-
-    response = RestClient.get(uri.to_s)
-
-    json = response.body
-  end
-
-  def self.all_boards
-    endpoint = "https://api.trello.com/1/members/#{TRELLO_USER_NAME}/boards"
-
-    uri = Addressable::URI.parse(endpoint)
-
-    uri.query_values = {
-      :fields => 'name',
-      :key => '32000478b8ee948f67b044b476ea1df0',
-      :token => '1ac9b0de81eaa3f58c2c21bd211429786a341f4a0d1aaa0f906d1492dc6a4e34'
-    }
-
-    response = RestClient.get(uri.to_s)
-
-    json = JSON.parse(response.body, symbolize_names: true)
-
-    boards_ids = json.collect { |board| { name: board[:name], id: board[:id] } }
-  end
 end
+
