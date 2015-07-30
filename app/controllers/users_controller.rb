@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       redirect_to users_path
     else
       redirect_to edit_user_path(@user)
-      flash[:danger] = 'You must fill in all of the fields.'
+      flash[:danger] = "You must fill 'Reason' field."
     end
   end
 
