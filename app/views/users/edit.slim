@@ -1,0 +1,15 @@
+= render partial: 'shared/validation_errors', locals: { object: @user }
+.row
+  .col-md-4
+    h4 Goodbye reason
+    = form_for @user, class: 'form-horizontal' do |f|
+      .form-group
+        = f.text_field :goodbye_reason, class: 'form-control', placeholder: 'Reason'
+      .form-group
+        = f.text_area :goodbye_letter, class: 'form-control', placeholder: 'Letter', rows: 5
+      .row
+        .col-md-6
+          = link_to 'Cancel', :back, class: 'btn btn-danger btn-block'
+        .col-md-6
+          = f.submit 'Submit', class: 'btn btn-default btn-block'
+

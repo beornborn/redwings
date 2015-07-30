@@ -1,24 +1,16 @@
+= render partial: 'shared/validation_errors', locals: { object: @user }
 .row
   .col-md-4.col-md-offset-4
-
     h2 Choose a new password
-
-    = form_for @user, :url => password_reset_path(@token), :html => {:method => :put} do |f|
-      - if @user.errors.any?
-        .alert.alert-danger
-          h4
-            = pluralize @user.errors.count, "error"
-          ul
-            - @user.errors.full_messages.each do |msg|
-              li = msg
+    = form_for @user, url: password_reset_path(@token), html: {method: :put} do |f|
       .form-group
           = f.label :email
           br
           = @user.email
       .form-group
-        = f.password_field :password, class: "form-control", placeholder: "Password"
+        = f.password_field :password, class: 'form-control', placeholder: 'Password'
       .form-group
-        = f.password_field :password_confirmation, class: "form-control", placeholder: "Password Confirmation"
+        = f.password_field :password_confirmation, class: 'form-control', placeholder: 'Password Confirmation'
       .form-group
-        = f.submit class: "btn btn btn-primary btn-block"
+        = f.submit class: 'btn btn btn-primary btn-block'
 

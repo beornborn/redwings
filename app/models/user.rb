@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
-  has_many :project_users
-  has_many :projects, through: :project_users
+  has_many :projects_users
+  has_many :projects, through: :projects_users
 
   before_validation :user_correction
 
@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   validates :email,      presence: true, uniqueness: true
   validates :password, confirmation: true, length: { minimum: 6 }, unless: :skip_password_validation
   validates :password_confirmation, presence: true, unless: :skip_password_validation
+  validates :goodbye_reason, presence: true
 
   scope :admin,   -> (admin)   { where admin:   admin }
   scope :deleted, -> (deleted) { where deleted: deleted }

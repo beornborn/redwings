@@ -6,34 +6,15 @@
 
     br
 
-    .panel.panel-default
-      .list-group
-        = render current_user
-    .panel.panel-default
-      .list-group
-        = render @users
+    ul.list-group
+      = render current_user
+    ul.list-group
+      = render @users
 
 .row#deleted_users
-  .col-md-7
+  .col-md-6
 
-    table.table
-      thead
-        tr
-          td
-            h3 Deleted Users
-          td
-            h3 Goodbye reasons
-      tbody
-        - @users_deleted.each do |user|
-          tr
-            td.username = user.username
-            td.goodbye-reason[name='#{user.username}']
-              - if user.goodbye_reason.blank?
-                = form_for user, html: { method: 'patch', class: 'form-inline', name: user.username } do |f|
-                  = f.text_area :goodbye_reason, class: 'form-control', placeholder: 'goodbye reason', required: true, row: '2'
-                  = f.submit 'Add', class: 'btn btn-success', name: user.username
-                  .btn.btn-danger[name='#{user.username}'] Cancel
-                a.btn.btn-sm.btn-info.add-reason-button[name='#{user.username}'] add goodbye reason
-              - else
-                = user.goodbye_reason
+    ul.list-group
+      = render partial: "user_deleted", collection: @users_deleted, as: :user
+
 
