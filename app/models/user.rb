@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
-  has_many :project_users
-  has_many :projects, through: :project_users
+  has_many :projects_users
+  has_many :projects, through: :projects_users
 
   before_validation :user_correction
 

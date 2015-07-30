@@ -1,7 +1,5 @@
-class ProjectUser < ActiveRecord::Base
-
+class ProjectsUser < ActiveRecord::Base
   belongs_to :project
   belongs_to :user
-
 end
 
