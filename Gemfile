@@ -37,7 +37,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
+#A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for modern web app frameworks and ORMs
+gem 'kaminari'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
