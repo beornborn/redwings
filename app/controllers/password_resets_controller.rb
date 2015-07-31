@@ -1,5 +1,4 @@
 class PasswordResetsController < ApplicationController
-
   skip_before_filter :require_login
 
   # request password reset.
@@ -47,6 +46,4 @@ class PasswordResetsController < ApplicationController
       render :action => "edit"
     end
   end
-
 end
-

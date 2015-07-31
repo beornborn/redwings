@@ -1,6 +1,4 @@
 class TrelloBackupDecorator < ApplicationDecorator
-  include Draper::LazyHelpers
-
   delegate_all
 
   def time_of_backup

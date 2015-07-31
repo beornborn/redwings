@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   attr_accessor :skip_password_validation
 
   def index
-    @users = User.where.not(id: current_user.id).admin(false).deleted(false).order(started_at: :desc).decorate
+    @users = User.where.not(id: current_user.id).admin(false).deleted(false).order(started_at: :desc).page(params[:page]).decorate
     @users_deleted = User.admin(false).deleted(true).order(started_at: :desc).decorate
   end
 
@@ -33,6 +33,4 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:goodbye_reason, :goodbye_letter)
   end
-
 end
-

@@ -1,5 +1,4 @@
 class UserSessionsController < ApplicationController
-
   skip_before_filter :require_login, only: [:new, :create]
 
   def new
@@ -18,6 +17,4 @@ class UserSessionsController < ApplicationController
     logout
     redirect_to root_path, success: 'Logged out!'
   end
-
 end
-

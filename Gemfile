@@ -39,9 +39,12 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Draper decorators to wrap your models with presentation-related logic. Read more: https://github.com/drapergem/draper
 gem 'draper'
+
 # Use to restrict what resources a given user is allowed to access
 gem 'cancancan', '~> 1.10'
 
+# Kaminari paginator. Read more: https://github.com/amatsuda/kaminari
+gem 'kaminari'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

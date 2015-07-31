@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-
   has_many :projects_users
   has_many :projects, through: :projects_users
 
@@ -26,6 +25,4 @@ class User < ActiveRecord::Base
     self.first_name = 'Noname' if self.first_name.blank?
     self.last_name =  'Noname' if self.last_name.blank?
   end
-
 end
-

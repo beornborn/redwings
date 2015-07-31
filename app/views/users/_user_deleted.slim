@@ -9,4 +9,3 @@ li.list-group-item
         = link_to 'Add goodbye reason', edit_user_path(user), class: 'btn btn-sm btn-default pull-right'
       - else
         p.list-group-item-text.pull-right.label.label-default data-toggle="tooltip" data-placement="right" title="#{user.goodbye_letter}" = user.goodbye_reason
-

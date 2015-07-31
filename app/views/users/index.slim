@@ -3,15 +3,15 @@
     .row
       - if can? :update, User
         .col-md-2
-          = button_to sync_service_slack_path, { class: 'btn btn-default btn-sync' } do
+          = button_to sync_service_slack_path, { class: 'btn btn-default btn-sync' } do |_|
             = image_tag('slack_logo.png')
             strong Sync
         .col-md-2
-          = button_to sync_service_trello_path, { class: 'btn btn-default btn-sync' } do
+          = button_to sync_service_trello_path, { class: 'btn btn-default btn-sync' } do |_|
             = image_tag('trello_logo.png')
             strong Sync
         .col-md-2
-          = button_to sync_service_heroku_path, { class: 'btn btn-default btn-sync' } do
+          = button_to sync_service_heroku_path, { class: 'btn btn-default btn-sync' } do |_|
             = image_tag('heroku_logo.png')
             strong Sync
 
@@ -19,12 +19,14 @@
 
     ul.list-group
       = render current_user
+
     ul.list-group
+      = paginate @users
       = render @users
+      = paginate @users
 
 .row#deleted_users
   .col-md-6
 
     ul.list-group
       = render partial: "user_deleted", collection: @users_deleted, as: :user
-
