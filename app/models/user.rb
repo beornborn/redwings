@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
       else
         user.attributes = slack_user
         user.skip_password_validation = true
-        user.save
+        user.save!
       end
     end
   end
