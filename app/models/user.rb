@@ -7,15 +7,14 @@ class User < ActiveRecord::Base
 
   authenticates_with_sorcery!
 
-  attr_accessor :skip_password_validation
+  attr_accessor :do_password_validation
 
   validates :username,   presence: true, length: { maximum: 50 }, format: { with: /[a-z]*\.[a-z]*/ }
   validates :first_name, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
   validates :last_name,  presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
   validates :email,      presence: true, uniqueness: true
-  validates :password, confirmation: true, length: { minimum: 6 }, unless: :skip_password_validation
-  validates :password_confirmation, presence: true, unless: :skip_password_validation
-  validates :goodbye_reason, presence: true
+  validates :password, confirmation: true, length: { minimum: 6 }, if: :do_password_validation
+  validates :password_confirmation, presence: true, if: :do_password_validation
 
   scope :admin,   -> (admin)   { where admin:   admin }
   scope :deleted, -> (deleted) { where deleted: deleted }
@@ -34,7 +33,7 @@ class User < ActiveRecord::Base
         Service::Trello.setup_user user
       else
         user.attributes = slack_user
-        user.skip_password_validation = true
+        user.do_password_validation = false
         user.save!
       end
     end
