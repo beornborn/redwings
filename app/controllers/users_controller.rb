@@ -11,16 +11,13 @@ class UsersController < ApplicationController
 
   def update
     @user.attributes = user_params
-    @user.skip_password_validation = true
 
     if @user.save!
       flash[:success] = "Goodbye letter has been successfully sent to #{@user.email}."
       UserMailer.goodbye_reason(@user).deliver_later
-      redirect_to users_path
-    else
-      redirect_to edit_user_path(@user)
-      flash[:danger] = "You must fill 'Reason' field."
     end
+
+    redirect_to users_path
   end
 
   def edit

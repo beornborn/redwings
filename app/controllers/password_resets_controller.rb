@@ -30,6 +30,7 @@ class PasswordResetsController < ApplicationController
   def update
     @token = params[:id]
     @user = User.load_from_reset_password_token(params[:id])
+    @user.do_password_validation = true
 
     if @user.blank?
       not_authenticated
