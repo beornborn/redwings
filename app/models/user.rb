@@ -33,7 +33,6 @@ class User < ActiveRecord::Base
         Service::Trello.setup_user user
       else
         user.attributes = slack_user
-        user.do_password_validation = false
         user.save!
       end
     end

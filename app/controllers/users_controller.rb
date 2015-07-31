@@ -11,9 +11,8 @@ class UsersController < ApplicationController
 
   def update
     @user.attributes = user_params
-    @user.do_password_validation = false
 
-    if @user.save
+    if @user.save!
       flash[:success] = "Goodbye letter has been successfully sent to #{@user.email}."
       UserMailer.goodbye_reason(@user).deliver_later
     end
