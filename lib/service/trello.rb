@@ -18,7 +18,7 @@ module Service
       trello_users = []
 
       TrelloApi::Organization.members(organization[:id]).each do |trello_user|
-        trello_users.push({ id: trello_user[:id], username: trello_user[:username] })
+        trello_users.push({ id: trello_user[:id], username: trello_user[:username]})
       end
 
       # it's for testing
@@ -32,15 +32,17 @@ module Service
         unless trello_user[:username] == USER_NAME
           username = convert_to_slack_username trello_user[:username]
 
-          # it's for testing
+          # show users, that would be deleted
           unless user_exist?(username, db_users_active)
-            puts "delete #{username}"
+            puts "cleanup: #{trello_user[:username]}"
           end
 
-          # TrelloApi::Organization.delete_user(organization[:id], trello_user[:id]) unless user_exist?(username, db_users_active)
+          unless user_exist?(username, db_users_active)
+          # TrelloApi::Organization.delete_user(organization[:id], trello_user[:id])
 
-          # list = list_by_names(username, BOARD_PROCESS)
-          # TrelloApi::List.close(list[:id])
+            list = list_by_names(trello_user[:username], BOARD_PROCESS)
+          # TrelloApi::List.close(list[:id]) unless list[:id].nil?
+          end
         end
       end
 
@@ -48,9 +50,9 @@ module Service
       db_users_active.map do |db_user|
         db_user[:username] = 'redwings_' + db_user[:first_name].downcase + '_' + db_user[:last_name].downcase
 
-        # it's for testing
+        # show users, that would be setuped
         unless user_exist?(db_user[:username], trello_users)
-          puts "setup #{db_user[:username]}"
+          puts "setup: #{db_user[:username]}"
         end
 
         setup_user(db_user) unless user_exist?(db_user[:username], trello_users)

@@ -23,8 +23,7 @@ module Service::TrelloApi
         token: TRELLO_APP_TOKEN
       }
 
-      # it's for data protection, not all users changed their usernames
-      # RestClient.put uri.to_s, query_values
+      RestClient.put uri.to_s, query_values
     end
   end
 end

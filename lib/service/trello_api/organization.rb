@@ -31,13 +31,12 @@ module Service::TrelloApi
     def self.delete_user(organization_id, member_id)
       uri = Addressable::URI.parse(API_PATH + "/organizations/#{organization_id}/members/#{member_id}")
 
-      query_values = {
+      uri.query_values = {
         key:   TRELLO_APP_KEY,
         token: TRELLO_APP_TOKEN
       }
 
-      # it's for data protection, not all users changed their usernames
-      # RestClient.delete uri.to_s, query_values
+      RestClient.delete uri.to_s
     end
   end
 end
