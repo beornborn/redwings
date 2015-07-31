@@ -19,7 +19,7 @@ module Service::TrelloApi
       uri = Addressable::URI.parse(API_PATH + "/members/#{username}/boards")
 
       uri.query_values = {
-        filter: :open,
+        fields: :all,
         key:   TRELLO_APP_KEY,
         token: TRELLO_APP_TOKEN
       }

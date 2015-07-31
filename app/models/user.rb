@@ -19,23 +19,26 @@ class User < ActiveRecord::Base
   scope :admin,   -> (admin)   { where admin:   admin }
   scope :deleted, -> (deleted) { where deleted: deleted }
 
-  def self.update_users
+  def self.slack_update_users
     slack_users = SlackApi.get_users
 
     slack_users.map do |slack_user|
       user = User.find_or_initialize_by(email: slack_user['email'])
 
-      academy_project = Project.find_by(name: "Academy")
+      academy_project = Project.find_by(name: 'Academy')
 
       if user.new_record?
         user = User.create! slack_user.merge(password: 'redwings', password_confirmation: 'redwings', started_at: Time.now)
         user.projects << academy_project
-        Service::Trello.setup_user user
       else
         user.attributes = slack_user
         user.save!
       end
     end
+  end
+
+  def self.trello_update_users
+    Service::Trello.sync
   end
 
   private
