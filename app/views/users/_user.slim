@@ -2,10 +2,10 @@ li.list-group-item class="#{'current_user' if user.username == current_user.user
   .row
     .col-sm-9
       img.img-rounded.pull-left src="#{user.image_48}"
-      h4.list-group-item-heading = user.name
+      h4.list-group-item-heading = user.full_name
       p.list-group-item-text.email = user.email
     .col-sm-3.text-right
-      p.list-group-item-text = user.started_at
+      p.list-group-item-text = user.human_started_at
       p.list-group-item-text
         .progress.progress-success
           .progress-bar.progress-bar-success.active role='progressbar' aria-valuenow='20' aria-valuemin='0' aria-valuemax='100' style='width: 20%'
