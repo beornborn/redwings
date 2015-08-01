@@ -61,14 +61,14 @@ module Service
 
     def self.setup_user(user)
       email = user.email
-      full_name = (user.first_name + ' ' + user.last_name).presence || 'Noname'
+      full_name = user.first_name + ' ' + user.last_name
 
       # add user to organization
       organization = organization_by_name ORGANIZATION_NAME
       # TrelloApi::Organization.add_user(email, full_name, organization[:id])
 
       # set basic tasks for user
-      new_list_name = 'redwings_' + (user.username.presence || 'Noname')
+      new_list_name = 'redwings_' + user.first_name.downcase + ' ' + user.last_name.downcase
 
       board_process = board_by_name BOARD_PROCESS
       list_source   = list_by_names(LIST_TASKS, BOARD_KNOWLEDGE)
