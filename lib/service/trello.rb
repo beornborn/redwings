@@ -25,12 +25,9 @@ module Service
       # cleanup users
       cleanup_list = []
 
-      trello_users.select do |trello_user|
+      cleanup_list = trello_users.select do |trello_user|
         username = convert_to_slack_username trello_user[:username]
-
-        unless db_users_active.any? { |db_user| db_user[:username] == username }
-          cleanup_list.push trello_user
-        end
+        db_users_active.any? { |db_user| db_user[:username] == username }
       end
 
       cleanup(cleanup_list)
@@ -38,12 +35,9 @@ module Service
       # setup users
       setup_list = []
 
-      db_users_active.select do |db_user|
+      setup_list = db_users_active.select do |db_user|
         username = convert_to_trello_username db_user[:username]
-
-        unless trello_users.any? { |trello_user| trello_user[:username] == username }
-          setup_list.push db_user
-        end
+        trello_users.any? { |trello_user| trello_user[:username] == username }
       end
 
       setup(setup_list)
@@ -51,8 +45,7 @@ module Service
 
     def self.cleanup(users)
       users.select do |user|
-        puts "cleanup: #{user[:username]}"
-        # TrelloApi::Organization.delete_user(organization[:id], user[:id])
+        TrelloApi::Organization.delete_user(organization[:id], user[:id])
 
         list = list_in_board(user[:username], BOARD_PROCESS)
         TrelloApi::List.close(list[:id]) unless list[:id].nil?
