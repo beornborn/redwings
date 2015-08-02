@@ -1,7 +1,7 @@
 class TrelloBackupsController < ApplicationController
 
   def index
-    @trello_backups = TrelloBackup.all.order(created_at: :desc)
+    @trello_backups = TrelloBackup.all.order(created_at: :desc).decorate
   end
 
   def create
