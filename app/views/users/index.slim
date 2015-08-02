@@ -1,8 +1,14 @@
 .row#users
   .col-md-6
-    = button_to update_users_services_slack_index_path, { class: 'btn btn-sm btn-info' } do
-      i.fa.fa-refresh
-        span  Update users
+    .row
+      .col-md-2
+        = button_to sync_service_slack_path, { class: 'btn btn-default btn-sync' } do
+          = image_tag('slack_logo.png')
+          strong Sync
+      .col-md-2
+        = button_to sync_service_trello_path, { class: 'btn btn-default btn-sync' } do
+          = image_tag('trello_logo.png')
+          strong Sync
 
     br
 
@@ -16,5 +22,4 @@
 
     ul.list-group
       = render partial: "user_deleted", collection: @users_deleted, as: :user
-
 
