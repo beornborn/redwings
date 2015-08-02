@@ -39,9 +39,9 @@ module Service
       setup_list = []
 
       db_users_active.each do |db_user|
-        db_user[:username] = 'redwings_' + db_user[:first_name].downcase + '_' + db_user[:last_name].downcase
+        username = convert_to_trello_username db_user[:username]
 
-        unless trello_users.any? { |user| user[:username] == db_user[:username] }
+        unless trello_users.any? { |trello_user| trello_user[:username] == username }
           setup_list.push db_user
         end
       end
@@ -63,8 +63,6 @@ module Service
       organization = organization_by_name ORGANIZATION_NAME
 
       users.each do |user|
-        puts "setup: #{user[:username]}"
-
         email = user.email
         full_name = user.first_name + ' ' + user.last_name
 
@@ -72,11 +70,12 @@ module Service
         # TrelloApi::Organization.add_user(email, full_name, organization[:id])
 
         # set basic tasks for user
-        new_list_name = 'redwings_' + user.first_name.downcase + ' ' + user.last_name.downcase
+        new_list_name = convert_to_trello_username user.username
         board_process = board_by_name BOARD_PROCESS
         list_source   = list_by_name(LIST_TASKS, BOARD_KNOWLEDGE)
 
         # TrelloApi::List.add_list_to_board(new_list_name, board_process[:id], list_source[:id])
+        puts "setup: #{new_list_name}"
       end
     end
 
@@ -84,6 +83,10 @@ module Service
 
     def self.convert_to_slack_username(username)
       username = username.gsub(/redwings_/, '').gsub(/_/, '.')
+    end
+
+    def self.convert_to_trello_username(username)
+      username = 'redwings_' + username.gsub('.', '_')
     end
 
     def self.organization_by_name(organization_name)
