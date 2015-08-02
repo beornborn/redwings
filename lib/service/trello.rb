@@ -15,7 +15,7 @@ module Service
     def self.sync
       # get trello users
       organization = organization_by_name ORGANIZATION_NAME
-      trello_users = TrelloApi::Organization.members(organization[:id])
+      trello_users = TrelloApi::Organization.members organization[:id]
 
       trello_users.delete_if { |user| user[:username] == USER_NAME }
 
@@ -25,11 +25,11 @@ module Service
       # cleanup users
       cleanup_list = []
 
-      trello_users.each do |trello_user|
+      trello_users.select do |trello_user|
         username = convert_to_slack_username trello_user[:username]
 
-        unless db_users_active.any? { |user| user[:username] == username }
-          cleanup_list.push({id: trello_user[:username], username: trello_user[:username]})
+        unless db_users_active.any? { |db_user| db_user[:username] == username }
+          cleanup_list.push trello_user
         end
       end
 
@@ -38,7 +38,7 @@ module Service
       # setup users
       setup_list = []
 
-      db_users_active.each do |db_user|
+      db_users_active.select do |db_user|
         username = convert_to_trello_username db_user[:username]
 
         unless trello_users.any? { |trello_user| trello_user[:username] == username }
@@ -50,11 +50,11 @@ module Service
     end
 
     def self.cleanup(users)
-      users.each do |user|
+      users.select do |user|
         puts "cleanup: #{user[:username]}"
         # TrelloApi::Organization.delete_user(organization[:id], user[:id])
 
-        list = list_by_name(user[:username], BOARD_PROCESS)
+        list = list_in_board(user[:username], BOARD_PROCESS)
         # TrelloApi::List.close(list[:id]) unless list[:id].nil?
       end
     end
@@ -62,7 +62,7 @@ module Service
     def self.setup(users)
       organization = organization_by_name ORGANIZATION_NAME
 
-      users.each do |user|
+      users.select do |user|
         email = user.email
         full_name = user.first_name + ' ' + user.last_name
 
@@ -72,7 +72,7 @@ module Service
         # set basic tasks for user
         new_list_name = convert_to_trello_username user.username
         board_process = board_by_name BOARD_PROCESS
-        list_source   = list_by_name(LIST_TASKS, BOARD_KNOWLEDGE)
+        list_source   = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
 
         # TrelloApi::List.add_list_to_board(new_list_name, board_process[:id], list_source[:id])
         puts "setup: #{new_list_name}"
@@ -82,7 +82,7 @@ module Service
     private
 
     def self.convert_to_slack_username(username)
-      username = username.gsub(/redwings_/, '').gsub(/_/, '.')
+      username = username.gsub('redwings_', '').gsub('_', '.')
     end
 
     def self.convert_to_trello_username(username)
@@ -97,9 +97,10 @@ module Service
       TrelloApi::Member.boards(USER_NAME).find { |board| board[:name] == board_name }
     end
 
-    def self.list_by_name(list_name, board_name)
+    def self.list_in_board(list_name, board_name)
       board = board_by_name board_name
-      unless board.nil?
+
+      if board.present?
         lists = TrelloApi::Board.lists(board[:id])
         lists.find { |list| list[:name] == list_name }
       end
