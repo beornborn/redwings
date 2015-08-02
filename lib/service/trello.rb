@@ -55,7 +55,7 @@ module Service
         # TrelloApi::Organization.delete_user(organization[:id], user[:id])
 
         list = list_in_board(user[:username], BOARD_PROCESS)
-        # TrelloApi::List.close(list[:id]) unless list[:id].nil?
+        TrelloApi::List.close(list[:id]) unless list[:id].nil?
       end
     end
 
@@ -67,15 +67,14 @@ module Service
         full_name = user.first_name + ' ' + user.last_name
 
         # add user to organization
-        # TrelloApi::Organization.add_user(email, full_name, organization[:id])
+        TrelloApi::Organization.add_user(email, full_name, organization[:id])
 
         # set basic tasks for user
         new_list_name = convert_to_trello_username user.username
         board_process = board_by_name BOARD_PROCESS
         list_source   = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
 
-        # TrelloApi::List.add_list_to_board(new_list_name, board_process[:id], list_source[:id])
-        puts "setup: #{new_list_name}"
+        TrelloApi::List.add_list_to_board(new_list_name, board_process[:id], list_source[:id])
       end
     end
 
