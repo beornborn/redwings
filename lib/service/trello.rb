@@ -27,7 +27,7 @@ module Service
 
       cleanup_list = trello_users.select do |trello_user|
         username = convert_to_slack_username trello_user[:username]
-        db_users_active.any? { |db_user| db_user[:username] == username }
+        !db_users_active.any? { |db_user| db_user[:username] == username }
       end
 
       cleanup(cleanup_list)
@@ -37,7 +37,7 @@ module Service
 
       setup_list = db_users_active.select do |db_user|
         username = convert_to_trello_username db_user[:username]
-        trello_users.any? { |trello_user| trello_user[:username] == username }
+        !trello_users.any? { |trello_user| trello_user[:username] == username }
       end
 
       setup(setup_list)
@@ -56,6 +56,7 @@ module Service
       organization = organization_by_name ORGANIZATION_NAME
 
       users.select do |user|
+        puts "setup #{user[:username]}"
         email = user.email
         full_name = user.first_name + ' ' + user.last_name
 

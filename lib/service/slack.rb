@@ -1,7 +1,7 @@
 module Service
   module Slack
     def self.sync
-      slack_users = users(SlackApi::User.all)
+      slack_users = self.users
 
       slack_users.map do |slack_user|
         user = User.find_or_initialize_by(email: slack_user['email'])
@@ -20,7 +20,8 @@ module Service
 
     private
 
-    def self.users(data)
+    def self.users
+      data = SlackApi::User.all
       members = data['members']
 
       users = members.map do |member|
