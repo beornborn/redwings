@@ -56,7 +56,6 @@ module Service
       organization = organization_by_name ORGANIZATION_NAME
 
       users.select do |user|
-        puts "setup #{user[:username]}"
         email = user.email
         full_name = user.first_name + ' ' + user.last_name
 
