@@ -52,20 +52,12 @@ module Service
       # get active academy users
       active_academy_users = Project.find_by(name: 'Academy').users.deleted(false)
 
-      # cleanup lists of disabled users and not correct lists
+      # cleanup lists
       trello_lists.each do |list|
         listname = convert_to_slack_username list[:name]
 
         unless active_academy_users.any? { |db_user| db_user.username == listname }
           TrelloApi::List.close(list[:id])
-        end
-      end
-
-      # cleanup lists of users not academy project
-      Project.where.not(name: 'Academy').each do |project|
-        project.users.each do |user|
-          list = list_in_board(convert_to_trello_username(user.username), BOARD_PROCESS)
-          TrelloApi::List.close(list[:id]) if list.present?
         end
       end
     end
