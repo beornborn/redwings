@@ -13,74 +13,72 @@ module Service
     end
 
     def self.sync
+      cleanup
+      setup_users
+    end
+
+
+    def self.cleanup
       # get trello users
       organization = organization_by_name ORGANIZATION_NAME
       trello_users = TrelloApi::Organization.members organization[:id]
-
       trello_users.delete_if { |user| user[:username] == USER_NAME }
 
       # get local active users
       db_users_active = User.deleted(false)
 
-      # cleanup users
-      users_for_cleanup = []
-
-      users_for_cleanup = trello_users.select do |trello_user|
+      # cleanup disabled users and their lists
+      trello_users.each do |trello_user|
         username = convert_to_slack_username trello_user[:username]
-        !db_users_active.any? { |db_user| db_user[:username] == username }
+
+        unless db_users_active.any? { |db_user| db_user[:username] == username }
+          TrelloApi::Organization.delete_user(organization[:id], trello_user[:id])
+          list = list_in_board(trello_user[:username], BOARD_PROCESS)
+
+          if list.present?
+            TrelloApi::List.close(list[:id])
+          end
+        end
       end
 
-      cleanup_users(users_for_cleanup)
+      # cleanup lists of users redwings project
+      Project.find_by(name: 'Redwings').users.each do |db_user|
+        list = list_in_board(convert_to_trello_username(db_user[:username]), BOARD_PROCESS)
 
-      # cleanup lists
-      lists_for_cleanup = users_for_cleanup | Project.find_by(name: 'Redwings').users
-
-      lists_for_cleanup.select do |user|
-        user[:username] = convert_to_trello_username(user[:username])
+        if list.present?
+          TrelloApi::List.close(list[:id])
+        end
       end
+    end
 
-      cleanup_lists(lists_for_cleanup)
+    def self.setup_users
+      # get trello users
+      organization = organization_by_name ORGANIZATION_NAME
+      trello_users = TrelloApi::Organization.members organization[:id]
+      trello_users.delete_if { |user| user[:username] == USER_NAME }
+
+      # get local active users
+      db_users_active = User.deleted(false)
 
       # setup users
-      setup_list = []
+      board_process = board_by_name BOARD_PROCESS
 
-      setup_list = db_users_active.select do |db_user|
+      db_users_active.each do |db_user|
         username = convert_to_trello_username db_user[:username]
-        !trello_users.any? { |trello_user| trello_user[:username] == username }
-      end
 
-      setup(setup_list)
-    end
+        unless trello_users.any? { |trello_user| trello_user[:username] == username }
+          email = db_user.email
+          full_name = db_user.first_name + ' ' + db_user.last_name
 
-    def self.cleanup_lists(users)
-      users.each do |user|
-        list = list_in_board(user[:username], BOARD_PROCESS)
-        TrelloApi::List.close(list[:id]) unless list[:id].nil?
-      end
-    end
+          # add user to organization
+          TrelloApi::Organization.add_user(email, full_name, organization[:id])
 
-    def self.cleanup_users(users)
-      users.each do |user|
-        TrelloApi::Organization.delete_user(organization[:id], user[:id])
-      end
-    end
+          # set basic tasks for user
+          new_list_name = convert_to_trello_username db_user.username
+          list_source   = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
 
-    def self.setup(users)
-      organization = organization_by_name ORGANIZATION_NAME
-
-      users.each do |user|
-        email = user.email
-        full_name = user.first_name + ' ' + user.last_name
-
-        # add user to organization
-        TrelloApi::Organization.add_user(email, full_name, organization[:id])
-
-        # set basic tasks for user
-        new_list_name = convert_to_trello_username user.username
-        board_process = board_by_name BOARD_PROCESS
-        list_source   = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
-
-        TrelloApi::List.add_list_to_board(new_list_name, board_process[:id], list_source[:id])
+          TrelloApi::List.add_list_to_board(new_list_name, board_process[:id], list_source[:id])
+        end
       end
     end
 
