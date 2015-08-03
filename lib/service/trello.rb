@@ -17,7 +17,6 @@ module Service
       setup_users
     end
 
-
     def self.cleanup
       # get trello users
       organization = organization_by_name ORGANIZATION_NAME
@@ -27,7 +26,7 @@ module Service
       # get local active users
       db_users_active = User.deleted(false)
 
-      # cleanup disabled users and their lists
+      # cleanup
       trello_users.each do |trello_user|
         username = convert_to_slack_username trello_user[:username]
 
@@ -41,12 +40,14 @@ module Service
         end
       end
 
-      # cleanup lists of users redwings project
-      Project.find_by(name: 'Redwings').users.each do |db_user|
-        list = list_in_board(convert_to_trello_username(db_user[:username]), BOARD_PROCESS)
+      # cleanup lists of users not academy project
+      Project.where.not(name: 'Academy').each do |project|
+        project.users.each do |user|
+          list = list_in_board(convert_to_trello_username(user[:username]), BOARD_PROCESS)
 
-        if list.present?
-          TrelloApi::List.close(list[:id])
+          if list.present?
+            TrelloApi::List.close(list[:id])
+          end
         end
       end
     end
