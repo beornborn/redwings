@@ -34,11 +34,9 @@ module Service
 
     def self.cleanup_academy_tasks
       board_process = board_by_name BOARD_PROCESS
-
-      trello_lists = TrelloApi::Board.lists board_process[:id]
       active_academy_users = Project.find_by(name: 'Academy').users.deleted(false)
 
-      trello_lists.each do |list|
+      TrelloApi::Board.lists(board_process[:id]).each do |list|
         listname = convert_to_slack_username list[:name]
 
         unless active_academy_users.any? { |db_user| db_user.username == listname }
