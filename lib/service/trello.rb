@@ -26,28 +26,32 @@ module Service
       # get local active users
       db_users_active = User.deleted(false)
 
-      # cleanup
+      # cleanup users
       trello_users.each do |trello_user|
         username = convert_to_slack_username trello_user[:username]
 
-        unless db_users_active.any? { |db_user| db_user[:username] == username }
+        unless db_users_active.any? { |db_user| db_user.username == username }
           TrelloApi::Organization.delete_user(organization[:id], trello_user[:id])
-          list = list_in_board(trello_user[:username], BOARD_PROCESS)
+        end
+      end
 
-          if list.present?
-            TrelloApi::List.close(list[:id])
-          end
+      # cleanup lists of disabled users and not correct lists
+      board_process = board_by_name BOARD_PROCESS
+      trello_lists = TrelloApi::Board.lists board_process[:id]
+
+      trello_lists.each do |list|
+        listname = convert_to_slack_username list[:name]
+
+        unless db_users_active.any? { |db_user| db_user.username == listname }
+          TrelloApi::List.close(list[:id])
         end
       end
 
       # cleanup lists of users not academy project
       Project.where.not(name: 'Academy').each do |project|
         project.users.each do |user|
-          list = list_in_board(convert_to_trello_username(user[:username]), BOARD_PROCESS)
-
-          if list.present?
-            TrelloApi::List.close(list[:id])
-          end
+          list = list_in_board(convert_to_trello_username(user.username), BOARD_PROCESS)
+          TrelloApi::List.close(list[:id]) if list.present?
         end
       end
     end
@@ -61,20 +65,26 @@ module Service
       # get local active users
       db_users_active = User.deleted(false)
 
-      # setup users
-      board_process = board_by_name BOARD_PROCESS
-
       db_users_active.each do |db_user|
-        username = convert_to_trello_username db_user[:username]
+        username = convert_to_trello_username db_user.username
 
+        # add user to organization
         unless trello_users.any? { |trello_user| trello_user[:username] == username }
-          email = db_user.email
+          email     = db_user.email
           full_name = db_user.first_name + ' ' + db_user.last_name
 
-          # add user to organization
           TrelloApi::Organization.add_user(email, full_name, organization[:id])
+        end
+      end
 
-          # set basic tasks for user
+      board_process = board_by_name BOARD_PROCESS
+      trello_lists = TrelloApi::Board.lists board_process[:id]
+
+      # setup lists
+      Project.find_by(name: 'Academy').users.deleted(false).each do |db_user|
+        username = convert_to_trello_username db_user.username
+
+        unless trello_lists.any? { |list| list[:name] == username }
           new_list_name = convert_to_trello_username db_user.username
           list_source   = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
 
@@ -103,11 +113,8 @@ module Service
 
     def self.list_in_board(list_name, board_name)
       board = board_by_name board_name
-
-      if board.present?
-        lists = TrelloApi::Board.lists(board[:id])
-        lists.find { |list| list[:name] == list_name }
-      end
+      lists = TrelloApi::Board.lists(board[:id]) if board.present?
+      lists.find { |list| list[:name] == list_name }
     end
   end
 end
