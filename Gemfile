@@ -41,6 +41,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'draper'
 # Kaminari paginator. Read more: https://github.com/amatsuda/kaminari
 gem 'kaminari'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

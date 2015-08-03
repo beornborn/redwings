@@ -2,7 +2,7 @@ li.list-group-item
   .row
     .col-sm-8
       img.img-rounded.pull-left src="#{user.image_48}"
-      h4.list-group-item-heading = user.first_name + ' ' + user.last_name
+      h4.list-group-item-heading = user.full_name
       p.list-group-item-text.email = user.email
     .col-sm-4
       - if user.goodbye_reason.blank?
