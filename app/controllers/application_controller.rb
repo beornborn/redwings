@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   before_action :require_login
 
   def current_user
-   UserDecorator.decorate(super) unless super == false
+    user = super
+    user.present? ? UserDecorator.decorate(user) : user
   end
 
   private
