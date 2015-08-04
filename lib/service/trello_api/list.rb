@@ -13,6 +13,18 @@ module Service::TrelloApi
 
       RestClient.post uri.to_s, query_values
     end
+
+    def self.close(list_id)
+      uri = Addressable::URI.parse(API_PATH + "/lists/#{list_id}/closed")
+
+      query_values = {
+        value: true,
+        key:   TRELLO_APP_KEY,
+        token: TRELLO_APP_TOKEN
+      }
+
+      RestClient.put uri.to_s, query_values
+    end
   end
 end
 

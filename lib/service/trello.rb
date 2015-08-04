@@ -12,24 +12,83 @@ module Service
       end
     end
 
-    def self.setup_user(user)
-      email = user.email
-      full_name = (user.first_name + ' ' + user.last_name).presence || 'Noname'
+    def self.sync
+      cleanup_users
+      cleanup_academy_tasks
+      setup_users
+      setup_academy_tasks
+    end
 
-      # add user to organization
-      organization = organization_by_name(ORGANIZATION_NAME)
-      TrelloApi::Organization.add_user(email, full_name, organization[:id])
+    def self.cleanup_users
+      organization = organization_by_name ORGANIZATION_NAME
+      db_users_active = User.deleted(false)
 
-      # set basic tasks for user
-      new_list_name = user.username.presence || 'Noname'
+      self.trello_users.each do |trello_user|
+        username = convert_to_slack_username trello_user[:username]
 
-      board_process = board_by_name(BOARD_PROCESS)
-      list_source   = list_by_names(LIST_TASKS, BOARD_KNOWLEDGE)
+        unless db_users_active.any? { |db_user| db_user.username == username }
+          TrelloApi::Organization.delete_user(organization[:id], trello_user[:id])
+        end
+      end
+    end
 
-      TrelloApi::List.add_list_to_board(new_list_name, board_process[:id], list_source[:id])
+    def self.cleanup_academy_tasks
+      board_process = board_by_name BOARD_PROCESS
+      active_academy_users = Project.find_by(name: 'Academy').users.deleted(false)
+
+      TrelloApi::Board.lists(board_process[:id]).each do |list|
+        listname = convert_to_slack_username list[:name]
+
+        unless active_academy_users.any? { |db_user| db_user.username == listname }
+          TrelloApi::List.close(list[:id])
+        end
+      end
+    end
+
+    def self.setup_users
+      organization = organization_by_name ORGANIZATION_NAME
+      trello_users = self.trello_users
+
+      User.deleted(false).each do |db_user|
+        username = convert_to_trello_username db_user.username
+
+        unless trello_users.any? { |trello_user| trello_user[:username] == username }
+          email     = db_user.email
+          full_name = db_user.first_name + ' ' + db_user.last_name
+          TrelloApi::Organization.add_user(email, full_name, organization[:id])
+        end
+      end
+    end
+
+    def self.setup_academy_tasks
+      board_process = board_by_name BOARD_PROCESS
+      process_lists = TrelloApi::Board.lists board_process[:id]
+
+      Project.find_by(name: 'Academy').users.deleted(false).each do |db_user|
+        username = convert_to_trello_username db_user.username
+
+        unless process_lists.any? { |list| list[:name] == username }
+          new_list_name = convert_to_trello_username db_user.username
+          list_source   = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
+          TrelloApi::List.add_list_to_board(new_list_name, board_process[:id], list_source[:id])
+        end
+      end
     end
 
     private
+
+    def self.trello_users
+      organization = organization_by_name ORGANIZATION_NAME
+      TrelloApi::Organization.members(organization[:id]).delete_if { |user| user[:username] == USER_NAME }
+    end
+
+    def self.convert_to_slack_username(username)
+      username = username.gsub('redwings_', '').gsub('_', '.')
+    end
+
+    def self.convert_to_trello_username(username)
+      username = 'redwings_' + username.gsub('.', '_')
+    end
 
     def self.organization_by_name(organization_name)
       TrelloApi::Member.organizations(USER_NAME).find { |organization| organization[:name] == organization_name }
@@ -39,9 +98,9 @@ module Service
       TrelloApi::Member.boards(USER_NAME).find { |board| board[:name] == board_name }
     end
 
-    def self.list_by_names(list_name, board_name)
+    def self.list_in_board(list_name, board_name)
       board = board_by_name board_name
-      lists = TrelloApi::Board.lists board[:id]
+      lists = TrelloApi::Board.lists(board[:id]) if board.present?
       lists.find { |list| list[:name] == list_name }
     end
   end
