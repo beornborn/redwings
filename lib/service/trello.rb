@@ -75,6 +75,10 @@ module Service
       end
     end
 
+    def self.total_tasks_time
+      total_list_time(LIST_TASKS, BOARD_KNOWLEDGE)
+    end
+
     private
 
     def self.trello_users
@@ -103,6 +107,38 @@ module Service
       lists = TrelloApi::Board.lists(board[:id]) if board.present?
       lists.find { |list| list[:name] == list_name }
     end
+
+    def self.total_list_time(list_name, board_name)
+      list = list_in_board(list_name, board_name)
+      cards = list[:cards]
+
+      check_items_names = []
+
+      cards.each do |card|
+        checklist = Service::TrelloApi::Card.checklists(card[:id])[0]
+
+        next check_items_names << card[:name] if checklist.nil?
+
+        check_items = checklist[:checkItems]
+        check_items.each { |item| check_items_names << item[:name] }
+      end
+
+      count_time(check_items_names)
+    end
+
+    def self.count_time(check_items_names)
+      time_string = check_items_names.to_s.scan(/\d{1,2}[hm]{1}/)
+
+      total_time = 0
+
+      time_string.each do |time|
+        hours_or_minutes = time.scan(/[hm]{1}/).first
+
+        total_time += time.to_i * 60 if hours_or_minutes == 'm'
+        total_time += time.to_i * 60 * 60 if hours_or_minutes == 'h'
+      end
+
+      total_time
+    end
   end
 end
-
