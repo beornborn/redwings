@@ -1,16 +1,16 @@
 #left_navbar
   .list-group
-    a href='#academy'  class='list-group-item active' id='academy_link'
+    a href="#{users_path(type: 'academy')}" class='list-group-item'
       | Academy
-      span.badge = Project.find_by(name: 'Academy').users.deleted(false).size
-    a href='#redwings' class='list-group-item' id='redwings_link'
+      span.badge = academy_users_count
+    a href="#{users_path(type: 'redwings')}" class='list-group-item'
       | Redwings
-      span.badge = Project.find_by(name: 'Redwings').users.deleted(false).size
+      span.badge = redwings_users_count
 
   .divider
 
   .list-group
-    a href='#disabled' class='list-group-item' id='disabled_link'
+    a href="#{users_path(type: 'disabled')}" class='list-group-item'
       | Disabled users
-      span.badge = @users_disabled.size
+      span.badge = @users_disabled.count
 

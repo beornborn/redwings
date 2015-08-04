@@ -17,10 +17,16 @@
 
     ul.list-group.users
       = render current_user
-    ul.list-group.users#academy_users
-      = render @users_academy
-    ul.list-group.users#redwings_users
-      = render @users_redwings
-    ul.list-group.users#disabled_users
-      = render partial: 'user_disabled', collection: @users_disabled, as: :user
+
+    - if params[:type] == 'academy'
+      ul.list-group.users
+        = render @users_academy
+
+    - if params[:type] == 'redwings'
+      ul.list-group.users
+        = render @users_redwings
+
+    - if params[:type] == 'disabled'
+      ul.list-group.users
+        = render @users_disabled
 
