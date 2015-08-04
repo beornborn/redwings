@@ -6,5 +6,9 @@ module UserHelper
   def redwings_users_count
     Project.find_by(name: 'Redwings').users.deleted(false).count
   end
+
+  def disabled_users_count
+  	User.admin(false).deleted(true).count
+  end
 end
 

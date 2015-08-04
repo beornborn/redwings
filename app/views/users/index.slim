@@ -12,21 +12,10 @@
         = button_to sync_service_trello_path, { class: 'btn btn-default btn-sync' } do
           = image_tag('trello_logo.png')
           strong Sync
-
     br
-
     ul.list-group.users
       = render current_user
 
-    - if params[:type] == 'academy'
-      ul.list-group.users
-        = render @users_academy
-
-    - if params[:type] == 'redwings'
-      ul.list-group.users
-        = render @users_redwings
-
-    - if params[:type] == 'disabled'
-      ul.list-group.users
-        = render @users_disabled
+    ul.list-group.users
+      = render @users || @users_academy
 
