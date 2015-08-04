@@ -8,7 +8,7 @@ module UserHelper
   end
 
   def disabled_users_count
-  	User.admin(false).deleted(true).count
+    User.admin(false).deleted(true).count
   end
 end
 
