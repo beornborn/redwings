@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   before_action :require_login
 
   def current_user
-   UserDecorator.decorate(super) unless super == false
+    user = super
+    user.present? ? UserDecorator.decorate(user) : user
   end
 
   private
@@ -12,6 +13,4 @@ class ApplicationController < ActionController::Base
   def not_authenticated
     redirect_to login_path, info: "Please login first"
   end
-
 end
-
