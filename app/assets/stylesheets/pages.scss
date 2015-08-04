@@ -45,7 +45,7 @@ ul {
   color: gray;
 }
 
-#users {
+.users {
   img {
     margin-right: 10px;
     height: 42px;
@@ -57,13 +57,18 @@ ul {
   }
 }
 
-#deleted_users {
+#disabled_users {
+  display: none;
   img {
     margin-right: 10px;
     height: 42px;
     -webkit-filter: grayscale(1);
     filter: grayscale(1);
   }
+}
+
+#redwings_users {
+  display: none;
 }
 
 .current_user {
@@ -78,7 +83,8 @@ ul {
   border: none;
   background-color: #fff;
   img {
-    height: 20px !important;
+    margin-right: 10px;
+    height: 20px;
     width: 20px;
   }
 }
@@ -94,5 +100,25 @@ ul {
     transition: all .2s ease-in-out;
     transform: scale(1.2);
   }
+}
+
+.divider {
+  height: 1px;
+  width:100%;
+  display:block;
+  margin: 20px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+
+a.list-group-item.active > .badge {
+  color: #555;
+}
+
+.list-group-item.active,
+.list-group-item.active:hover,
+.list-group-item.active:focus {
+  background-color: #555;
+  border-color: #555;
 }
 

@@ -9,3 +9,4 @@ class UserDecorator < Draper::Decorator
     object.started_at.present? && object.started_at.strftime('%e %B %Y')
   end
 end
+

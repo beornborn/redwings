@@ -1,4 +1,7 @@
-.row#users
+.row
+  .col-md-2
+    = render 'left_navbar'
+
   .col-md-6
     .row
       .col-md-2
@@ -12,14 +15,12 @@
 
     br
 
-    ul.list-group
+    ul.list-group.users
       = render current_user
-    ul.list-group
-      = render @users
-
-.row#deleted_users
-  .col-md-6
-
-    ul.list-group
-      = render partial: "user_deleted", collection: @users_deleted, as: :user
+    ul.list-group.users#academy_users
+      = render @users_academy
+    ul.list-group.users#redwings_users
+      = render @users_redwings
+    ul.list-group.users#disabled_users
+      = render partial: 'user_disabled', collection: @users_disabled, as: :user
 
