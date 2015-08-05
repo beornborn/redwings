@@ -1,0 +1,3 @@
+li[class="#{'active' if current_page? users_path(filter: project.name.downcase)}"]
+  = link_to "#{project.name}", users_path(filter: project.name.downcase)
+

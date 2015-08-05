@@ -1,9 +1,8 @@
 ul.nav.nav-sidebar
-  li[class="#{'active' if current_page? users_path(filter: 'academy')}"]
-    = link_to 'Academy', users_path(filter: 'academy')
-  li[class="#{'active' if current_page? users_path(filter: 'redwings')}"]
-    = link_to 'Redwings', users_path(filter: 'redwings')
+  = render partial: 'link', collection: @projects, as: :project
+
 .divider
+
 ul.nav.nav-sidebar
   li[class="#{'active' if current_page? users_path(filter: 'disabled')}"]
     = link_to 'Disabled', users_path(filter: 'disabled')

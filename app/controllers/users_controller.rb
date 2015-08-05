@@ -5,6 +5,8 @@ class UsersController < ApplicationController
   attr_accessor :skip_password_validation
 
   def index
+    @projects = Project.all
+
     if params[:filter].present?
       @users = (params[:filter] == 'disabled') ? User.disabled : User.by_project(params[:filter].capitalize, current_user)
     else
