@@ -1,6 +1,6 @@
 class Service::TrellosController < ApplicationController
   def sync
-  	if Rails.env.production?
+    if Rails.env.production?
       Service::Trello.sync
       redirect_to root_path
     else
