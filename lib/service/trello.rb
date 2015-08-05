@@ -17,6 +17,7 @@ module Service
       cleanup_academy_tasks
       setup_users
       setup_academy_tasks
+      update_academy_tasks_time
     end
 
     def self.cleanup_users
@@ -75,8 +76,11 @@ module Service
       end
     end
 
-    def self.total_tasks_time
-      total_list_time(LIST_TASKS, BOARD_KNOWLEDGE)
+    def self.update_academy_tasks_time
+      @project = Project.find_by(name: "Academy")
+      @project.data = { 'total_tasks_time' => total_tasks_time,
+                        'time_for_project' => 30 * 24 * 60 * 60 }
+      @project.save
     end
 
     private
@@ -108,16 +112,16 @@ module Service
       lists.find { |list| list[:name] == list_name }
     end
 
-    def self.total_list_time(list_name, board_name)
-      list = list_in_board(list_name, board_name)
+    def self.total_tasks_time
+      list = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
       cards = list[:cards]
 
       check_items_names = []
 
       cards.each do |card|
-        checklist = Service::TrelloApi::Card.checklists(card[:id])[0]
+        checklist = Service::TrelloApi::Card.checklists(card[:id]).first
 
-        next check_items_names << card[:name] if checklist.nil?
+        fail('There are no checklist with time in the card') if checklist.nil?
 
         check_items = checklist[:checkItems]
         check_items.each { |item| check_items_names << item[:name] }
