@@ -1,16 +1,10 @@
-#left_navbar
-  .list-group
-    a href="#{users_path(filter: 'academy')}" class='list-group-item'
-      | Academy
-      span.badge = academy_users_count
-    a href="#{users_path(filter: 'redwings')}" class='list-group-item'
-      | Redwings
-      span.badge = redwings_users_count
-
-  .divider
-
-  .list-group
-    a href="#{users_path(filter: 'disabled')}" class='list-group-item'
-      | Disabled users
-      span.badge = disabled_users_count
+ul.nav.nav-sidebar
+  li[class="#{'active' if current_page? users_path(filter: 'academy')}"]
+    = link_to 'Academy', users_path(filter: 'academy')
+  li[class="#{'active' if current_page? users_path(filter: 'redwings')}"]
+    = link_to 'Redwings', users_path(filter: 'redwings')
+.divider
+ul.nav.nav-sidebar
+  li[class="#{'active' if current_page? users_path(filter: 'disabled')}"]
+    = link_to 'Disabled', users_path(filter: 'disabled')
 

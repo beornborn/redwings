@@ -1,8 +1,8 @@
 .row
-  .col-md-2
+  .col-sm-1.sidebar
     = render 'left_navbar'
 
-  .col-md-6
+  .col-sm-6.col-sm-offset-1.main
     .row
       .col-md-2
         = button_to sync_service_slack_path, { class: 'btn btn-default btn-sync' } do

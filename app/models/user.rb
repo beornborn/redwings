@@ -16,8 +16,16 @@ class User < ActiveRecord::Base
   validates :password, confirmation: true, length: { minimum: 6 }, if: :do_password_validation
   validates :password_confirmation, presence: true, if: :do_password_validation
 
-  scope :admin,   -> (admin)   { where admin:   admin }
-  scope :deleted, -> (deleted) { where deleted: deleted }
+  scope :not_admins, -> { where(admin: false).order(started_at: :desc) }
+  scope :deleted, -> (deleted) { not_admins.where(deleted: deleted) }
+
+  def self.by_project(project_name, user)
+    Project.find_by(name: project_name).users.where.not(id: user.id).deleted(false).decorate
+  end
+
+  def self.disabled
+    User.deleted(true).decorate
+  end
 
   private
 
