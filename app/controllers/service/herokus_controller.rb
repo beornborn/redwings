@@ -7,9 +7,9 @@ end
 
 class Database
 	def self.sync
-	  puts 'Syncing local development database with production...'
+		puts 'Syncing local development database with production...'
 
-	  db_config = Rails.configuration.database_configuration
+		db_config = Rails.configuration.database_configuration
 	  database_name = db_config['development']['database']
 
 	  begin
