@@ -20,6 +20,7 @@ module Service::TrelloApi
 
       uri.query_values = {
         filter: :open,
+        fields: :all,
         key:   TRELLO_APP_KEY,
         token: TRELLO_APP_TOKEN
       }
