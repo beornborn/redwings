@@ -10,12 +10,13 @@
     .navbar-collapse.collapse#navbar-main
       nav
         ul.nav.navbar-nav
-          - if current_user and can? :read, User
-            li
-              = link_to "Users", users_path
-          - if current_user and can? :manage, TrelloBackup
-            li
-              = link_to "Trello backups", trello_backups_path
+          - if current_user
+            - if can? :index, User
+              li
+                = link_to "Users", users_path
+            - if can? :manage, TrelloBackup
+              li
+                = link_to "Trello backups", trello_backups_path
       nav
         ul.nav.navbar-nav.navbar-right
           - if current_user
