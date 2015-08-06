@@ -8,6 +8,11 @@ class ApplicationController < ActionController::Base
     user.present? ? UserDecorator.decorate(user) : user
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:danger] = "Access denied!"
+    redirect_to root_url
+  end
+
   private
 
   def not_authenticated
