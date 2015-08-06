@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  load_and_authorize_resource
+
   before_filter :find_user, only: [:edit, :update]
 
   attr_accessor :skip_password_validation
