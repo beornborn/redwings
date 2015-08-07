@@ -41,6 +41,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'draper'
 gem 'sidekiq'
 gem 'sinatra', require: false
+# Use to restrict what resources a given user is allowed to access
+gem 'cancancan', '~> 1.10'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

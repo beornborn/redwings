@@ -11,16 +11,17 @@
       nav
         ul.nav.navbar-nav
           - if current_user
-            li
-              = link_to "Users", users_path
-            li
-              = link_to "Trello backups", trello_backups_path
-            li
-              = link_to "Jobs",
-              sidekiq_web_path
+            - if can? :index, User
+              li
+                = link_to "Users", users_path
+            - if can? :manage, TrelloBackup
+              li
+                = link_to "Trello backups", trello_backups_path
+              li
+                = link_to "Jobs",
+                sidekiq_web_path
       nav
         ul.nav.navbar-nav.navbar-right
           - if current_user
             li
               = link_to "Log out", :logout, method: :post
-
