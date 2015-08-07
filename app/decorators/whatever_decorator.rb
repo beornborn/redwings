@@ -1,0 +1,2 @@
+class WhateverDecorator < ApplicationDecorator
+end
