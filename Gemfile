@@ -39,6 +39,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Draper decorators to wrap your models with presentation-related logic. Read more: https://github.com/drapergem/draper
 gem 'draper'
+gem 'sidekiq'
+gem 'sinatra', require: false
 # Use to restrict what resources a given user is allowed to access
 gem 'cancancan', '~> 1.10'
 
