@@ -1,0 +1,9 @@
+#left-navbar
+  .nav.nav-pills.nav-stacked
+    - @projects.each do |project|
+      = project.link_to_users
+  .divider
+
+  .nav.nav-pills.nav-stacked
+    = link_to_users 'disabled'
+

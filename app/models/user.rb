@@ -16,8 +16,10 @@ class User < ActiveRecord::Base
   validates :password, confirmation: true, length: { minimum: 6 }, if: :do_password_validation
   validates :password_confirmation, presence: true, if: :do_password_validation
 
-  scope :admin,   -> (admin)   { where admin:   admin }
-  scope :deleted, -> (deleted) { where deleted: deleted }
+  scope :active, -> { where(deleted: false) }
+  scope :disabled, -> { where(deleted: true).order(started_at: :desc) }
+  scope :by_project, -> (name) { joins(:projects).merge(Project.users_by_project name) }
+  scope :active_without, -> (user) { where.not(id: user.id).active }
 
   private
 

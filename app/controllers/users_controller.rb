@@ -6,8 +6,13 @@ class UsersController < ApplicationController
   attr_accessor :skip_password_validation
 
   def index
-    @users = User.where.not(id: current_user.id).admin(false).deleted(false).order(started_at: :desc).decorate
-    @users_deleted = User.admin(false).deleted(true).order(started_at: :desc).decorate
+    @projects = Project.all.decorate
+
+    if params[:filter].present?
+      @users = (params[:filter] == 'disabled') ? User.disabled.decorate : User.by_project(params[:filter].capitalize).active_without(current_user).decorate
+    else
+      @users = User.by_project('Academy').active_without(current_user).decorate
+    end
   end
 
   def update

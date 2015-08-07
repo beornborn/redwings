@@ -1,0 +1,15 @@
+.row
+  .col-md-2
+    = button_to sync_service_slack_path, { class: 'btn btn-default btn-sync' } do
+      = image_tag('slack_logo.png')
+      strong Sync
+  .col-md-2
+    = button_to sync_service_trello_path, { class: 'btn btn-default btn-sync' } do
+      = image_tag('trello_logo.png')
+      strong Sync
+  - unless Rails.env.production?
+    .col-md-2
+      = button_to sync_service_heroku_path, { class: 'btn btn-default btn-sync' } do
+        = image_tag('heroku_logo.png')
+        strong Sync
+

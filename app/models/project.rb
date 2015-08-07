@@ -3,5 +3,7 @@ class Project < ActiveRecord::Base
   has_many :users, through: :projects_users
 
   validates :name, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
+
+  scope :users_by_project, -> (name) { where(name: name) }
 end
 
