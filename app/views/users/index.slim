@@ -19,8 +19,11 @@
 
     ul.list-group
       = render current_user
+
     ul.list-group
+      = paginate @users
       = render @users
+      = paginate @users
 
 .row#deleted_users
   .col-md-6
