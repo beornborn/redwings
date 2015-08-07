@@ -15,6 +15,10 @@ Rails.application.routes.draw do
     resource :trello, only: [] do
       post :sync, on: :collection
     end
+
+    resource :heroku, only: [] do
+      post :sync, on: :collection
+    end
   end
 
   resources :users,           only: [:index, :edit, :update]
