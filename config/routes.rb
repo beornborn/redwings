@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   get  'login'  => 'user_sessions#new',     as: :login
   post 'logout' => 'user_sessions#destroy', as: :logout
 
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/devel/emails"
+  end
+
   namespace :service do
     resource :slack, only: [] do
       post :sync, on: :collection
