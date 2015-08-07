@@ -8,11 +8,18 @@ class UsersController < ApplicationController
   def index
     @projects = Project.all.decorate
 
-    if params[:filter].present?
-      @users = (params[:filter] == 'disabled') ? User.disabled.decorate : User.by_project(params[:filter].capitalize).active_without(current_user).decorate
+    @users = if params[:filter].blank?
+      User.by_project('Academy').active.without(current_user)
+    elsif params[:filter] == 'Disabled'
+      User.disabled
     else
-      @users = User.by_project('Academy').active_without(current_user).decorate
+      User.by_project(params[:filter]).active.without(current_user)
     end
+
+    params[:show_current_user] = current_user.projects.find { |project| project.name == params[:filter] } if params[:filter].present?
+
+    @users = @users.decorate
+    @user  = @users.first
   end
 
   def update

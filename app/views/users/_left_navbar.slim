@@ -1,9 +1,8 @@
 #left-navbar
   .nav.nav-pills.nav-stacked
     - @projects.each do |project|
-      = project.link_to_users
+      li class="#{project.users_link_class}" = link_to project.name, users_path(filter: project.name)
   .divider
-
   .nav.nav-pills.nav-stacked
-    = link_to_users 'disabled'
+    li class="#{@user.class_for_link_to_users_page('Disabled')}" = link_to 'Disabled', users_path(filter: 'Disabled')
 

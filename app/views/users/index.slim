@@ -4,7 +4,7 @@
   .col-sm-6
     = render 'sync_buttons'
     br
-    - if current_user.in_project? params[:filter]
+    - if params[:show_current_user]
       ul.list-group.users
         = render current_user
     ul.list-group.users

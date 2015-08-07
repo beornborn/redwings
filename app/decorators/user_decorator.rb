@@ -1,6 +1,4 @@
 class UserDecorator < Draper::Decorator
-  include Draper::LazyHelpers
-
   delegate_all
 
   def full_name
@@ -11,8 +9,8 @@ class UserDecorator < Draper::Decorator
     object.started_at.present? && object.started_at.strftime('%e %B %Y')
   end
 
-  def in_project?(name)
-    object.projects.find { |project| project.name == name.capitalize } if name.present?
+  def class_for_link_to_users_page filter
+    h.current_page?(h.users_path(filter: filter)) ? 'active' : ''
   end
 end
 

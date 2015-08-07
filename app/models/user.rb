@@ -18,15 +18,15 @@ class User < ActiveRecord::Base
 
   scope :active, -> { where(deleted: false).order(started_at: :desc) }
   scope :disabled, -> { where(deleted: true).order(started_at: :desc) }
-  scope :by_project, -> (name) { joins(:projects).merge(Project.users_by_project name) }
-  scope :active_without, -> (user) { where.not(id: user.id).active }
+  scope :by_project, -> (name) { joins(:projects).merge(Project.project_by_name name) }
+  scope :without, -> (user) { where.not(id: user.id) }
 
   private
 
   def user_correction
-    self.username =   (/[a-z]*\.[a-z]*/ =~ self.username) ? self.username : "#{self.username}.#{self.username}"
+    self.username   = (/[a-z]*\.[a-z]*/ =~ self.username) ? self.username : "#{self.username}.#{self.username}"
     self.first_name = 'Noname' if self.first_name.blank?
-    self.last_name =  'Noname' if self.last_name.blank?
+    self.last_name  = 'Noname' if self.last_name.blank?
   end
 
 end
