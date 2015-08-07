@@ -14,6 +14,9 @@ gem 'pg'
 # Magical Authentication for Rails 3 and 4. Read more: https://github.com/NoamB/sorcery
 gem 'sorcery'
 
+gem 'nokogiri'
+gem 'premailer-rails'
+gem 'letter_opener_web', '~> 1.2.0', :group => :development
 gem 'addressable'
 gem 'rest-client', '~> 1.8.0'
 gem 'slack-api', '1.1.6', require: 'slack'
