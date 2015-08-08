@@ -8,5 +8,7 @@
       ul.list-group.users
         = render current_user
     ul.list-group.users
+      = paginate @users
       = render @users
+      = paginate @users
 
