@@ -32,6 +32,10 @@ module Service
         user['image_48'] =   member['profile']['image_48']
         user['email'] =      member['profile']['email']
         user['deleted'] =    member['deleted']
+        user['github'] =     member['profile']['title']
+        user['mobile'] =     member['profile']['phone']
+        user['skype'] =      member['profile']['skype']
+        user['image_192'] =  member['profile']['image_192']
         user
       end
 

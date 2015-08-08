@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   validates :email,      presence: true, uniqueness: true
   validates :password, confirmation: true, length: { minimum: 6 }, if: :do_password_validation
   validates :password_confirmation, presence: true, if: :do_password_validation
+  validates :about,      length: { maximum: 1000 }
 
   scope :admin,   -> (admin)   { where admin:   admin }
   scope :deleted, -> (deleted) { where deleted: deleted }
