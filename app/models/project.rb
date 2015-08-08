@@ -4,6 +4,6 @@ class Project < ActiveRecord::Base
 
   validates :name, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
 
-  scope :project_by_name, -> (name) { where(name: name) }
+  scope :by_name, -> (name) { where(name: name) }
 end
 

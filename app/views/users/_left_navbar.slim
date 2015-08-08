@@ -1,9 +1,9 @@
 .nav.nav-pills.nav-stacked
   - @projects.each do |project|
-    li class="#{'active' if active_by_filter? project.name}"
+    li class="#{'active' if current_filter? project.name}"
       = link_to project.name, users_path(filter: project.name)
 .divider
 .nav.nav-pills.nav-stacked
-  li class="#{'active' if active_by_filter? 'Disabled'}"
+  li class="#{'active' if current_filter? 'Disabled'}"
     = link_to 'Disabled', users_path(filter: 'Disabled')
 

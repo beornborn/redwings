@@ -5,14 +5,10 @@ class UsersController < ApplicationController
 
   attr_accessor :skip_password_validation
 
-  helper_method :active_by_filter?
-
-  def active_by_filter?(filter)
-    params[:filter] == filter
-  end
-
   def index
-    params[:show_current_user] = current_user.projects.find { |project| project.name == params[:filter] } if params[:filter].present?
+    @show_current_user = current_user.projects.find { |project| project.name == params[:filter] } if params[:filter].present?
+
+    @current_filter = params[:filter] || 'Academy'
 
     @projects = Project.all
 
@@ -24,7 +20,7 @@ class UsersController < ApplicationController
       User.by_project(params[:filter]).active.without(current_user)
     end
 
-    @users = @users.decorate
+    @users = @users.order(started_at: :desc).decorate
   end
 
   def update
