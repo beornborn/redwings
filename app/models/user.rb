@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
   scope :active, -> { where deleted: false }
   scope :disabled, -> { where deleted: true }
   scope :by_project, -> (name) { joins(:projects).merge(Project.by_name name) }
-  scope :without, -> (user) { where.not(id: user.id) }
 
   private
 

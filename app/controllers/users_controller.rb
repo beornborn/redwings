@@ -10,12 +10,12 @@ class UsersController < ApplicationController
 
     @projects = Project.all
 
-    @users = if params[:filter].blank?
+    @users = if @current_filter.blank?
       User.by_project('Academy').active
-    elsif params[:filter] == 'Disabled'
+    elsif @current_filter == 'Disabled'
       User.disabled
     else
-      User.by_project(params[:filter]).active
+      User.by_project(@current_filter).active
     end
 
     @users = @users.order(started_at: :desc).page(params[:page]).decorate
