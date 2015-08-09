@@ -86,10 +86,12 @@ module Service
     end
 
     def self.update_users_academy_tasks_spent_time
-      Project.find_by(name: 'Academy').users.active.each do |user|
-        list = list_in_board(convert_to_trello_username(user[:username]), BOARD_PROCESS)
+      board_process = board_by_name BOARD_PROCESS
 
-        project = User.find_by(username: user[:username]).projects.find { |project| project[:name] == 'Academy' }
+      TrelloApi::Board.lists(board_process[:id]).each do |list|
+        username = convert_to_slack_username list[:name]
+
+        project = User.find_by(username: username).projects.find { |project| project[:name] == 'Academy' }
         project.data = { 'spent_time' => total_tasks_time(list, 'complete') }
         project.save
       end
