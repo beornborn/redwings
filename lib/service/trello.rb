@@ -22,7 +22,7 @@ module Service
 
     def self.cleanup_users
       organization = organization_by_name ORGANIZATION_NAME
-      db_users_active = User.deleted(false)
+      db_users_active = User.active
 
       self.trello_users.each do |trello_user|
         username = convert_to_slack_username trello_user[:username]
@@ -35,7 +35,7 @@ module Service
 
     def self.cleanup_academy_tasks
       board_process = board_by_name BOARD_PROCESS
-      active_academy_users = Project.find_by(name: 'Academy').users.deleted(false)
+      active_academy_users = Project.find_by(name: 'Academy').users.disabled
 
       TrelloApi::Board.lists(board_process[:id]).each do |list|
         listname = convert_to_slack_username list[:name]
@@ -50,7 +50,7 @@ module Service
       organization = organization_by_name ORGANIZATION_NAME
       trello_users = self.trello_users
 
-      User.deleted(false).each do |db_user|
+      User.active.each do |db_user|
         username = convert_to_trello_username db_user.username
 
         unless trello_users.any? { |trello_user| trello_user[:username] == username }
@@ -65,7 +65,7 @@ module Service
       board_process = board_by_name BOARD_PROCESS
       process_lists = TrelloApi::Board.lists board_process[:id]
 
-      Project.find_by(name: 'Academy').users.deleted(false).each do |db_user|
+      Project.find_by(name: 'Academy').users.disabled.each do |db_user|
         username = convert_to_trello_username db_user.username
 
         unless process_lists.any? { |list| list[:name] == username }
@@ -85,14 +85,20 @@ module Service
       @project.save
     end
 
-    def self.update_users_academy_tasks_spent_time
+    def self.sync_users_spent_time
       board_process = board_by_name BOARD_PROCESS
 
       TrelloApi::Board.lists(board_process[:id]).each do |list|
         username = convert_to_slack_username list[:name]
 
-        project = User.find_by(username: username).projects.find { |project| project[:name] == 'Academy' }
-        project.data = { 'spent_time' => total_tasks_time(list, 'complete') }
+        spent_time = total_tasks_time(list, 'complete')
+
+        user = User.where(username: username)
+        user.spent_time = spent_time
+        user.save
+
+        project = user.projects.find { |project| project[:name] == 'Academy' }
+        project.data = { 'spent_time' => spent_time }
         project.save
       end
     end
