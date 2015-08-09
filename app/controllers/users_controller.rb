@@ -10,9 +10,7 @@ class UsersController < ApplicationController
 
     @projects = Project.all
 
-    @users = if @current_filter.blank?
-      User.by_project('Academy').active
-    elsif @current_filter == 'Disabled'
+    @users = if @current_filter == 'Disabled'
       User.disabled
     else
       User.by_project(@current_filter).active
