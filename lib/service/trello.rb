@@ -89,17 +89,11 @@ module Service
       board_process = board_by_name BOARD_PROCESS
 
       TrelloApi::Board.lists(board_process[:id]).each do |list|
-        username = convert_to_slack_username list[:name]
+        user = User.where(username: convert_to_slack_username(list[:name])).first
 
-        spent_time = total_tasks_time(list, 'complete')
-
-        user = User.where(username: username)
-        user.spent_time = spent_time
-        user.save
-
-        project = user.projects.find { |project| project[:name] == 'Academy' }
-        project.data = { 'spent_time' => spent_time }
-        project.save
+        project_user = ProjectsUser.where(user_id: user.id).first
+        project_user.data = { 'spent_time' => total_tasks_time(list, 'complete') }
+        project_user.save
       end
     end
 
