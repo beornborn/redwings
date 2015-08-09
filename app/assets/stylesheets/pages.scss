@@ -64,9 +64,12 @@ ul {
   }
 }
 
+.little-spaced-bottom {
+  margin-bottom: 10px;
+}
+
 .btn-sync,
-.btn-sync:active
-.btn-sync.active {
+.btn-sync:active {
   border: none;
   background-color: #fff;
   img {
@@ -77,9 +80,7 @@ ul {
 }
 
 .btn-sync:focus,
-.btn-sync.focus,
 .btn-sync:active,
-.btn-sync.active,
 .btn-sync:hover {
   border: none;
   background-color: #fff;
