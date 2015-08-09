@@ -16,8 +16,9 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true, if: :do_password_validation
   validates :about,      length: { maximum: 1000 }
 
-  scope :admin,   -> (admin)   { where admin:   admin }
-  scope :deleted, -> (deleted) { where deleted: deleted }
+  scope :active, -> { where deleted: false }
+  scope :disabled, -> { where deleted: true }
+  scope :by_project, -> (name) { joins(:projects).merge(Project.by_name name) }
 
   private
 

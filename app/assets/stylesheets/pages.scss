@@ -29,7 +29,7 @@ body {
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 60px;
-  background-color: #f5f5f5;
+  background-color: #f8f8f8;
 }
 
 .container .text-muted {
@@ -45,7 +45,7 @@ ul {
   color: gray;
 }
 
-#users {
+.users {
   img {
     margin-right: 10px;
     height: 42px;
@@ -57,19 +57,11 @@ ul {
   }
 }
 
-#deleted_users {
+.disabled_user {
   img {
-    margin-right: 10px;
-    height: 42px;
     -webkit-filter: grayscale(1);
     filter: grayscale(1);
   }
-}
-
-.current_user {
-  text-decoration: none;
-  color: #555;
-  background-color: #f5f5f5;
 }
 
 .btn-sync,
@@ -78,6 +70,7 @@ ul {
   border: none;
   background-color: #fff;
   img {
+    margin-right: 10px;
     height: 20px !important;
     width: 20px;
   }
@@ -94,5 +87,20 @@ ul {
     transition: all .2s ease-in-out;
     transform: scale(1.2);
   }
+}
+
+.divider {
+  height: 1px;
+  width: 100%;
+  display: block;
+  margin: 20px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+
+.nav-pills > li > a,
+.nav-pills > li > a:hover,
+.nav-pills > li > a:focus {
+  border-radius: 0;
 }
 
