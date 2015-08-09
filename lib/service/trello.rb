@@ -65,7 +65,7 @@ module Service
       board_process = board_by_name BOARD_PROCESS
       process_lists = TrelloApi::Board.lists board_process[:id]
 
-      Project.find_by(name: 'Academy').users.disabled.each do |db_user|
+      Project.find_by(name: 'Academy').users.active.each do |db_user|
         username = convert_to_trello_username db_user.username
 
         unless process_lists.any? { |list| list[:name] == username }
