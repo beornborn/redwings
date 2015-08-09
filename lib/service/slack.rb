@@ -8,17 +8,24 @@ module Service
 
         academy_project = Project.find_by(name: 'Academy')
 
+        trello_username = convert_to_trello_username slack_user['username']
+
         if user.new_record?
-          user = User.create! slack_user.merge(password: 'redwings', password_confirmation: 'redwings', started_at: Time.now)
+          user = User.create! slack_user.merge(password: 'redwings', password_confirmation: 'redwings',
+                                               trello_username: trello_username, started_at: Time.now)
           user.projects << academy_project
         else
-          user.attributes = slack_user
+          user.attributes = slack_user.merge(trello_username: trello_username)
           user.save!
         end
       end
     end
 
     private
+
+    def self.convert_to_trello_username(username)
+      username = 'redwings_' + username.gsub('.', '_')
+    end
 
     def self.users
       data = SlackApi::User.all

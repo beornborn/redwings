@@ -18,11 +18,12 @@ module Service
       setup_users
       setup_academy_tasks
       update_academy_tasks_time
+      update_users_spent_time
     end
 
     def self.cleanup_users
       organization = organization_by_name ORGANIZATION_NAME
-      db_users_active = User.deleted(false)
+      db_users_active = User.active
 
       self.trello_users.each do |trello_user|
         username = convert_to_slack_username trello_user[:username]
@@ -35,7 +36,7 @@ module Service
 
     def self.cleanup_academy_tasks
       board_process = board_by_name BOARD_PROCESS
-      active_academy_users = Project.find_by(name: 'Academy').users.deleted(false)
+      active_academy_users = Project.find_by(name: 'Academy').users.active
 
       TrelloApi::Board.lists(board_process[:id]).each do |list|
         listname = convert_to_slack_username list[:name]
@@ -50,10 +51,8 @@ module Service
       organization = organization_by_name ORGANIZATION_NAME
       trello_users = self.trello_users
 
-      User.deleted(false).each do |db_user|
-        username = convert_to_trello_username db_user.username
-
-        unless trello_users.any? { |trello_user| trello_user[:username] == username }
+      User.active.each do |db_user|
+        unless trello_users.any? { |trello_user| trello_user[:username] == db_user.trello_username }
           email     = db_user.email
           full_name = db_user.first_name + ' ' + db_user.last_name
           TrelloApi::Organization.add_user(email, full_name, organization[:id])
@@ -65,13 +64,10 @@ module Service
       board_process = board_by_name BOARD_PROCESS
       process_lists = TrelloApi::Board.lists board_process[:id]
 
-      Project.find_by(name: 'Academy').users.deleted(false).each do |db_user|
-        username = convert_to_trello_username db_user.username
-
-        unless process_lists.any? { |list| list[:name] == username }
-          new_list_name = convert_to_trello_username db_user.username
+      Project.find_by(name: 'Academy').users.active.each do |db_user|
+        unless process_lists.any? { |list| list[:name] == db_user.trello_username }
           list_source   = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
-          TrelloApi::List.add_list_to_board(new_list_name, board_process[:id], list_source[:id])
+          TrelloApi::List.add_list_to_board(db_user.trello_username, board_process[:id], list_source[:id])
         end
       end
     end
@@ -89,10 +85,18 @@ module Service
       board_process = board_by_name BOARD_PROCESS
 
       TrelloApi::Board.lists(board_process[:id]).each do |list|
-        projects_users = User.where(username: convert_to_slack_username(list[:name])).first.projects_users.first
+        user = User.where(username: convert_to_slack_username(list[:name])).first
 
-        projects_users.data = { 'spent_time' => total_tasks_time(list, 'complete') }
-        projects_users.save
+        project_id = Project.where(name: 'Academy').first.id
+
+        user.projects_users.each do |projects_user|
+
+          if projects_user.project_id == project_id
+            projects_user.data['spent_time'] = total_tasks_time(list, 'complete')
+            projects_user.save
+          end
+
+        end
       end
     end
 
@@ -105,10 +109,6 @@ module Service
 
     def self.convert_to_slack_username(username)
       username = username.gsub('redwings_', '').gsub('_', '.')
-    end
-
-    def self.convert_to_trello_username(username)
-      username = 'redwings_' + username.gsub('.', '_')
     end
 
     def self.organization_by_name(organization_name)
@@ -136,7 +136,8 @@ module Service
         fail('There are no checklist with time in the card') if checklist.nil?
 
         check_items = checklist[:checkItems]
-        check_items.each { |item| check_items_names << item[:name] if item[:state] == state }
+
+        check_items_names.push check_items.select { |item| item[:state] == state }
       end
 
       count_time(check_items_names)
