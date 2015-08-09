@@ -77,10 +77,22 @@ module Service
     end
 
     def self.update_academy_tasks_time
+      knowledge_list = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
+
       @project = Project.find_by(name: "Academy")
-      @project.data = { 'total_tasks_time' => total_tasks_time,
+      @project.data = { 'total_tasks_time' => total_tasks_time(knowledge_list, 'incomplete'),
                         'time_for_project' => 30 * 24 * 60 * 60 }
       @project.save
+    end
+
+    def self.update_users_academy_tasks_spent_time
+      Project.find_by(name: 'Academy').users.active.each do |user|
+        list = list_in_board(convert_to_trello_username(user[:username]), BOARD_PROCESS)
+
+        project = User.find_by(username: user[:username]).projects.find { |project| project[:name] == 'Academy' }
+        project.data = { 'spent_time' => total_tasks_time(list, 'complete') }
+        project.save
+      end
     end
 
     private
@@ -112,8 +124,7 @@ module Service
       lists.find { |list| list[:name] == list_name }
     end
 
-    def self.total_tasks_time
-      list = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
+    def self.total_tasks_time(list, state)
       cards = list[:cards]
 
       check_items_names = []
@@ -124,7 +135,7 @@ module Service
         fail('There are no checklist with time in the card') if checklist.nil?
 
         check_items = checklist[:checkItems]
-        check_items.each { |item| check_items_names << item[:name] }
+        check_items.each { |item| check_items_names << item[:name] if item[:state] == state}
       end
 
       count_time(check_items_names)
@@ -146,3 +157,4 @@ module Service
     end
   end
 end
+
