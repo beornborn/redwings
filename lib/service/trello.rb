@@ -51,10 +51,10 @@ module Service
 
     def self.setup_users
       organization = organization_by_name ORGANIZATION_NAME
-      trello_users = self.trello_users
+      trello_usernames = trello_users.map {|x| x.username }
 
       User.active.each do |db_user|
-        unless trello_users.any? { |trello_user| trello_user[:username] == db_user.trello_username }
+        unless db_user.trello_username.in? trello_usernames
           email     = db_user.email
           full_name = db_user.first_name + ' ' + db_user.last_name
           TrelloApi::Organization.add_user(email, full_name, organization[:id])
@@ -80,18 +80,22 @@ module Service
       Project.find_by(name: "Academy")
       project.data = { 'total_tasks_time' => total_tasks_time,
                        'time_for_project' => 30 * 24 * 60 * 60 }
-      project.save
+      project.save!
     end
 
     def self.update_academy_tasks_spent_time
       board_process = board_by_name BOARD_PROCESS
       project_id = Project.find_by(name: 'Academy').id
 
+
       TrelloApi::Board.lists(board_process[:id]).each do |list|
         user = User.find_by(trello_username: list[:name])
 
-        ProjectsUser.find_by(project_id: project_id, user_id: user.id)
-          .update(data: { 'spent_time' =>  total_tasks_time(list, 'complete') })
+        puts project_id
+        puts user.id
+
+        ProjectsUser.where(project_id: project_id, user_id: user.id)
+          .update_all(data: { 'spent_time' =>  total_tasks_time(list, 'complete') })
       end
     end
 
