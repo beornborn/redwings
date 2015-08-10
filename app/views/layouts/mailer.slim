@@ -2,23 +2,32 @@ doctype html
 html
   head
     meta content='text/html; charset=UTF-8' http-equiv='Content-Type'
-  body
+  body style="font-family: Arial;"
     = yield
 
     br
     br
+    div style="font-size: 0.8em;"
+      div
+        strong Oleg Gorbunov
+      div Mentor
+      br
 
-    = image_tag("logo.png", width: "50")
-    strong REDWINGS
-    br
-    br
+      div
+        strong email:
+      span beornborn@gmail.com
+      div
+        strong skype:
+      span beornbornbeorn
+      div
+        strong cell:
+      span +380937819824
+      br
+      br
 
-    strong
-      small Mentor Oleg Gorbunov
-    br
-    strong
-      small email: beornborn@gmail.com
-
-    hr
-    | &copy;
-    small 2015 - RedWings - Ruby learning community
+      div style="font-weight: bold;"
+        = image_tag("logo.png", width: "32")
+        span &nbsp; &#124; &nbsp;
+        span style="color: orange;" REDWINGS - learning and practicing Ruby with mentor
+        span &nbsp; &#124; &nbsp;
+        | <a href="redwings.herokuapp.com">redwings.herokuapp.com</a>
