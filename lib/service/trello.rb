@@ -90,7 +90,9 @@ module Service
       project_id = Project.find_by(name: 'Academy').id
 
       TrelloApi::Board.lists(board_process[:id]).each do |list|
-        projects_user = ProjectsUser.find_by(project_id: project_id)
+        user = User.find_by(trello_username: list[:name])
+
+        projects_user = ProjectsUser.find_by(project_id: project_id, user_id: user.id)
         projects_user.data['spent_time'] = total_tasks_time(list, 'complete')
         projects_user.save
       end
