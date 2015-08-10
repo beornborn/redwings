@@ -1,5 +1,5 @@
 - if can? :update, User
-  .row
+  .row.little-spaced-bottom
     .col-md-2
       = button_to sync_service_slack_path, { class: 'btn btn-default btn-sync' } do
         = image_tag('slack_logo.png')
@@ -13,5 +13,4 @@
         = button_to sync_service_heroku_path, { class: 'btn btn-default btn-sync' } do
           = image_tag('heroku_logo.png')
           strong Sync
-    br
 
