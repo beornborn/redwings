@@ -13,8 +13,6 @@ module Service
     end
 
     def self.sync
-      update_trello_usernames
-
       cleanup_users
       cleanup_academy_tasks
 
@@ -79,9 +77,9 @@ module Service
     def self.update_academy_tasks_total_time
       knowledge_list = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
 
-      project = Project.find_by(name: "Academy")
-      project.data['total_tasks_time'] = total_tasks_time(knowledge_list, 'incomplete')
-      project.data['time_for_project'] = 30 * 24 * 60 * 60
+      Project.find_by(name: "Academy")
+      project.data = { 'total_tasks_time' => total_tasks_time,
+                       'time_for_project' => 30 * 24 * 60 * 60 }
       project.save
     end
 
@@ -92,16 +90,8 @@ module Service
       TrelloApi::Board.lists(board_process[:id]).each do |list|
         user = User.find_by(trello_username: list[:name])
 
-        projects_user = ProjectsUser.find_by(project_id: project_id, user_id: user.id)
-        projects_user.data['spent_time'] = total_tasks_time(list, 'complete')
-        projects_user.save
-      end
-    end
-
-    def self.update_trello_usernames
-      User.active.each do |user|
-        user.trello_username = convert_to_trello_username user.username
-        user.save
+        ProjectsUser.find_by(project_id: project_id, user_id: user.id)
+          .update(data: { 'spent_time' =>  total_tasks_time(list, 'complete') })
       end
     end
 
