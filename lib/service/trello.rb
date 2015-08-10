@@ -13,12 +13,16 @@ module Service
     end
 
     def self.sync
+      update_trello_usernames
+
       cleanup_users
       cleanup_academy_tasks
+
       setup_users
       setup_academy_tasks
-      update_academy_tasks_time
-      update_users_spent_time
+
+      update_academy_tasks_total_time
+      update_academy_tasks_spent_time
     end
 
     def self.cleanup_users
@@ -72,31 +76,30 @@ module Service
       end
     end
 
-    def self.update_academy_tasks_time
+    def self.update_academy_tasks_total_time
       knowledge_list = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
 
-      @project = Project.find_by(name: "Academy")
-      @project.data = { 'total_tasks_time' => total_tasks_time(knowledge_list, 'incomplete'),
-                        'time_for_project' => 30 * 24 * 60 * 60 }
-      @project.save
+      project = Project.find_by(name: "Academy")
+      project.data['total_tasks_time'] = total_tasks_time(knowledge_list, 'incomplete')
+      project.data['time_for_project'] = 30 * 24 * 60 * 60
+      project.save
     end
 
-    def self.update_users_spent_time
+    def self.update_academy_tasks_spent_time
       board_process = board_by_name BOARD_PROCESS
+      project_id = Project.find_by(name: 'Academy').id
 
       TrelloApi::Board.lists(board_process[:id]).each do |list|
-        user = User.where(username: convert_to_slack_username(list[:name])).first
+        projects_user = ProjectsUser.find_by(project_id: project_id)
+        projects_user.data['spent_time'] = total_tasks_time(list, 'complete')
+        projects_user.save
+      end
+    end
 
-        project_id = Project.where(name: 'Academy').first.id
-
-        user.projects_users.each do |projects_user|
-
-          if projects_user.project_id == project_id
-            projects_user.data['spent_time'] = total_tasks_time(list, 'complete')
-            projects_user.save
-          end
-
-        end
+    def self.update_trello_usernames
+      User.active.each do |user|
+        user.trello_username = convert_to_trello_username user.username
+        user.save
       end
     end
 
@@ -109,6 +112,10 @@ module Service
 
     def self.convert_to_slack_username(username)
       username = username.gsub('redwings_', '').gsub('_', '.')
+    end
+
+    def self.convert_to_trello_username(username)
+      username = 'redwings_' + username.gsub('.', '_')
     end
 
     def self.organization_by_name(organization_name)
@@ -135,9 +142,8 @@ module Service
 
         fail('There are no checklist with time in the card') if checklist.nil?
 
-        check_items = checklist[:checkItems]
-
-        check_items_names.push check_items.select { |item| item[:state] == state }
+        check_items = checklist[:checkItems].select { |item| item[:state] == state }
+        check_items_names.push check_items
       end
 
       count_time(check_items_names)
