@@ -39,19 +39,6 @@ module Service::TrelloApi
       # {:id=>"553568193dabb8b4a9fccf72", :name=>"workflow", ..
       JSON.parse response.body, symbolize_names: true
     end
-
-    def self.add_user(email, full_name, board_id)
-      uri = Addressable::URI.parse(API_PATH + "/boards/#{board_id}/members")
-
-      query_values = {
-        email:    email,
-        fullName: full_name,
-        key:   TRELLO_APP_KEY,
-        token: TRELLO_APP_TOKEN
-      }
-
-      RestClient.put uri.to_s, query_values
-    end
   end
 end
 
