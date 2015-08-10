@@ -45,6 +45,12 @@ gem 'cancancan', '~> 1.10'
 
 # Kaminari paginator. Read more: https://github.com/amatsuda/kaminari
 gem 'kaminari'
+
+# Efficient background processing for Ruby,uses threads to handle many jobs at the same time in the same process
+gem 'sidekiq'
+# Sinatra is a DSL for quickly creating web applications in Ruby with minimal effort
+# Need for sidekiq web ui
+gem 'sinatra', require: false
 # Use Unicorn as the app server
 # gem 'unicorn'
 
