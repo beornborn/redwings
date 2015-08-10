@@ -91,9 +91,6 @@ module Service
       TrelloApi::Board.lists(board_process[:id]).each do |list|
         user = User.find_by(trello_username: list[:name])
 
-        puts project_id
-        puts user.id
-
         ProjectsUser.where(project_id: project_id, user_id: user.id)
           .update_all(data: { 'spent_time' =>  total_tasks_time(list, 'complete') })
       end
