@@ -5,6 +5,10 @@ class UsersController < ApplicationController
 
   attr_accessor :skip_password_validation
 
+  def show
+    @user = find_user.decorate
+  end
+
   def index
     @current_filter = params[:filter] || 'Academy'
 

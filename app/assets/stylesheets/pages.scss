@@ -45,6 +45,32 @@ ul {
   color: gray;
 }
 
+.back_link {
+  font-style: italic;
+}
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.user {
+  font-family: "Comic Sans MS, Garamond, ‘Times New Roman’, Sans";
+  color: #2E2B57;
+  p>img {
+    margin-right: 10px;
+    height: 20px !important;
+    width: 20px;
+  }
+  .progress {
+    height: 10px;
+  }
+  .panel-title_main {
+    font-size: 24px;
+  }
+}
+
 .users {
   img {
     margin-right: 10px;
@@ -104,4 +130,3 @@ ul {
 .nav-pills > li > a:focus {
   border-radius: 0;
 }
-
