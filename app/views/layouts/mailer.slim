@@ -2,5 +2,32 @@ doctype html
 html
   head
     meta content='text/html; charset=UTF-8' http-equiv='Content-Type'
-  body
+  body style="font-family: Arial;"
     = yield
+
+    br
+    br
+    div style="font-size: 0.8em;"
+      div
+        strong Oleg Gorbunov
+      div Mentor
+      br
+
+      div
+        strong email:
+      span beornborn@gmail.com
+      div
+        strong skype:
+      span beornbornbeorn
+      div
+        strong cell:
+      span +38(093)781-98-24
+      br
+      br
+
+      div style="font-weight: bold;"
+        = image_tag("logo.png", width: "32")
+        span &nbsp; &#124; &nbsp;
+        span style="color: orange;" REDWINGS - learning and practicing Ruby with mentor
+        span &nbsp; &#124; &nbsp;
+        | <a href="https://redwings.herokuapp.com/">redwings.herokuapp.com</a>
