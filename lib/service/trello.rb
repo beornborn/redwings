@@ -15,9 +15,12 @@ module Service
     def self.sync
       cleanup_users
       cleanup_academy_tasks
+
       setup_users
       setup_academy_tasks
-      update_academy_tasks_time
+
+      update_academy_tasks_total_time
+      update_academy_tasks_spent_time
     end
 
     def self.cleanup_users
@@ -48,12 +51,12 @@ module Service
 
     def self.setup_users
       organization = organization_by_name ORGANIZATION_NAME
-      trello_users = self.trello_users
+      trello_usernames = trello_users.map {|x| x.username }
 
       User.active.each do |db_user|
         username = convert_to_trello_username db_user.username
 
-        unless trello_users.any? { |trello_user| trello_user[:username] == username }
+        unless db_user.trello_username.in? trello_usernames
           email     = db_user.email
           full_name = db_user.first_name + ' ' + db_user.last_name
           TrelloApi::Organization.add_user(email, full_name, organization[:id])
@@ -76,11 +79,26 @@ module Service
       end
     end
 
-    def self.update_academy_tasks_time
-      @project = Project.find_by(name: "Academy")
-      @project.data = { 'total_tasks_time' => total_tasks_time,
-                        'time_for_project' => 30 * 24 * 60 * 60 }
-      @project.save
+    def self.update_academy_tasks_total_time
+      knowledge_list = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
+
+      project = Project.find_by(name: "Academy")
+      project.data = { 'total_tasks_time' => total_tasks_time(knowledge_list, 'incompete'),
+                       'time_for_project' => 30 * 24 * 60 * 60 }
+      project.save!
+    end
+
+    def self.update_academy_tasks_spent_time
+      board_process = board_by_name BOARD_PROCESS
+      project_id = Project.find_by(name: 'Academy').id
+
+      TrelloApi::Board.lists(board_process[:id]).each do |list|
+        user = User.find_by(trello_username: list[:name])
+
+        projects_user = ProjectsUser.find_by(project_id: project_id, user_id: user.id)
+        projects_user.data['spent_time'] = total_tasks_time(list, 'complete')
+        projects_user.save!
+      end
     end
 
     private
@@ -112,10 +130,8 @@ module Service
       lists.find { |list| list[:name] == list_name }
     end
 
-    def self.total_tasks_time
-      list = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
+    def self.total_tasks_time(list, state)
       cards = list[:cards]
-
       check_items_names = []
 
       cards.each do |card|
@@ -123,8 +139,8 @@ module Service
 
         fail('There are no checklist with time in the card') if checklist.nil?
 
-        check_items = checklist[:checkItems]
-        check_items.each { |item| check_items_names << item[:name] }
+        check_items = checklist[:checkItems].select { |item| item[:state] == state }
+        check_items_names.push check_items
       end
 
       count_time(check_items_names)
@@ -146,3 +162,4 @@ module Service
     end
   end
 end
+
