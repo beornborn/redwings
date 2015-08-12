@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   attr_accessor :skip_password_validation
 
   def show
-    @user = find_user.decorate
+    @user = @user.decorate
   end
 
   def index

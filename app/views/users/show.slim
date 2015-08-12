@@ -5,13 +5,7 @@
     .row class="#{'disabled_user' if @user.deleted?}"
       .col-sm-3
         img.img-rounded.center-block.little-spaced-bottom src="#{@user.image_192}"
-        .panel.panel-default
-          .panel-body.center-block
-            p = @user.email_with_logo
-            p = @user.github_with_logo
-            p = @user.username_with_logo
-            p = @user.mobile_with_logo
-            p = @user.skype_with_logo
+        = render partial: 'contacts', locals: {user: @user}
       .col-sm-6
         .text-justify.little-spaced-bottom = @user.about_with_new_lines
         h4.back_link = link_to '<< to users page', url_for(:back), class: 'pull-right'
@@ -21,10 +15,6 @@
             h3.panel-title.text-capitalize = @user.projects.first.name
           .panel-body.center-block
             p.text-right.little-spaced-bottom = @user.human_started_at
-            .progress.progress-success
-              .progress-bar.active class="#{@user.deleted? ? 'progress-bar-danger' : 'progress-bar-success'}" role='progressbar' aria-valuenow='20' aria-valuemin='0' aria-valuemax='50' style='width: 20%'
+            = render partial: 'progress_bar', locals: {user: @user}
             - if @user.deleted?
-              - if @user.goodbye_reason.blank?
-                = link_to 'Add goodbye reason', edit_user_path(@user), class: 'btn btn-sm btn-info'
-              - else
-                p.label.label-info data-toggle="tooltip" data-placement="right" title="#{@user.goodbye_letter}" = @user.goodbye_reason
+              = render partial: 'goodbye_reason', locals: {user: @user}
