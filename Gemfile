@@ -52,6 +52,8 @@ gem 'sidekiq'
 # Sinatra is a DSL for quickly creating web applications in Ruby with minimal effort
 # Need for sidekiq web ui
 gem 'sinatra', require: false
+# A Ruby client that tries to match Redis' API one-to-one
+gem 'redis'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

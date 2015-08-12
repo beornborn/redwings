@@ -285,6 +285,7 @@ DEPENDENCIES
   puma
   rails (= 4.2.1)
   rails_12factor
+  redis
   rest-client (~> 1.8.0)
   rspec-rails (= 3.3.2)
   sass-rails (~> 5.0)
