@@ -2,5 +2,38 @@ doctype html
 html
   head
     meta content='text/html; charset=UTF-8' http-equiv='Content-Type'
-  body
+  body style='font-family: Arial;'
+    div style='height: 2px; width: 50%; background-color: #FC5800;'
     = yield
+    br
+
+    div style='height: 2px; width: 30%; background-color: #FC5800;'
+    div style='font-size: 0.8em; font-weight: bold;'
+      p Best Regards,
+      div
+        strong Oleg Gorbunov
+      div style='color: #FC5800;' Mentor
+      br
+
+      div style='color: #545454;'
+        span
+          | email: &nbsp;
+          a href='mailto:beornborn@gmail.com' beornborn@gmail.com
+        span &nbsp; | &nbsp;
+        span
+          | skype: &nbsp;
+          a href='skype:beornbornbeorn?chat' beornbornbeorn
+        span &nbsp; | &nbsp;
+        span cell: +38(093)781-98-24
+        span &nbsp; | &nbsp;
+        span
+          | linkedin: &nbsp;
+          a href='https://ua.linkedin.com/in/oleggorbunov' ua.linkedin.com/in/oleggorbunov
+      br
+
+      div
+        = link_to image_tag('logo.png', width: '32'), 'https://redwings.herokuapp.com/'
+        span style='color: #FC5800;'
+          | RedWings - learn and practice Ruby with Mentor
+          | &nbsp;&nbsp;
+          <a href='https://redwings.herokuapp.com/'>redwings.herokuapp.com</a>
