@@ -35,4 +35,22 @@ class UserDecorator < ApplicationDecorator
     splited.each{|x| text += h.content_tag(:p, x)}
     text
   end
+
+  def expected_learn_time_progress_in_percent
+    percentage = ((Time.now - object.started_at)/1.month).round(2)
+    percentage = (percentage > 1) ? 1 : percentage
+  end
+
+  def spent_learn_time_progress_in_percent
+    total_tasks_time = h.params[:total_tasks_time] || 1
+    percentage = (total_tasks_time == 0) ? 0 : (object.spent_learn_time.to_f/total_tasks_time).round(2)
+    percentage = (percentage > 1) ? 1 : percentage
+  end
+
+  def does_work_in_time?
+    total_tasks_time = h.params[:total_tasks_time] || 1
+    expected_learn_time = expected_learn_time_progress_in_percent * total_tasks_time
+    return true unless object.spent_learn_time.present? && expected_learn_time > object.spent_learn_time
+  end
 end
+

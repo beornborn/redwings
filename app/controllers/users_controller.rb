@@ -12,6 +12,8 @@ class UsersController < ApplicationController
   def index
     @current_filter = params[:filter] || 'Academy'
 
+    params[:total_tasks_time] = Project.find_by(name: 'Academy').data['total_tasks_time']
+
     @projects = Project.all
 
     @users = if @current_filter == 'Disabled'
@@ -47,3 +49,4 @@ class UsersController < ApplicationController
     params.require(:user).permit(:goodbye_reason, :goodbye_letter)
   end
 end
+
