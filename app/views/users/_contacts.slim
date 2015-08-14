@@ -1,7 +1,16 @@
 .panel.panel-default
   .panel-body.center-block
-    p = user.email_with_logo
-    p = user.github_with_logo
+    p
+      = user.email_with_logo
+      = image_tag 'clipboard_logo.png', class: "clip_button", title: "Copy to clipboard", data: {clipboard_text: ("#{user.email}")}
+    p
+      = user.github_with_logo
+      = image_tag 'clipboard_logo.png', class: "clip_button", title: "Copy to clipboard", data: {clipboard_text: ("#{user.github}")}
     p = user.username_with_logo
     p = user.mobile_with_logo
     p = user.skype_with_logo
+
+javascript:
+  $(document).ready(function() {
+    var clip = new ZeroClipboard($(".clip_button"))
+  });
