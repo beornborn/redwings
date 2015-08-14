@@ -87,7 +87,8 @@ module Service
       board_process = board_by_name BOARD_PROCESS
 
       TrelloApi::Board.lists(board_process[:id]).each do |list|
-        User.where(trello_username: list[:name]).update_all(spent_learn_time: total_tasks_time(list, 'complete'))
+        spent_learn_time = total_tasks_time(list, 'complete')
+        User.where(trello_username: list[:name]).update_all(spent_learn_time: spent_learn_time)
       end
     end
 
