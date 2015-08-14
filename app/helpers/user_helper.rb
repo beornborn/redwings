@@ -8,11 +8,13 @@ module UserHelper
   end
 
   def email_with_logo(user)
-    image_tag('email_logo.png') + ' ' + user.email
+    image_tag('email_logo.png') + ' ' +
+    link_to(user.email, 'mailto:beornborn@gmail.com')
   end
 
   def github_with_logo(user)
-    image_tag('github_logo.png') + ' ' + user.github unless user.github.blank?
+    image_tag('github_logo.png') + ' ' +
+    link_to(user.github, "https://github.com/#{user.github}") unless user.github.blank?
   end
 
   def username_with_logo(user)
@@ -24,7 +26,8 @@ module UserHelper
   end
 
   def skype_with_logo(user)
-    image_tag('skype_logo.png') + ' ' + user.skype unless user.skype.blank?
+    image_tag('skype_logo.png') + ' ' +
+    link_to(user.skype, "skype:#{user.skype}?chat") unless user.skype.blank?
   end
 
   def about_with_new_lines(user)
