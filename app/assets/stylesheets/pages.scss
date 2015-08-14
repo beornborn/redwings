@@ -59,8 +59,7 @@ ul {
 
 .user {
   color: #2E2B57;
-
-  p > img {
+  p img:first-of-type {
     margin-right: 10px;
     height: 20px !important;
     width: 20px;
@@ -156,4 +155,26 @@ ul {
 .nav-pills > li > a:hover,
 .nav-pills > li > a:focus {
   border-radius: 0;
+}
+
+.clip_button {
+  position: absolute;
+  padding-top: 4px;
+  right: 25px;
+  width: 16px;
+  height: 16px;
+}
+
+.zeroclipboard-is-hover {
+  color: red;
+}
+
+.tooltip {
+  width: 40%;
+}
+
+.tooltip-inner {
+  padding: 5px;
+  font-family: Arial;
+  font-size: 1em;
 }
