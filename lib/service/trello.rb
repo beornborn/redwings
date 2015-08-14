@@ -55,7 +55,7 @@ module Service
 
       User.active.each do |db_user|
         unless db_user.trello_username.in? trello_usernames
-          email     = db_user.email
+          email = db_user.email
           full_name = db_user.first_name + ' ' + db_user.last_name
           TrelloApi::Organization.add_user(email, full_name, organization[:id])
         end
@@ -68,7 +68,7 @@ module Service
 
       Project.find_by(name: 'Academy').users.active.each do |db_user|
         unless process_lists.any? { |list| list[:name] == db_user.trello_username }
-          list_source   = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
+          list_source = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
           TrelloApi::List.add_list_to_board(db_user.trello_username, board_process[:id], list_source[:id])
         end
       end
@@ -77,22 +77,17 @@ module Service
     def self.update_academy_tasks_total_time
       knowledge_list = list_in_board(LIST_TASKS, BOARD_KNOWLEDGE)
 
-      project = Project.find_by(name: "Academy")
-      project.data = { 'total_tasks_time' => total_tasks_time(knowledge_list, 'incompete'),
+      project = Project.find_by(name: 'Academy')
+      project.data = { 'total_tasks_time' => total_tasks_time(knowledge_list, 'incomplete'),
                        'time_for_project' => 30 * 24 * 60 * 60 }
       project.save!
     end
 
     def self.update_academy_tasks_spent_time
       board_process = board_by_name BOARD_PROCESS
-      project_id = Project.find_by(name: 'Academy').id
 
       TrelloApi::Board.lists(board_process[:id]).each do |list|
-        user = User.find_by(trello_username: list[:name])
-
-        projects_user = ProjectsUser.find_by(project_id: project_id, user_id: user.id)
-        projects_user.data['spent_time'] = total_tasks_time(list, 'complete')
-        projects_user.save!
+        User.where(trello_username: list[:name]).update_all(spent_learn_time: total_tasks_time(list, 'complete'))
       end
     end
 
