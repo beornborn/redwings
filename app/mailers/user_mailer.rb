@@ -9,4 +9,10 @@ class UserMailer < ApplicationMailer
     @user = User.find user.id
     mail(to: user.email, subject: 'Kiev-ruby')
   end
+
+  def welcome_email(user)
+    @user = User.find user.id
+    @url  = 'https://trello.com/c/MChhdpLY/343--'
+    mail(to: user.email, subject: 'Kiev-ruby')
+  end
 end
