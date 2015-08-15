@@ -1,0 +1,14 @@
+.list-group
+  .li.list-group-item-heading
+    h3.panel-title.text-capitalize = "User's projects"
+  - user.projects.each do |project|
+    li.list-group-item
+      span.projects-list
+        p
+          = project.name
+      - if (can? :quit_project, User) && !user.deleted?
+        = link_to quit_project_user_path(project_id: project.id), method: :put,
+                  title: "Delete project" do
+          i.fa.fa-minus.pull-right.remove-project-btn
+    - if user.deleted?
+      = render partial: 'goodbye_reason', locals: {user: user}

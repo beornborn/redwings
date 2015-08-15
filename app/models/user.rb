@@ -19,6 +19,16 @@ class User < ActiveRecord::Base
   scope :disabled, -> { where deleted: true }
   scope :by_project, -> (name) { joins(:projects).merge(Project.by_name name) }
 
+  def academy_user?
+    projects.find_by(name: "Academy")
+  end
+
+  def available_projects
+    Project.select do |project|
+      !project.users.include?(self) && project.name != "Academy"
+    end
+  end
+
   private
 
   def user_correction

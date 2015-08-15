@@ -9,12 +9,4 @@
       .col-sm-6
         .text-justify.little-spaced-bottom = about_with_new_lines(@user)
         h4.back_link = link_to '<< to users page', url_for(:back), class: 'pull-right'
-      .col-sm-3
-        .panel class="#{@user.deleted? ? 'panel-default' : 'panel-success'}"
-          .panel-heading
-            h3.panel-title.text-capitalize = @user.projects.first.name
-          .panel-body.center-block
-            p.text-right.little-spaced-bottom = human_started_at(@user)
-            = render partial: 'progress_bar', locals: {user: @user}
-            - if @user.deleted?
-              = render partial: 'goodbye_reason', locals: {user: @user}
+      = render partial: 'projects_block', locals: {user: @user, projects: @projects}

@@ -1,0 +1,12 @@
+.list-group
+  .li.list-group-item-heading
+    h3.panel-title.text-capitalize = 'Available projects'
+  - user.available_projects.each do |project|
+    li.list-group-item
+      span.projects-list
+        p
+          = project.name
+      - if (can? :enter_project, User)
+        = link_to enter_project_user_path(project_id: project.id), method: :put,
+                  title: "Enter project" do
+          i.fa.fa-plus.pull-right.add-project-btn

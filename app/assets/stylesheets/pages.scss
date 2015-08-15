@@ -58,18 +58,48 @@ ul {
 }
 
 .user {
-  font-family: "Comic Sans MS, Garamond, ‘Times New Roman’, Sans";
   color: #2E2B57;
+
   p>img {
     margin-right: 10px;
     height: 20px !important;
     width: 20px;
   }
+
   .progress {
     height: 10px;
   }
+
+  .list-group-item{
+    padding: 5px 15px;
+  }
+
   .panel-title_main {
     font-size: 24px;
+  }
+
+  .remove-project-btn,
+  .add-project-btn{
+    font-size: 20px;
+    color: #696969;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  i{
+      margin-top: 4px;
+  }
+
+  .projects-list{
+    display: inline-block;
+    height: 30px;
+    vertical-align: middle;
+
+    p{
+      margin-top: 4px;
+    }
   }
 }
 

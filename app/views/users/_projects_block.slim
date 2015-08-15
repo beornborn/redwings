@@ -1,0 +1,8 @@
+.col-sm-3.pull-right
+  .panel class="#{user.deleted? ? 'panel-default' : 'panel-info'}"
+    .panel-heading
+      h3.panel-title.text-capitalize = "projects management"
+    .panel-body.center-block
+      = render partial: 'user_projects', locals: {user: user, projects: projects}
+      - unless user.deleted? || user.available_projects.empty?
+        = render partial: 'available_projects', locals: {user: user, projects: projects}
