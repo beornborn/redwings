@@ -60,7 +60,7 @@ ul {
 .user {
   font-family: "Comic Sans MS, Garamond, ‘Times New Roman’, Sans";
   color: #2E2B57;
-  p>img {
+  p img:first-of-type {
     margin-right: 10px;
     height: 20px !important;
     width: 20px;
@@ -131,4 +131,11 @@ ul {
 .nav-pills > li > a:hover,
 .nav-pills > li > a:focus {
   border-radius: 0;
+}
+
+.clip_button {
+  height: 20px;
+  width: 15px;
+  position: absolute;
+  right: 25px;
 }
