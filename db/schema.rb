@@ -17,15 +17,15 @@ ActiveRecord::Schema.define(version: 20150814161443) do
   enable_extension "plpgsql"
 
   create_table "projects", force: :cascade do |t|
-    t.string "name"
-    t.jsonb  "data", default: {}
+    t.string   "name"
+    t.jsonb    "data",       default: {}
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "projects_users", id: false, force: :cascade do |t|
-    t.integer  "project_id"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "project_id"
+    t.integer "user_id"
   end
 
   add_index "projects_users", ["project_id"], name: "index_projects_users_on_project_id", using: :btree
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20150814161443) do
     t.string   "last_name"
     t.string   "email"
     t.boolean  "admin",                           default: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.string   "crypted_password"
     t.string   "salt"
     t.string   "remember_me_token"
