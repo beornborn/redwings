@@ -30,9 +30,9 @@ class UserDecorator < ApplicationDecorator
   end
 
   def about_with_new_lines
-    text = "".html_safe
+    text = ''.html_safe
     splited = object.about.split("\n")
-    splited.each{|x| text += h.content_tag(:p, x)}
+    splited.each { |x| text += h.content_tag(:p, x) }
     text
   end
 end

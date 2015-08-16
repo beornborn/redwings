@@ -8,7 +8,7 @@ module Service
 
     def self.boards_backup
       TrelloApi::Member.boards(USER_NAME).each do |board|
-        board_backup = TrelloBackup.create!(board: board[:name], data: TrelloApi::Board.data(board[:id]))
+        TrelloBackup.create!(board: board[:name], data: TrelloApi::Board.data(board[:id]))
       end
     end
 
@@ -27,7 +27,7 @@ module Service
       organization = organization_by_name ORGANIZATION_NAME
       db_users_active = User.active
 
-      self.trello_users.each do |trello_user|
+      trello_users.each do |trello_user|
         username = convert_to_slack_username trello_user[:username]
 
         unless db_users_active.any? { |db_user| db_user.username == username }
@@ -51,7 +51,7 @@ module Service
 
     def self.setup_users
       organization = organization_by_name ORGANIZATION_NAME
-      trello_usernames = trello_users.map {|x| x[:username] }
+      trello_usernames = trello_users.map { |x| x[:username] }
 
       User.active.each do |db_user|
         unless db_user.trello_username.in? trello_usernames
@@ -100,7 +100,7 @@ module Service
     end
 
     def self.convert_to_slack_username(username)
-      username = username.gsub('redwings_', '').gsub('_', '.')
+      username.gsub('redwings_', '').tr('_', '.')
     end
 
     def self.organization_by_name(organization_name)
@@ -149,4 +149,3 @@ module Service
     end
   end
 end
-

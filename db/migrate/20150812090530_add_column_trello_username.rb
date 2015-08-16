@@ -3,4 +3,3 @@ class AddColumnTrelloUsername < ActiveRecord::Migration
     add_column :users, :trello_username, :string
   end
 end
-

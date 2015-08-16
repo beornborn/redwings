@@ -5,4 +5,3 @@ class FixDatabaseColumns < ActiveRecord::Migration
     add_column :users, :first_name, :string
   end
 end
-

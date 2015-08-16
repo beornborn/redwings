@@ -3,4 +3,3 @@ class AddColumnGoodbyeLetter < ActiveRecord::Migration
     add_column :users, :goodbye_letter, :string, default: nil
   end
 end
-

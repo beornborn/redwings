@@ -40,4 +40,3 @@ module Service::TrelloApi
     end
   end
 end
-

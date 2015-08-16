@@ -2,14 +2,11 @@ source 'https://rubygems.org'
 
 ruby '2.2.2'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 
-
 # Pg is the Ruby interface to the PostgreSQL. Read more: https://github.com/ged/ruby-pg
 gem 'pg'
-
 
 # Magical Authentication for Rails 3 and 4. Read more: https://github.com/NoamB/sorcery
 gem 'sorcery'
@@ -20,7 +17,7 @@ gem 'rest-client', '~> 1.8.0'
 gem 'slack-api', '1.1.6', require: 'slack'
 
 # Twitter Bootstrap 3.2 for Rails 4 Asset Pipeline
-gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'twitter-bootstrap-rails', git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -87,4 +84,3 @@ group :production do
   # Clockwork - a clock process to replace cron. Read more: https://github.com/tomykaira/clockwork
   gem 'clockwork'
 end
-

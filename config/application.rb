@@ -24,4 +24,3 @@ module Redwings
     config.autoload_paths << Rails.root.join('lib')
   end
 end
-

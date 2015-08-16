@@ -1,7 +1,7 @@
 module Service::TrelloApi
   class List
     def self.add_list_to_board(new_list_name, board_id, list_source_id)
-      uri = Addressable::URI.parse(API_PATH + "/lists")
+      uri = Addressable::URI.parse(API_PATH + '/lists')
 
       query_values = {
         name:    new_list_name,
@@ -27,4 +27,3 @@ module Service::TrelloApi
     end
   end
 end
-

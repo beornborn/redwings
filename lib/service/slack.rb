@@ -1,7 +1,7 @@
 module Service
   module Slack
     def self.sync
-      slack_users = self.users
+      slack_users = users
 
       slack_users.map do |slack_user|
         user = User.find_or_initialize_by(email: slack_user['email'])
@@ -43,4 +43,3 @@ module Service
     end
   end
 end
-

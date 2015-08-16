@@ -3,4 +3,3 @@ class RenameJoinTableName < ActiveRecord::Migration
     rename_table :project_users, :projects_users
   end
 end
-

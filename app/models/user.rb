@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   validates :email,      presence: true, uniqueness: true
   validates :password, confirmation: true, length: { minimum: 6 }, if: :do_password_validation
   validates :password_confirmation, presence: true, if: :do_password_validation
-  validates :about,      length: { minimum: 600, maximum: 1000 }
+  validates :about, length: { minimum: 600, maximum: 1000 }
 
   scope :active, -> { where deleted: false }
   scope :disabled, -> { where deleted: true }
@@ -22,8 +22,8 @@ class User < ActiveRecord::Base
   private
 
   def user_correction
-    self.username =   (/[a-z]*\.[a-z]*/ =~ self.username) ? self.username : "#{self.username}.#{self.username}"
-    self.first_name = 'Noname' if self.first_name.blank?
-    self.last_name =  'Noname' if self.last_name.blank?
+    self.username =   (/[a-z]*\.[a-z]*/ =~ username) ? username : "#{username}.#{username}"
+    self.first_name = 'Noname' if first_name.blank?
+    self.last_name =  'Noname' if last_name.blank?
   end
 end
