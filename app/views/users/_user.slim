@@ -3,11 +3,11 @@ li.list-group-item class="#{'current_user' if user.username == current_user.user
     .col-sm-9
       img.img-rounded.pull-left src="#{user.image_48}"
       h4.list-group-item-heading
-        = link_to user.full_name, user_path(user)
+        = link_to full_name(user), user_path(user)
       p.list-group-item-text.email = user.email
     - unless user.deleted?
       .col-sm-3.text-right
-        p.list-group-item-text = user.human_started_at
+        p.list-group-item-text = human_started_at(user)
         p.list-group-item-text
           = render partial: 'progress_bar', locals: {user: user}
     - else
