@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   attr_accessor :skip_password_validation
 
   def show
-    @user
   end
 
   def index
@@ -47,4 +46,3 @@ class UsersController < ApplicationController
     params.require(:user).permit(:goodbye_reason, :goodbye_letter)
   end
 end
-
