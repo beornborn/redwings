@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   attr_accessor :skip_password_validation
 
   def show
-    @user = @user.decorate
   end
 
   def index
@@ -20,7 +19,7 @@ class UsersController < ApplicationController
       User.by_project(@current_filter).active
     end
 
-    @users = @users.order(started_at: :desc).page(params[:page]).decorate
+    @users = @users.order(started_at: :desc).page(params[:page])
   end
 
   def update
