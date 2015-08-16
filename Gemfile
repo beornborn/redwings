@@ -38,8 +38,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-# Use Draper decorators to wrap your models with presentation-related logic. Read more: https://github.com/drapergem/draper
-gem 'draper'
 
 # Use to restrict what resources a given user is allowed to access
 gem 'cancancan', '~> 1.10'

@@ -2,7 +2,7 @@ class TrelloBackupsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @trello_backups = TrelloBackup.all.order(created_at: :desc).decorate
+    @trello_backups = TrelloBackup.all.order(created_at: :desc)
   end
 
   def create
