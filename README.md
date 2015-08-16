@@ -1,5 +1,4 @@
 [![Code Climate](https://codeclimate.com/github/kiev-ruby/redwings/badges/gpa.svg)](https://codeclimate.com/github/kiev-ruby/redwings)
-[![Gittip Donate](http://img.shields.io/gittip/beornborn.png)](https://www.gittip.com/beornborn/ "Support Open Source Development w/ Gittip")
 
 # redwings
 team management service
