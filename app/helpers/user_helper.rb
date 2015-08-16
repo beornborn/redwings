@@ -33,4 +33,16 @@ module UserHelper
     splited.each{|x| text += content_tag(:p, x)}
     text
   end
+
+  def expected_progress(user)
+    Service::Academy.expected_progress(user)
+  end
+
+  def real_progress(user)
+    Service::Academy.real_progress(user)
+  end
+
+  def progress_good?(user)
+    Service::Academy.progress_good?(user)
+  end
 end
