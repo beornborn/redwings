@@ -34,12 +34,24 @@ module UserHelper
     text
   end
 
-  def expected_progress(user)
-    Service::Academy.expected_progress(user)
+  def progress(user)
+    Service::Academy.real_progress(user)
   end
 
-  def real_progress(user)
-    Service::Academy.real_progress(user)
+  def progress_bar_1(user)
+    if progress_good?(user)
+      Service::Academy.expected_progress(user)
+    else
+      Service::Academy.real_progress(user)
+    end
+  end
+
+  def progress_bar_2(user)
+    if progress_good?(user)
+      Service::Academy.real_progress(user) - Service::Academy.expected_progress(user)
+    else
+      Service::Academy.expected_progress(user) - Service::Academy.real_progress(user)
+    end
   end
 
   def progress_good?(user)
