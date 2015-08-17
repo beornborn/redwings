@@ -1,0 +1,12 @@
+.projects
+  .xs-title my:
+  - projects = @user.projects
+  - if projects.blank?
+    .help-block not involved in any project
+  - else
+    - projects.each do |project|
+      .project
+        span = project.name
+        - if can?(:manage_projects_participation, User) && !@user.deleted?
+          = link_to quit_project_user_path(@user, project_id: project.id), method: :post, title: "Delete project", class: 'btn btn-danger pull-right btn-xs' do |_|
+            i.fa.fa-minus
