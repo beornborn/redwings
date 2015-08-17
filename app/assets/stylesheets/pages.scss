@@ -60,7 +60,7 @@ ul {
 .user {
   color: #2E2B57;
 
-  p>img {
+  p > img {
     margin-right: 10px;
     height: 20px !important;
     width: 20px;
@@ -74,32 +74,27 @@ ul {
     padding: 5px 15px;
   }
 
-  .panel-title_main {
+  .panel-title-main {
     font-size: 24px;
   }
 
-  .remove-project-btn,
-  .add-project-btn{
-    font-size: 20px;
-    color: #696969;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  i{
-      margin-top: 4px;
-  }
-
-  .projects-list{
-    display: inline-block;
-    height: 30px;
-    vertical-align: middle;
-
-    p{
-      margin-top: 4px;
+  .projects {
+    .project {
+      width: 100%;
+      display: inline-block;
+      margin-bottom: 5px;
     }
+  }
+
+  .help-block {
+    font-style: italic;
+  }
+
+  .xs-title {
+    font-size: 12px;
+    color: #999;
+    text-align: left;
+    margin-bottom: 5px;
   }
 }
 

@@ -7,7 +7,6 @@ class UsersController < ApplicationController
   attr_accessor :skip_password_validation
 
   def show
-    @projects = Project.where("name != ?", "Academy")
   end
 
   def index

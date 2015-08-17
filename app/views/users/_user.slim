@@ -10,7 +10,8 @@ li.list-group-item class="#{'current_user' if user.username == current_user.user
         p.list-group-item-text = human_started_at(user)
         p.list-group-item-text
         - if user.academy_user?
-          = render partial: 'progress_bar', locals: {user: user}
+          = render partial: 'progress_bar', locals: { user: user }
     - else
       .col-sm-3
-        = render partial: 'goodbye_reason', locals: {user: user}
+        .pull-right
+          = render partial: 'goodbye_reason', locals: { user: user }
