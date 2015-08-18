@@ -1,6 +1,6 @@
 .progress
-  - if progress(user) == 100
+  - if user.academy.real_progress == 100
     .progress-bar class="progress-bar-success" style="width: 100%"
   - else
-    .progress-bar class="#{progress_good?(user) ? 'progress-bar-warning' : 'progress-bar-danger'}" style="width: #{expected_or_bad_progress(user)}%"
-    .progress-bar class="#{progress_good?(user) ? 'progress-bar-success' : 'progress-bar-warning'}" style="width: #{expected_or_good_progress(user)}%"
+    .progress-bar class="#{academy_progress_good?(user) ? 'progress-bar-warning' : 'progress-bar-danger'}" style="width: #{expected_or_bad_progress(user)}%"
+    .progress-bar class="#{academy_progress_good?(user) ? 'progress-bar-success' : 'progress-bar-warning'}" style="width: #{expected_or_good_progress(user)}%"

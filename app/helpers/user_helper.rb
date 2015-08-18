@@ -33,28 +33,4 @@ module UserHelper
     splited.each{|x| text += content_tag(:p, x)}
     text
   end
-
-  def progress(user)
-    user.academy_service.real_progress
-  end
-
-  def expected_or_bad_progress(user)
-    if progress_good?(user)
-      user.academy_service.expected_progress
-    else
-      user.academy_service.real_progress
-    end
-  end
-
-  def expected_or_good_progress(user)
-    if progress_good?(user)
-      user.academy_service.real_progress - user.academy_service.expected_progress
-    else
-      user.academy_service.expected_progress - user.academy_service.real_progress
-    end
-  end
-
-  def progress_good?(user)
-    user.academy_service.progress_good?
-  end
 end

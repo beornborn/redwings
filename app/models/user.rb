@@ -23,8 +23,8 @@ class User < ActiveRecord::Base
     projects.where(name: "Academy").exists?
   end
 
-  def academy_service
-    @academy_service ||= Service::Academy.new(self)
+  def academy
+    @academy ||= Service::Academy.new(self)
   end
 
   private
