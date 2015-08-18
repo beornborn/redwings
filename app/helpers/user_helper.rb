@@ -35,26 +35,26 @@ module UserHelper
   end
 
   def progress(user)
-    Service::Academy.real_progress(user)
+    user.academy_service.real_progress
   end
 
   def progress_bar_first_part(user)
     if progress_good?(user)
-      Service::Academy.expected_progress(user)
+      user.academy_service.expected_progress
     else
-      Service::Academy.real_progress(user)
+      user.academy_service.real_progress
     end
   end
 
   def progress_bar_second_part(user)
     if progress_good?(user)
-      Service::Academy.real_progress(user) - Service::Academy.expected_progress(user)
+      user.academy_service.real_progress - user.academy_service.expected_progress
     else
-      Service::Academy.expected_progress(user) - Service::Academy.real_progress(user)
+      user.academy_service.expected_progress - user.academy_service.real_progress
     end
   end
 
   def progress_good?(user)
-    Service::Academy.progress_good?(user)
+    user.academy_service.progress_good?
   end
 end
