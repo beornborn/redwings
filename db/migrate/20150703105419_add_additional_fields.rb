@@ -4,4 +4,3 @@ class AddAdditionalFields < ActiveRecord::Migration
     add_column :users, :image_48, :string
   end
 end
-

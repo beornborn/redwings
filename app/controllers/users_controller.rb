@@ -15,10 +15,10 @@ class UsersController < ApplicationController
     @projects = Project.all
 
     @users = if @current_filter == 'Disabled'
-      User.disabled
-    else
-      User.by_project(@current_filter).active
-    end
+               User.disabled
+             else
+               User.by_project(@current_filter).active
+             end
 
     @users = @users.order(started_at: :desc).page(params[:page])
   end

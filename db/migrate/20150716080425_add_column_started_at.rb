@@ -3,4 +3,3 @@ class AddColumnStartedAt < ActiveRecord::Migration
     add_column :users, :started_at, :datetime
   end
 end
-

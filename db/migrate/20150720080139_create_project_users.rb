@@ -11,4 +11,3 @@ class CreateProjectUsers < ActiveRecord::Migration
     add_index :project_users, :data, using: :gin
   end
 end
-

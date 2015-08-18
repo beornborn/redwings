@@ -4,4 +4,3 @@ class SorceryCore < ActiveRecord::Migration
     add_column :users, :salt, :string
   end
 end
-

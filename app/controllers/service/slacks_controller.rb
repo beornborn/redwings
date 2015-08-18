@@ -9,4 +9,3 @@ class Service::SlacksController < ApplicationController
     redirect_to root_path
   end
 end
-

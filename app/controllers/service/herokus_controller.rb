@@ -4,4 +4,3 @@ class Service::HerokusController < ApplicationController
     redirect_to root_path, flash: { success: 'Local database successfully updated!' }
   end
 end
-

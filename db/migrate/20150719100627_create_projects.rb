@@ -11,4 +11,3 @@ class CreateProjects < ActiveRecord::Migration
     Project.create name: 'Redwings'
   end
 end
-

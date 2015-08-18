@@ -7,4 +7,3 @@ class Project < ActiveRecord::Base
   scope :not_academy, -> { where("name != ?", "Academy") }
   scope :available_for, ->(user) { not_academy.where.not(id: user.projects.pluck(:id)) }
 end
-

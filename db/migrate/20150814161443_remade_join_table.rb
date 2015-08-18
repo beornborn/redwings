@@ -9,4 +9,3 @@ class RemadeJoinTable < ActiveRecord::Migration
     end
   end
 end
-

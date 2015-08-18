@@ -3,4 +3,3 @@ class AddGoodbyeReasonColumn < ActiveRecord::Migration
     add_column :users, :goodbye_reason, :string, default: nil
   end
 end
-
