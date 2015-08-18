@@ -1,15 +1,22 @@
-.panel.panel-primary.user
-  .panel-heading
-    h1.panel-title.panel-title-main.text-capitalize = full_name(@user)
-  .panel-body
-    .row class="#{'disabled_user' if @user.deleted?}"
-      .col-sm-3
-        img.img-rounded.center-block.little-spaced-bottom src="#{@user.image_192}"
-        = render partial: 'contacts'
-      .col-sm-6
-        .text-justify.little-spaced-bottom = about_with_new_lines(@user)
-        h4.back_link = link_to '<< to users page', url_for(:back), class: 'pull-right'
-      .col-sm-3
-        = render partial: 'projects_block'
+.row class="#{'disabled_user' if @user.deleted?}"
+  .col-md-12
+    - if @user.academy_user? && !@user.deleted?
+      h3 = 'Academy progress: ' + progress(@user).to_s + '%'
+      = render partial: 'progress_bar', locals: {user: @user}
+  .col-md-3
+    img.img-rounded.profile-img src="#{@user.image_192}"
+    = render partial: 'contacts', locals: {user: @user}
+  .col-md-6
+    .row
+      .col-md-7
+        h2.text-capitalize = full_name(@user)
+      .col-md-5
         - if @user.deleted?
-          = render partial: 'goodbye_reason', locals: { user: @user }
+          h3.text-right = render partial: 'goodbye_reason', locals: {user: @user}
+        - else
+          h4.text-right = 'Joined ' + human_started_at(@user)
+    .text-justify = about_with_new_lines(@user)
+    br
+    = link_to 'back to users page', url_for(:back), class: 'pull-right btn btn-default back-link'
+  .col-md-3
+    = render partial: 'projects_block'

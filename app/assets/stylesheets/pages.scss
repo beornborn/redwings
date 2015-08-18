@@ -47,24 +47,12 @@ ul {
   color: gray;
 }
 
-.back_link {
-  font-style: italic;
-}
-
-.center-block {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+.back-link {
+  margin-bottom: 30px;
 }
 
 .user {
   color: #2E2B57;
-
-  p > img {
-    margin-right: 10px;
-    height: 20px !important;
-    width: 20px;
-  }
 
   .progress {
     height: 10px;
@@ -107,6 +95,11 @@ ul {
     height: 10px;
     margin-top: 8px;
     margin-bottom: 0px;
+  }
+
+  .progress-text {
+    font-weight: bold;
+    padding-top: 6px;
   }
 }
 
@@ -156,4 +149,26 @@ ul {
 .nav-pills > li > a:hover,
 .nav-pills > li > a:focus {
   border-radius: 0;
+}
+
+
+/* User show page */
+.progress {
+  height: 15px;
+}
+
+p>img {
+  margin-right: 10px;
+  height: 20px !important;
+  width: 20px;
+}
+
+h2, h3 {
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+.profile-img {
+  margin-bottom: 40px;
+  width: 90%;
 }

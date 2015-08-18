@@ -23,11 +23,15 @@ class User < ActiveRecord::Base
     projects.where(name: "Academy").exists?
   end
 
+  def academy_service
+    @academy_service ||= Service::Academy.new(self)
+  end
+
   private
 
   def user_correction
-    self.username =   (/[a-z]*\.[a-z]*/ =~ self.username) ? self.username : "#{self.username}.#{self.username}"
+    self.username   = (/[a-z]*\.[a-z]*/ =~ self.username) ? self.username : "#{self.username}.#{self.username}"
     self.first_name = 'Noname' if self.first_name.blank?
-    self.last_name =  'Noname' if self.last_name.blank?
+    self.last_name  = 'Noname' if self.last_name.blank?
   end
 end
