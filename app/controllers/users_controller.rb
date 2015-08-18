@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @projects = Project.all
 
     @users = if @current_filter == 'Disabled'
-      User.disabled
+      User.disabled.order('goodbye_reason ASC NULLS FIRST')
     else
       User.by_project(@current_filter).active
     end
