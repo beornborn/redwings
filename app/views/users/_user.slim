@@ -8,10 +8,11 @@ li.list-group-item class="#{'current_user' if user.username == current_user.user
     - unless user.deleted?
       .col-sm-3.text-right
         p.list-group-item-text = human_started_at(user)
-        p.list-group-item-text
         - if user.academy_user?
-          = render partial: 'progress_bar', locals: { user: user }
+          p.list-group-item-text.progress-text = "#{user.academy.real_progress}% done"
     - else
-      .col-sm-3
-        .pull-right
-          = render partial: 'goodbye_reason', locals: { user: user }
+      .col-sm-3.text-right
+        = render partial: 'goodbye_reason', locals: {user: user}
+    - if user.academy_user? && !user.deleted?
+      .col-sm-12
+        = render partial: 'progress_bar', locals: {user: user}

@@ -1,7 +1,7 @@
 .panel class="#{@user.deleted? ? 'panel-default' : 'panel-info'}"
   .panel-heading
     h3.panel-title.text-capitalize = "projects management"
-  .panel-body.center-block
+  .panel-body
     = render partial: 'user_projects'
     - if !@user.deleted? && Project.available_for(@user).exists?
       hr
