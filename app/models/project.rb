@@ -4,4 +4,6 @@ class Project < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: 50 }, format: { with: /[a-zA-Z]/ }
 
   scope :by_name, -> (name) { where(name: name) }
+  scope :not_academy, -> { where("name != ?", "Academy") }
+  scope :available_for, ->(user) { not_academy.where.not(id: user.projects.pluck(:id)) }
 end

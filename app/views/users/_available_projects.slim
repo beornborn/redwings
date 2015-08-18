@@ -1,0 +1,8 @@
+.projects
+  .xs-title available:
+  - Project.available_for(@user).each do |project|
+    .project
+      span = project.name
+      - if can? :manage_projects_participation, User
+        = link_to enter_project_user_path(@user, project_id: project.id), method: :post, title: "Enter project", class: 'btn btn-success pull-right btn-xs' do |_|
+            i.fa.fa-plus

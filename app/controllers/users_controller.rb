@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
 
-  before_filter :find_user, only: [:edit, :update]
+  before_filter :find_user, only: [:edit, :update, :quit_project, :enter_project]
+  before_filter :find_project, only: [:quit_project, :enter_project]
 
   attr_accessor :skip_password_validation
 
   def show
-    @user = @user.decorate
   end
 
   def index
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
                User.by_project(@current_filter).active
              end
 
-    @users = @users.order(started_at: :desc).page(params[:page]).decorate
+    @users = @users.order(started_at: :desc).page(params[:page])
   end
 
   def update
@@ -37,6 +37,16 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def quit_project
+    @user.projects.delete(@project)
+    redirect_to :back
+  end
+
+  def enter_project
+    @user.projects << @project
+    redirect_to :back
+  end
+
   private
 
   def find_user
@@ -45,5 +55,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:goodbye_reason, :goodbye_letter)
+  end
+
+  def find_project
+    @project = Project.find(params[:project_id])
   end
 end
