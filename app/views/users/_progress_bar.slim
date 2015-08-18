@@ -2,5 +2,5 @@
   - if progress(user) == 100
     .progress-bar class="progress-bar-success" style="width: 100%"
   - else
-    .progress-bar class="#{progress_good?(user) ? 'progress-bar-warning' : 'progress-bar-danger'}" style="width: #{progress_bar_first_part(user)}%"
-    .progress-bar class="#{progress_good?(user) ? 'progress-bar-success' : 'progress-bar-warning'}" style="width: #{progress_bar_second_part(user)}%"
+    .progress-bar class="#{progress_good?(user) ? 'progress-bar-warning' : 'progress-bar-danger'}" style="width: #{expected_or_bad_progress(user)}%"
+    .progress-bar class="#{progress_good?(user) ? 'progress-bar-success' : 'progress-bar-warning'}" style="width: #{expected_or_good_progress(user)}%"

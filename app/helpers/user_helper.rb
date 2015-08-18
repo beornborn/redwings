@@ -38,7 +38,7 @@ module UserHelper
     user.academy_service.real_progress
   end
 
-  def progress_bar_first_part(user)
+  def expected_or_bad_progress(user)
     if progress_good?(user)
       user.academy_service.expected_progress
     else
@@ -46,7 +46,7 @@ module UserHelper
     end
   end
 
-  def progress_bar_second_part(user)
+  def expected_or_good_progress(user)
     if progress_good?(user)
       user.academy_service.real_progress - user.academy_service.expected_progress
     else
