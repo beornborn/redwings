@@ -65,16 +65,16 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # SMTP configuration
-  config.action_mailer.default_url_options = { :host => 'redwings.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: Settings.smtp_production_host}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: '587',
-    domain: 'redwings.herokuapp.com',
+    address: Settings.smtp_address,
+    port: Settings.smtp_port,
+    domain: Settings.smtp_domain,
     authentication: 'plain',
     enable_starttls_auto: true,
-    user_name: 'redwings.ruby@gmail.com',
-    password: '29ab0f66'
+    user_name: Settings.smtp_user_name,
+    password: Settings.smtp_password
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to

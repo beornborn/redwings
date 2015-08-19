@@ -1,0 +1,47 @@
+defaults: &defaults
+  # Assets
+  assets_version: '1.0'
+  # Kaminari config
+  kaminari_default_per_page: 10
+  # Redis config
+  redis_url: 'redis://localhost:6379/'
+  # Session store
+  session_store_key: '_redwings_session'
+  # Slack
+  slack_token: 'xoxp-4553037629-4553037631-7069230518-6c08d9'
+  slack_api_path: 'https://ruby-redwings.slack.com/api'
+  # Sorcery
+  sorcery_remember_me_for: 365 * 24 * 60 * 60
+  sorcery_reset_password_mailer: UserMailer
+  sorcery_user_class: 'User'
+  # Trello
+  trello_app_key: aa9522d17ab8c7e9e1cc3a463f8fbaf3
+  trello_app_token: 94120085a72c767cdb4c276973b429bc36d778cb4e67a4d6e3b25a73dad94ea6
+  trello_api_path: 'https://api.trello.com/1'
+  trello_user_name: 'redwingsruby'
+  trello_organization_name: 'rubyredwings'
+  trello_list_tasks: 'tasks'
+  trello_board_process: 'PROCESS'
+  trello_board_knowledge: 'KNOWLEDGE'
+  # Puma
+  workers: 2
+  threads: 5
+  port: 3000
+  environment: 'development'
+  # Secrets
+  development_secret_key_base: 97fbd86f7d7f760d8dc595773973570e86da6a564edfe916484fe7c59ed92acf1058ff30208e9c085577a2a61ca7d24e7737ecb723a982ff4f0bedca98290389
+  test_secret_key_base: 9c35da5b30ad5aa32c57bb427f1c07265aefd7243b7edc450601a897d3d884a03a446db41846db1b782853a1d0536c02e718aacc2bae9265df6e05210f560cf5
+  # SMTP configuration
+  smtp_address: 'smtp.gmail.com'
+  smtp_port:    '587'
+  smtp_domain:  'redwings.herokuapp.com'
+  smtp_user_name: 'redwings.ruby@gmail.com'
+  smtp_password:  '29ab0f66'
+  smtp_production_host: 'redwings.herokuapp.com'
+
+development:
+  <<: *defaults
+test:
+  <<: *defaults
+production:
+  <<: *defaults

@@ -251,7 +251,7 @@ Rails.application.config.sorcery.configure do |config|
     # How long in seconds the session length will be
     # Default: `604800`
     #
-    user.remember_me_for = 365 * 24 * 60 * 60
+    user.remember_me_for = Settings.sorcery_remember_me_for
 
 
     # -- user_activation --
@@ -333,7 +333,7 @@ Rails.application.config.sorcery.configure do |config|
     # mailer class. Needed.
     # Default: `nil`
     #
-    user.reset_password_mailer = UserMailer
+    user.reset_password_mailer = Settings.sorcery_reset_password_mailer
 
 
     # reset password email method on your mailer class.
@@ -459,6 +459,5 @@ Rails.application.config.sorcery.configure do |config|
 
   # This line must come after the 'user config' block.
   # Define which model authenticates with sorcery.
-  config.user_class = "User"
+  config.user_class = Settings.sorcery_user_class
 end
-

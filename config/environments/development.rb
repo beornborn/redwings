@@ -17,17 +17,17 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   # SMTP configuration
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { host: 'localhost:' + Settings.port }
   config.action_mailer.delivery_method = :letter_opener
-  config.action_mailer.asset_host = "http://localhost:3000"
+  config.action_mailer.asset_host = 'http://localhost:' + Settings.port
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: '587',
-    domain: 'redwings.herokuapp.com',
+    address: Settings.smtp_address,
+    port: Settings.smtp_port,
+    domain: Settings.smtp_domain,
     authentication: 'plain',
     enable_starttls_auto: true,
-    user_name: 'redwings.ruby@gmail.com',
-    password: '29ab0f66'
+    user_name: Settings.smtp_user_name,
+    password: Settings.smtp_password
   }
 
   # Print deprecation notices to the Rails logger.

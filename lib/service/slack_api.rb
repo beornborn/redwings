@@ -1,4 +1,3 @@
 module Service::SlackApi
-  API_PATH = 'https://ruby-redwings.slack.com/api'
+  API_PATH = Settings.slack_api_path
 end
-
