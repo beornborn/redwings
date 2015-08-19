@@ -12,8 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require zeroclipboard
+//= require zeroclipboard_view
 //= require bootlint_source
 //= require twitter/bootstrap
 //= require turbolinks
-//= require_tree .
-
