@@ -89,6 +89,20 @@ ul {
     text-align: left;
     margin-bottom: 5px;
   }
+
+  #about-box {
+    p:first-line {
+      font-style: italic;
+      font-weight: bold;
+    }
+    p {
+      margin-bottom: 20px;
+    }
+  }
+
+  #edit_about-box {
+    display: none;
+  }
 }
 
 .users {

@@ -34,6 +34,18 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def update_user
+    @user.attributes = user_params
+
+    if @user.save
+      flash[:success] = 'Your changes have been saved!'
+    else
+      flash[:danger] = 'Minimum 500, maximum 1000 characters.'
+    end
+
+    redirect_to :back
+  end
+
   def edit
   end
 
@@ -54,7 +66,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:goodbye_reason, :goodbye_letter)
+    params.require(:user).permit(:goodbye_reason, :goodbye_letter, :about)
   end
 
   def find_project

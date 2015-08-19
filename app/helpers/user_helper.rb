@@ -52,10 +52,7 @@ module UserHelper
     end
   end
 
-  def about_with_new_lines(user)
-    text = "".html_safe
-    splited = user.about.split("\n")
-    splited.each{|x| text += content_tag(:p, x)}
-    text
+  def super_admin
+    User.find_by(username: 'oleg.gorbunov')
   end
 end

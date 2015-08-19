@@ -8,6 +8,7 @@ class Ability
       can :manage_projects_participation, User
     else
       can :read, User
+      can :update_user, User, id: user.id
     end
   end
 end

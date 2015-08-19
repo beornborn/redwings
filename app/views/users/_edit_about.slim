@@ -1,0 +1,14 @@
+.row
+  .col-md-12
+    p Look for example here:
+      #{ link_to 'Oleg Gorbunov', user_path(super_admin.id), target: "_blank" }.
+    p Please use two empty lines between sections and ommit whitespaces there!
+    p Minimum: 500 characters.
+    = form_for @user, url: {action: 'update_user'}, class: 'form-horizontal' do |f|
+      .form-group
+        = f.text_area :about, class: 'form-control', placeholder: 'Personal information', rows: 15
+      .row
+        .col-md-6
+          = link_to 'Cancel', user_path, class: 'btn btn-danger btn-block'
+        .col-md-6
+          = f.submit 'Submit', class: 'btn btn-default btn-block'
