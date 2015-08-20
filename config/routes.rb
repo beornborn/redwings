@@ -26,8 +26,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :index, :edit, :update] do
     post :quit_project, on: :member
-    post :enter_project , on: :member
-    patch :update_user , on: :member
+    post :enter_project, on: :member
+    put :update_goodbye_reason, on: :member
+    get :edit_goodbye_reason, on: :member
   end
 
   resources :user_sessions,   only: [:new, :create, :destroy]

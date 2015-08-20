@@ -3,3 +3,6 @@ $(document).on "page:change", ->
     $('#about-box').hide()
     $('#edit_about-box').fadeIn()
     $('#user_about').focus()
+
+  userInvalid = !$('.user').data('user-valid')
+  $('#edit_about-link').trigger 'click' if userInvalid

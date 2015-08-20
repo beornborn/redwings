@@ -1,4 +1,6 @@
-.user
+= render partial: 'shared/validation_errors', locals: { object: @user }
+
+.user data-user-valid="#{@user.errors.empty?}"
   .row class="#{'disabled_user' if @user.deleted?}"
     .col-md-12
       - if @user.academy_user? && !@user.deleted?
@@ -21,7 +23,7 @@
             h4.text-right = 'Joined ' + human_started_at(@user)
       #about-box
         = render partial: 'about', locals: {user: @user}
-        - if can? :update_user, @user
+        - if can? :update, @user
           = link_to "Change personal information", '#', id: 'edit_about-link'
       #edit_about-box
         = render partial: 'edit_about', locals: {user: @user}

@@ -51,8 +51,4 @@ module UserHelper
                                      placement: "right" })
     end
   end
-
-  def super_admin
-    User.find_by(username: 'oleg.gorbunov')
-  end
 end

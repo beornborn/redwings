@@ -52,13 +52,6 @@ ul {
 }
 
 .user {
-  color: #2E2B57;
-  p img:first-of-type {
-    margin-right: 10px;
-    height: 20px !important;
-    width: 20px;
-  }
-
   .progress {
     height: 10px;
   }
@@ -91,12 +84,22 @@ ul {
   }
 
   #about-box {
-    p:first-line {
-      font-style: italic;
-      font-weight: bold;
-    }
-    p {
+    .about-block {
+      padding: 10px;
+      background-color: #f4f5f9;
+      border-radius: 10px;
       margin-bottom: 20px;
+      font-size: 12px;
+    }
+
+    .block-title {
+      width: 100%;
+      text-align: right;
+      color: #000;
+      font-weight: bold;
+      font-style: italic;
+      font-size: 10px;
+      padding-bottom: 10px;
     }
   }
 
