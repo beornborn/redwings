@@ -5,4 +5,3 @@ module Service::SlackApi
     end
   end
 end
-

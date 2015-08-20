@@ -17,17 +17,17 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   # SMTP configuration
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { host: Settings.smtp.default_url_options.host }
   config.action_mailer.delivery_method = :letter_opener
-  config.action_mailer.asset_host = "http://localhost:3000"
+  config.action_mailer.asset_host = Settings.smtp.asset_host
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: '587',
-    domain: 'redwings.herokuapp.com',
+    address: Settings.smtp.address,
+    port: Settings.smtp.port,
+    domain: Settings.smtp.domain,
     authentication: 'plain',
     enable_starttls_auto: true,
-    user_name: 'redwings.ruby@gmail.com',
-    password: '29ab0f66'
+    user_name: Settings.smtp.user_name,
+    password: Settings.smtp.password
   }
 
   # Print deprecation notices to the Rails logger.
@@ -53,4 +53,3 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
-
