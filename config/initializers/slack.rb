@@ -1,4 +1,3 @@
 Slack.configure do |config|
-  config.token = Settings.slack_token
+  config.token = Settings.slack.token
 end
-

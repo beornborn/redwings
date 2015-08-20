@@ -1,2 +1,2 @@
-uri = ENV['REDISTOGO_URL'] || Settings.redis_url
+uri = ENV['REDISTOGO_URL'] || Settings.redis.url
 REDIS = Redis.new(:url => uri)

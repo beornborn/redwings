@@ -1,3 +1,3 @@
 module Service::SlackApi
-  API_PATH = Settings.slack_api_path
+  API_PATH = Settings.slack.api_path
 end
