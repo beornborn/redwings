@@ -1,0 +1,7 @@
+.text-justify.little-spaced-bottom
+  - user.about.split("\r\n\r\n").each do |paragraph|
+    .about-block
+      .block-title= cycle('common info', 'IT related background', 'goals', 'spheres of interests')
+      - paragraph.split("\n").each do |line|
+        = line
+        br

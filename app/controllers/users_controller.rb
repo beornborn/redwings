@@ -1,10 +1,8 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
 
-  before_filter :find_user, only: [:edit, :update, :quit_project, :enter_project]
+  before_filter :find_user, only: [:edit, :update, :quit_project, :enter_project, :edit_goodbye_reason, :update_goodbye_reason]
   before_filter :find_project, only: [:quit_project, :enter_project]
-
-  attr_accessor :skip_password_validation
 
   def show
   end
@@ -23,18 +21,27 @@ class UsersController < ApplicationController
     @users = @users.order(started_at: :desc).page(params[:page])
   end
 
-  def update
-    @user.attributes = user_params
+  def edit
+  end
 
-    if @user.save!
+  def update
+    if @user.update(user_params)
+      flash[:success] = 'Your changes have been saved!'
+      redirect_to @user
+    else
+      render :show
+    end
+  end
+
+  def edit_goodbye_reason
+  end
+
+  def update_goodbye_reason
+    if @user.update!(goodbye_reason_params)
       flash[:success] = "Goodbye letter has been successfully sent to #{@user.email}."
-      UserMailer.goodbye_reason(@user).deliver_later
     end
 
     redirect_to users_path
-  end
-
-  def edit
   end
 
   def quit_project
@@ -53,8 +60,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def user_params
+  def goodbye_reason_params
     params.require(:user).permit(:goodbye_reason, :goodbye_letter)
+  end
+
+  def user_params
+    params.require(:user).permit(:about)
   end
 
   def find_project

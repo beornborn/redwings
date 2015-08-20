@@ -1,0 +1,14 @@
+.row
+  .col-md-12
+    p.help-block Look for example here:
+      #{ link_to 'Oleg Gorbunov', user_path(User.owner), target: "_blank" }
+    p.help-block Please use two empty lines between sections and omit whitespaces there
+    p.help-block 500-1000 characters
+    = form_for @user, class: 'form-horizontal' do |f|
+      .form-group
+        = f.text_area :about, class: 'form-control', placeholder: 'Personal information', rows: 15
+      .row
+        .col-md-6
+          = link_to 'Cancel', user_path, class: 'btn btn-danger btn-block'
+        .col-md-6
+          = f.submit 'Save', class: 'btn btn-default btn-block'
