@@ -1,3 +1,2 @@
-TRELLO_APP_KEY   = 'aa9522d17ab8c7e9e1cc3a463f8fbaf3'
-TRELLO_APP_TOKEN = '94120085a72c767cdb4c276973b429bc36d778cb4e67a4d6e3b25a73dad94ea6'
-
+TRELLO_APP_KEY   = Settings.trello.app_key
+TRELLO_APP_TOKEN = Settings.trello.app_token
