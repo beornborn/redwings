@@ -1,10 +1,10 @@
 module Service
   module Trello
-    USER_NAME = Settings.trello.user_name
-    LIST_TASKS = Settings.trello.list_tasks
-    BOARD_PROCESS = Settings.trello.board_process
-    BOARD_KNOWLEDGE = Settings.trello.board_knowledge
-    ORGANIZATION_NAME = Settings.trello.organization_name
+    USER_NAME = 'redwingsruby'
+    LIST_TASKS = 'tasks'
+    BOARD_PROCESS = 'PROCESS'
+    BOARD_KNOWLEDGE = 'KNOWLEDGE'
+    ORGANIZATION_NAME = 'rubyredwings'
 
     def self.boards_backup
       TrelloApi::Member.boards(USER_NAME).each do |board|

@@ -1,26 +1,16 @@
 defaults: &defaults
-  # Redis config
   redis:
     url: 'redis://localhost:6379/'
-  # Slack
   slack:
     token: 'xoxp-4553037629-4553037631-7069230518-6c08d9'
     api_path: 'https://ruby-redwings.slack.com/api'
-  # Trello
   trello:
     app_key: aa9522d17ab8c7e9e1cc3a463f8fbaf3
     app_token: 94120085a72c767cdb4c276973b429bc36d778cb4e67a4d6e3b25a73dad94ea6
     api_path: 'https://api.trello.com/1'
-    user_name: 'redwingsruby'
-    organization_name: 'rubyredwings'
-    list_tasks: 'tasks'
-    board_process: 'PROCESS'
-    board_knowledge: 'KNOWLEDGE'
-  # Secrets
   secrets:
     development_key_base: 97fbd86f7d7f760d8dc595773973570e86da6a564edfe916484fe7c59ed92acf1058ff30208e9c085577a2a61ca7d24e7737ecb723a982ff4f0bedca98290389
     test_key_base: 9c35da5b30ad5aa32c57bb427f1c07265aefd7243b7edc450601a897d3d884a03a446db41846db1b782853a1d0536c02e718aacc2bae9265df6e05210f560cf5
-  # SMTP configuration
   smtp:
     address: 'smtp.gmail.com'
     port: '587'
@@ -28,11 +18,6 @@ defaults: &defaults
     user_name: 'redwings.ruby@gmail.com'
     password: '29ab0f66'
     production_host: 'redwings.herokuapp.com'
-    asset_host: 'http://localhost:3000'
-    default_url_options:
-      host: 'localhost:3000'
-  # All
-  port: 3000
 
 development:
   <<: *defaults

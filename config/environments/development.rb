@@ -17,9 +17,9 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   # SMTP configuration
-  config.action_mailer.default_url_options = { host: Settings.smtp.default_url_options.host }
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.delivery_method = :letter_opener
-  config.action_mailer.asset_host = Settings.smtp.asset_host
+  config.action_mailer.asset_host = 'http://localhost:3000'
   config.action_mailer.smtp_settings = {
     address: Settings.smtp.address,
     port: Settings.smtp.port,
