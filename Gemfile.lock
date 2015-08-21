@@ -75,6 +75,9 @@ GEM
     diff-lcs (1.2.5)
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
+    dotiw (3.0.1)
+      actionpack (>= 3)
+      i18n
     erubis (2.7.0)
     eventmachine (1.0.7)
     execjs (2.5.2)
@@ -272,6 +275,7 @@ DEPENDENCIES
   cancancan (~> 1.10)
   clockwork
   coffee-rails (~> 4.1.0)
+  dotiw
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
