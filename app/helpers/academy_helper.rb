@@ -20,13 +20,13 @@ module AcademyHelper
   end
 
   def time_in_project(user)
-    return false if user.started_at.nil? || user.finished_at.nil?
+    return 'not available' if user.started_at.nil? || user.finished_at.nil?
     distance_of_time_in_words(user.started_at, user.finished_at, true, only: [:months, :days])
   end
 
   def time_interval_in_project(user)
     start  = user.started_at.present?  && user.started_at.strftime('%e %B %Y')
     finish = user.finished_at.present? && user.finished_at.strftime('%e %B %Y')
-    start + ' - ' + finish
+    "#{start} - #{finish}"
   end
 end
