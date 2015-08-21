@@ -1,7 +1,7 @@
 .row
   .col-md-4
     h4 Goodbye reason
-    = form_for @user, class: 'form-horizontal' do |f|
+    = form_for @user, url: update_goodbye_reason_user_path(@user), method: :put, class: 'form-horizontal' do |f|
       .form-group
         = f.text_field :goodbye_reason, class: 'form-control', placeholder: 'Reason', required: true
       .form-group

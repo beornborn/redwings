@@ -1,5 +1,7 @@
-.user
-  .row
+= render partial: 'shared/validation_errors', locals: { object: @user }
+
+.user data-user-valid="#{@user.errors.empty?}"
+  .row class="#{'disabled_user' if @user.deleted?}"
     .col-md-12
       - if @user.academy_user? && !@user.deleted?
         h3 = "Academy progress: #{@user.academy.real_progress}%"
@@ -22,7 +24,12 @@
             h4.text-right = render partial: 'goodbye_reason', locals: {user: @user}
           - else
             h4.text-right = 'Joined ' + human_started_at(@user)
-      .text-justify = about_with_new_lines(@user)
+      #about-box
+        = render partial: 'about', locals: {user: @user}
+        - if can? :update, @user
+          = link_to "Change personal information", '#', id: 'edit_about-link'
+      #edit_about-box
+        = render partial: 'edit_about', locals: {user: @user}
       br
       = link_to 'back to users page', users_path, class: 'pull-right btn btn-default back-link'
 

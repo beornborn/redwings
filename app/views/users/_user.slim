@@ -1,17 +1,17 @@
 li.list-group-item class="#{'current_user' if user.username == current_user.username }"
   .row class="#{'disabled_user' if user.deleted? }"
-    .col-sm-9
+    .col-sm-8
       img.img-rounded.pull-left src="#{user.image_48}"
       h4.list-group-item-heading
         = link_to full_name(user), user_path(user)
       p.list-group-item-text.email = user.email
     - unless user.deleted?
-      .col-sm-3.text-right
+      .col-sm-4.text-right
         p.list-group-item-text = human_started_at(user)
         - if user.academy_user?
           p.list-group-item-text.progress-text = "#{user.academy.real_progress}% done"
     - else
-      .col-sm-3.text-right
+      .col-sm-4.text-right
         p.list-group-item-text.label.label-default = time_in_project(user)
         = render partial: 'goodbye_reason', locals: {user: user}
     - if user.academy_user? && !user.deleted?
