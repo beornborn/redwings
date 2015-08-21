@@ -65,7 +65,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # SMTP configuration
-  config.action_mailer.default_url_options = { host: Settings.smtp.production_host }
+  config.action_mailer.default_url_options = { host: Settings.production_host }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: Settings.smtp.address,

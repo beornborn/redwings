@@ -17,11 +17,10 @@ defaults: &defaults
     domain: 'redwings.herokuapp.com'
     user_name: 'redwings.ruby@gmail.com'
     password: '29ab0f66'
-    production_host: 'redwings.herokuapp.com'
-
 development:
   <<: *defaults
 test:
   <<: *defaults
 production:
   <<: *defaults
+  production_host: 'redwings.herokuapp.com'
