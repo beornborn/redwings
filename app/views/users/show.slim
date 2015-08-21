@@ -7,7 +7,7 @@
         h3 = "Academy progress: #{@user.academy.real_progress}%"
         = render partial: 'progress_bar', locals: { user: @user }
 
-  .row
+  .row class="#{'disabled_user' if @user.deleted?}"
     .col-md-3
       img.img-rounded.profile-img src="#{@user.image_192}"
       = render partial: 'contacts', locals: { user: @user }
@@ -18,7 +18,10 @@
           h2.text-capitalize = full_name(@user)
         .col-md-5
           - if @user.deleted?
-            h3.text-right = render partial: 'goodbye_reason', locals: {user: @user}
+            h4.pull-right
+              .label.label-default data-toggle='tooltip' data-placement='bottom' title="#{time_interval_in_project(@user)}" = time_in_project(@user) + ' in project Academy'
+            br
+            h4.text-right = render partial: 'goodbye_reason', locals: {user: @user}
           - else
             h4.text-right = 'Joined ' + human_started_at(@user)
       #about-box

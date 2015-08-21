@@ -13,6 +13,7 @@ module Service
           user.projects << academy_project
         else
           user.attributes = slack_user
+          user.finished_at = Time.now if user.deleted? && user.finished_at.nil?
           user.save!
         end
       end

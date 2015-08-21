@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150814161443) do
+ActiveRecord::Schema.define(version: 20150819080306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20150814161443) do
     t.string   "image_192"
     t.string   "trello_username"
     t.integer  "spent_learn_time",                default: 0
+    t.datetime "finished_at"
   end
 
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
