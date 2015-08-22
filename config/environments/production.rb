@@ -64,19 +64,6 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  # SMTP configuration
-  config.action_mailer.default_url_options = { host: Settings.production_host }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: Settings.smtp.address,
-    port: Settings.smtp.port,
-    domain: Settings.smtp.domain,
-    authentication: 'plain',
-    enable_starttls_auto: true,
-    user_name: Settings.smtp.user_name,
-    password: Settings.smtp.password
-  }
-
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true

@@ -17,18 +17,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   # SMTP configuration
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
-  config.action_mailer.delivery_method = :letter_opener
-  config.action_mailer.asset_host = 'http://localhost:3000'
-  config.action_mailer.smtp_settings = {
-    address: Settings.smtp.address,
-    port: Settings.smtp.port,
-    domain: Settings.smtp.domain,
-    authentication: 'plain',
-    enable_starttls_auto: true,
-    user_name: Settings.smtp.user_name,
-    password: Settings.smtp.password
-  }
+  config.action_mailer.asset_host = Settings.action_mailer.asset_host
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
