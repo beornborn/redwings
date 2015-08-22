@@ -1,9 +1,12 @@
 require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+
+require File.expand_path('../../app/models/settings.rb', __FILE__)
 
 module Redwings
   class Application < Rails::Application
@@ -18,6 +21,18 @@ module Redwings
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    config.action_mailer.default_url_options = { host: Settings.action_mailer.host }
+    config.action_mailer.delivery_method = Settings.action_mailer.delivery_method.to_sym
+    config.action_mailer.smtp_settings = {
+      address: Settings.action_mailer.smtp.address,
+      port: Settings.action_mailer.smtp.port,
+      domain: Settings.action_mailer.smtp.domain,
+      authentication: 'plain',
+      enable_starttls_auto: true,
+      user_name: Settings.action_mailer.smtp.user_name,
+      password: Settings.action_mailer.smtp.password
+    }
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true

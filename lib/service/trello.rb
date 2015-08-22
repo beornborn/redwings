@@ -1,9 +1,9 @@
 module Service
   module Trello
-    USER_NAME         = 'redwingsruby'
-    LIST_TASKS        = 'tasks'
-    BOARD_PROCESS     = 'PROCESS'
-    BOARD_KNOWLEDGE   = 'KNOWLEDGE'
+    USER_NAME = 'redwingsruby'
+    LIST_TASKS = 'tasks'
+    BOARD_PROCESS = 'PROCESS'
+    BOARD_KNOWLEDGE = 'KNOWLEDGE'
     ORGANIZATION_NAME = 'rubyredwings'
 
     def self.boards_backup

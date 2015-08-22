@@ -30,6 +30,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # Slim is a fast, lightweight templating engine with support for Rails 3 and 4 Read more: https://github.com/slim-template/slim
 gem 'slim', '~> 3.0.6'
+# Settingslogic is a simple configuration / settings solution. Read more: https://github.com/settingslogic/settingslogic
+gem 'settingslogic'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
