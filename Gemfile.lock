@@ -53,14 +53,13 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
-    byebug (5.0.0)
-      columnize (= 0.9.0)
     cancancan (1.12.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
     clockwork (1.2.0)
       activesupport
       tzinfo
+    coderay (1.1.1)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -68,7 +67,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1.1)
-    columnize (0.9.0)
     commonjs (0.2.7)
     connection_pool (2.2.0)
     debug_inspector (0.0.2)
@@ -121,6 +119,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    method_source (0.8.2)
     mime-types (2.6.1)
     mini_portile (0.6.2)
     minitest (5.7.0)
@@ -138,6 +137,12 @@ GEM
       multi_xml (~> 0.5)
       rack (~> 1.2)
     pg (0.18.2)
+    pry (0.10.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-rails (0.3.4)
+      pry (>= 0.9.10)
     puma (2.12.2)
     rack (1.6.4)
     rack-protection (1.5.3)
@@ -228,6 +233,7 @@ GEM
     slim (3.0.6)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
+    slop (3.6.0)
     sorcery (0.9.1)
       bcrypt (~> 3.1)
       oauth (~> 0.4, >= 0.4.4)
@@ -272,7 +278,6 @@ PLATFORMS
 DEPENDENCIES
   addressable
   awesome_print
-  byebug
   cancancan (~> 1.10)
   clockwork
   coffee-rails (~> 4.1.0)
@@ -282,6 +287,7 @@ DEPENDENCIES
   kaminari
   letter_opener
   pg
+  pry-rails
   puma
   rails (= 4.2.1)
   rails_12factor
@@ -303,5 +309,8 @@ DEPENDENCIES
   web-console (~> 2.0)
   zeroclipboard-rails
 
+RUBY VERSION
+   ruby 2.3.0p0
+
 BUNDLED WITH
-   1.10.6
+   1.12.3
