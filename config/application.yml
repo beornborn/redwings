@@ -13,7 +13,7 @@ defaults: &defaults
   redis:
     url: 'redis://localhost:6379/'
   slack:
-    token: 'xoxp-4553037629-4553037631-7069230518-6c08d9'
+    token: 'xoxp-4553037629-4553037631-41276656612-0eb0df2101'
     api_path: 'https://ruby-redwings.slack.com/api'
   trello:
     app_key: aa9522d17ab8c7e9e1cc3a463f8fbaf3

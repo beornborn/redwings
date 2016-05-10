@@ -31,7 +31,9 @@ Rails.application.routes.draw do
     get :edit_goodbye_reason, on: :member
   end
 
-  resources :user_sessions,   only: [:new, :create, :destroy]
+  resources :user_sessions,   only: [:new, :create, :destroy] do
+    post :guest_enter, on: :collection
+  end
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :trello_backups,  only: [:index, :create, :destroy]
 end

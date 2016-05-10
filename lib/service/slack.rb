@@ -23,7 +23,8 @@ module Service
 
     def self.users
       data = SlackApi::User.all
-      members = data['members']
+
+      members = data['members'].select {|u| u['profile']['email'].present? }
 
       users = members.map do |member|
         user = {}
