@@ -1,4 +1,6 @@
 class Service::SlacksController < ApplicationController
+  before_filter :forbid_if_guest, only: :sync
+
   def sync
     if Rails.env.production?
       Service::Slack.sync

@@ -9,6 +9,13 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def forbid_if_guest
+    if current_user.guest?
+      flash[:info] = 'You are Guest! Just watch and enjoy! :)'
+      redirect_to :back
+    end
+  end
+
   def not_authenticated
     redirect_to login_path, info: "Please login first"
   end

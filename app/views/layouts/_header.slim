@@ -20,7 +20,7 @@
             li
               = link_to "Jobs", sidekiq_web_path
       nav
-        ul.nav.navbar-nav.navbar-right
-          - if current_user
-            li
-              = link_to "Log out", :logout, method: :post
+        - if current_user
+          ul.nav.navbar-nav.navbar-right
+            li = link_to "Log out", :logout, method: :post
+          .navbar-text.navbar-right = full_name(current_user)

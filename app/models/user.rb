@@ -42,5 +42,21 @@ class User < ActiveRecord::Base
     self.username   = (/[a-z]*\.[a-z]*/ =~ self.username) ? self.username : "#{self.username}.#{self.username}"
     self.first_name = 'Noname' if self.first_name.blank?
     self.last_name  = 'Noname' if self.last_name.blank?
+    self.about = canonical_fish if self.about.blank?
+  end
+
+  def canonical_fish
+    %Q(
+      Lorem ipsum dolor sit amet, consectetuer
+      adipiscing elit, sed diem nonummy nibh euismod tincidunt ut lacreet dolore magna
+      aliguam erat volutpat. Ut wisis enim ad minim veniam, quis nostrud exerci tution
+      ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis te feugifacilisi.
+      Duis autem dolor in hendrerit in vulputate velit esse molestie consequat, vel illum
+      dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui
+      blandit praesent luptatum zzril delenit au gue duis dolore te feugat nulla facilisi.
+      Ut wisi enim ad minim veniam, quis nostrud exerci taion ullamcorper suscipit lobortis
+      nisl ut aliquip ex en commodo consequat. Duis te feugifacilisi per suscipit lobortis
+      nisl ut aliquip ex en commodo consequat.Lorem ipsum dolor sit amet, consectetuer adipiscing
+      elit, sed diem nonummy nibh euismod tincidunt ut lacreet dolore magna aliguam erat volutpat.)
   end
 end

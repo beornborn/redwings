@@ -1,7 +1,18 @@
 class UserSessionsController < ApplicationController
-  skip_before_filter :require_login, only: [:new, :create]
+  skip_before_filter :require_login, only: [:new, :create, :guest_enter]
 
   def new
+  end
+
+  def guest_enter
+    user = User.find_or_create_by(guest: true) do |u|
+      u.username = 'Guest'
+      u.first_name = 'Guest'
+      u.last_name = 'Guest'
+      u.email = 'guest@guest.com'
+    end
+    @user = auto_login(user)
+    redirect_back_or_to root_path, success: 'Guest session. You can see but you can\'t change anything'
   end
 
   def create
