@@ -7,13 +7,12 @@ action_mailer_defaults: &action_mailer_defaults
     port: '587'
     domain: 'redwings.herokuapp.com'
     user_name: 'redwings.ruby@gmail.com'
-    password: '29ab0f66'
+    password: '29ab0f6666'
 
 defaults: &defaults
   redis:
     url: 'redis://localhost:6379/'
   slack:
-    token: 'xoxp-4553037629-4553037631-41276656612-0eb0df2101'
     api_path: 'https://ruby-redwings.slack.com/api'
   trello:
     app_key: aa9522d17ab8c7e9e1cc3a463f8fbaf3
